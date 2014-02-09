@@ -2,13 +2,17 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fcf="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="HelloWorld"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+    <com.thu.ttlgm.component.FancyCoverFlow.FancyCoverFlow
+        android:id="@+id/fancyCoverFlow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        fcf:maxRotation="45"
+        fcf:unselectedAlpha="0.3"
+        fcf:unselectedSaturation="0.0"
+        fcf:unselectedScale="0.4"
+        fcf:scaleDownGravity="0.5"
+        />
 </LinearLayout>

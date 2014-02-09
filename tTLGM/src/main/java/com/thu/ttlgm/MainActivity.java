@@ -20,6 +20,7 @@ import com.thu.ttlgm.bean.Class;
 import com.thu.ttlgm.component.UImageButton;
 import com.thu.ttlgm.floatwindows.FloatWindowsService;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
+import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
 import com.thu.ttlgm.utils.DataParser;
@@ -73,7 +74,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void toGames(View mView){
-
+        replaceFragment(new GameFragment(),GameFragment.class.getName());
     }
 
     private void replaceFragment(Fragment mFragment,String TAG){

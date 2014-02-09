@@ -1,0 +1,101 @@
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:context="com.thu.ttlgm.MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <FrameLayout
+            android:id="@+id/Fragment_Content"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!--
+            <fragment
+                android:name="com.thu.ttlgm.fragment.ClassChooserFragment"
+                android:id="@+id/Fragment_ClassChooser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/fragment_classchooser" />
+            -->
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/FunctionArea"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="100dip"
+            android:gravity="center">
+
+            <com.thu.ttlgm.component.UImageButton
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/home"
+                android:scaleType="fitXY"
+                android:background="@drawable/round_button_green"
+                android:onClick="toHome"/>
+
+            <com.thu.ttlgm.component.UImageButton
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/students"
+                android:scaleType="fitXY"
+                android:background="@drawable/round_button_green"
+                android:onClick="toStudents"/>
+
+            <com.thu.ttlgm.component.UImageButton
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/works"
+                android:scaleType="fitXY"
+                android:background="@drawable/round_button_green"
+                android:onClick="toWorks"/>
+
+            <!--
+            <com.thu.ttlgm.component.UImageButton
+                android:clickable="false"
+                android:layout_margin="20dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/divider"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"/>
+            -->
+            <com.thu.ttlgm.component.UImageButton
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/files"
+                android:scaleType="fitXY"
+                android:background="@drawable/round_button_green"
+                android:onClick="toFiles"/>
+
+            <com.thu.ttlgm.component.UImageButton
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/games"
+                android:scaleType="fitXY"
+                android:background="@drawable/round_button_green"
+                android:onClick="toGames"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>
+

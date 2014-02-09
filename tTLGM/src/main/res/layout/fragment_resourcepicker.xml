@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:weightSum="1"
+        android:background="@color/ResourcePPT_Title">
+
+            <ImageView
+                android:clickable="false"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:padding="30dp"
+                android:src="@drawable/ppt"/>
+
+        <ListView
+            android:id="@+id/ListViewResourcePPT"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:background="@color/ResourcePPT_Content">
+
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:weightSum="1"
+        android:background="@color/ResourceVideo_Title">
+
+        <ImageView
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:padding="30dp"
+            android:src="@drawable/video"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:background="@color/ResourceVideo_Content">
+
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:weightSum="1"
+        android:background="@color/ResourceWord_Title">
+
+        <ImageView
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:padding="30dp"
+            android:src="@drawable/word"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:background="@color/ResourceWord_Content">
+
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:weightSum="1"
+        android:background="@color/ResourcePDF_Title">
+
+        <ImageView
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:padding="30dp"
+            android:src="@drawable/pdf"/>
+
+        <ListView
+            android:id="@+id/ListViewResourcePDF"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:background="@color/ResourcePDF_Content">
+
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:weightSum="1"
+        android:background="@color/ResourceImage_Title">
+
+        <ImageView
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:padding="30dp"
+            android:src="@drawable/image"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:background="@color/ResourceImage_Content">
+
+        </ListView>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ResourcePPT_Title">#ffe65d5d</color>
+    <color name="ResourcePPT_Content">#ffc03434</color>
+    <color name="ResourceVideo_Title">#ff6f5dd2</color>
+    <color name="ResourceVideo_Content">#ff428e9e</color>
+    <color name="ResourceWord_Title">#ff7dc692</color>
+    <color name="ResourceWord_Content">#ff508b61</color>
+    <color name="ResourcePDF_Title">#ffdfbc42</color>
+    <color name="ResourcePDF_Content">#ffc09c21</color>
+    <color name="ResourceImage_Title">#ffd98e97</color>
+    <color name="ResourceImage_Content">#ffc09c9e</color>
+
+</resources>

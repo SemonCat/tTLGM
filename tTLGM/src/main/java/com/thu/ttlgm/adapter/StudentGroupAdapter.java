@@ -51,7 +51,7 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
         } else {
             imageView = new ImageView(viewGroup.getContext());
             imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            imageView.setLayoutParams(new FancyCoverFlow.LayoutParams(300, 400));
+            imageView.setLayoutParams(new FancyCoverFlow.LayoutParams(300, ViewGroup.LayoutParams.MATCH_PARENT));
 
         }
 

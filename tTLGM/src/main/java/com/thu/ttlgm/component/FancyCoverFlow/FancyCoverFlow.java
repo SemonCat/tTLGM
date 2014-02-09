@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.*;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Transformation;
@@ -362,5 +363,13 @@ public class FancyCoverFlow extends Gallery {
         public LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
         }
+    }
+
+    public void ScrollToRight(){
+        this.onKeyDown(KeyEvent.KEYCODE_DPAD_RIGHT, null);
+    }
+
+    public void ScrollToLeft(){
+        this.onKeyDown(KeyEvent.KEYCODE_DPAD_LEFT, null);
     }
 }

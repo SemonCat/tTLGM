@@ -31,7 +31,7 @@ public class ResourceAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        if (mDir!=null)
+        if (mDir!=null && mDir.exists())
             return mDir.list().length;
         return 0;
 

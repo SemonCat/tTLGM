@@ -46,7 +46,7 @@ public class FloatWindowsService extends Service {
         mFloatLayout = new FloatLayout(this);
         mFloatLayout.setVisibility(View.GONE);
         mIcon = new ImageView(this);
-        mIcon.setImageResource(R.drawable.settings);
+        mIcon.setImageResource(R.drawable.bubble);
         mIcon.setPadding(20,20,20,20);
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -239,16 +239,19 @@ public class FloatWindowsService extends Service {
                 });
 
         // pieMenu.setDismissOnOutsideClick(true, menuLayout);
-        pieMenu.setAnimationSpeed(0L);
+        pieMenu.setAnimationSpeed(300);
 
 
-        pieMenu.setIconSize(15, 30);
-        pieMenu.setTextSize(13);
+        pieMenu.setIconSize(30, 50);
+        pieMenu.setTextSize(20);
         pieMenu.setOutlineColor(Color.BLACK, 225);
-        pieMenu.setInnerRingColor(0xAA66CC, 180);
-        pieMenu.setOuterRingColor(0x0099CC, 180);
-        //pieMenu.setHeader("Test Menu", 20);
+        pieMenu.setInnerRingRadius(60,180);
+        pieMenu.setCenterCircleRadius(50);
+        pieMenu.setOuterRingRadius(190,250);
+        //pieMenu.setInnerRingColor(0xAA66CC, 180);
+        //pieMenu.setOuterRingColor(0x0099CC, 180);
         pieMenu.setCenterCircle(menuCloseItem);
+
         pieMenu.addMenuEntry(new ArrayList<RadialMenuItem>() {
             {
                 add(menuItem);

@@ -9,11 +9,14 @@ import android.widget.TextView;
 
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.StudentAdapter;
+import com.thu.ttlgm.bean.Student;
 import com.thu.ttlgm.bean.Subject;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SemonCat on 2014/1/15.
@@ -44,8 +47,11 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void setupAdapter() {
-
-        mAdapter = new StudentAdapter(getActivity(),getClassData());
+        Subject mSubject = getClassData();
+        List<Student> mStudents = new ArrayList<Student>();
+        if (mSubject!=null)
+            mStudents = mSubject.getStudents();
+        mAdapter = new StudentAdapter(getActivity(),mStudents);
         mAdapter.Sort(StudentAdapter.SortType.ID_DESC);
         mStudentList.setAdapter(mAdapter);
     }

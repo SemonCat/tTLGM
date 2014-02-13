@@ -18,10 +18,11 @@ public class BaseActivity extends Activity {
 
         // hide the navigation bar
 
-        hideSystemUi();
+        //hideSystemUi();
 
 
         // register a listener for when the navigation bar re-appears
+        /*
         getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
 
                 new View.OnSystemUiVisibilityChangeListener() {
@@ -46,7 +47,7 @@ public class BaseActivity extends Activity {
                     }
 
                 });
-
+        */
         setupView();
         setupEvent();
     }

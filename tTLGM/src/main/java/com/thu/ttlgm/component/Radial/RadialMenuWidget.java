@@ -1261,6 +1261,17 @@ public class RadialMenuWidget extends View {
 		mWindow.setContentView(this);
 		mWindow.showAtLocation(anchor, Gravity.NO_GRAVITY, posX, posY);
 	}
+
+    /**
+     * Shows the radial menu widget.
+     * @param anchor - View to be anchored to.
+     * @param posX - Position X. Pass 0 if not needed.
+     * @param posY - Position Y. Pass 0 if not needed.
+     */
+    public void show(View anchor,int gravity, int posX, int posY) {
+        mWindow.setContentView(this);
+        mWindow.showAtLocation(anchor, gravity, posX, posY);
+    }
 	
 	/**
 	 * Shows the radial menu widget.

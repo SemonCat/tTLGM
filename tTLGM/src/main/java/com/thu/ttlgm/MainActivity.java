@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity {
         replaceFragment(new ClassChooserFragment(),ClassChooserFragment.class.getName());
 
         //StartFloat
-        //startService(new Intent(this, FloatWindowsService.class));
+        startService(new Intent(this, FloatWindowsService.class));
     }
 
     @Override

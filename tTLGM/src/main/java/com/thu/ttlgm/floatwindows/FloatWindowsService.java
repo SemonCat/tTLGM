@@ -147,7 +147,7 @@ public class FloatWindowsService extends Service {
             public void onClick(View v) {
 
                 mFloatLayout.setVisibility(View.VISIBLE);
-                pieMenu.show(mFloatLayout, -150, 0);
+                pieMenu.show(mFloatLayout, Gravity.CENTER, 0, 0);
                 mIcon.setVisibility(View.GONE);
 
             }

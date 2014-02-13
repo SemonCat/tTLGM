@@ -144,8 +144,8 @@ public class RadialMenuWidget extends View {
 	private int r2VariableSize;
 	private boolean animateOuterIn = false;
 	private boolean animateOuterOut = false;
-	
-	private PopupWindow mWindow;
+
+    private PopupWindow mWindow;
 
     private RadialEventListener mListener;
 
@@ -1298,4 +1298,8 @@ public class RadialMenuWidget extends View {
         this.mListener = Listener;
     }
 
+
+    public PopupWindow getWindow() {
+        return mWindow;
+    }
 }

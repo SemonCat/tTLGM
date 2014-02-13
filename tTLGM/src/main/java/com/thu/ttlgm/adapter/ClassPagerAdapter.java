@@ -43,6 +43,11 @@ public class ClassPagerAdapter extends UPagerAdapter{
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return mData.getClassList().indexOf(object);
+    }
+
+    @Override
     public boolean isViewFromObject(View view, Object obj) {
         return (view ==(View)obj);
     }

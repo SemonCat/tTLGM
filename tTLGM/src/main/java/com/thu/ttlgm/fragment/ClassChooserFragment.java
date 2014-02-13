@@ -3,6 +3,7 @@ package com.thu.ttlgm.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,13 @@ public class ClassChooserFragment extends BaseFragment{
         mAdapter = new ClassPagerAdapter(getActivity(),getClassData());
         mUViewPager.setAdapter(mAdapter);
         mUViewPager.enableCenterLockOfChilds();
+        mCurrentItemPosition =
+                mAdapter.getItemPosition(((MainActivity)getActivity()).getCurrentClass());
+
+        Log.d(TAG,"Currect:"+mCurrentItemPosition);
+
         mUViewPager.setCurrentItemInCenter(mCurrentItemPosition);
+
     }
 
 
@@ -91,7 +98,6 @@ public class ClassChooserFragment extends BaseFragment{
 
     @Override
     public void onDestroyView() {
-        mCurrentItemPosition = mUViewPager.getCurrentItem();
         super.onDestroyView();
     }
 }

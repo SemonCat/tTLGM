@@ -53,8 +53,7 @@ public class FloatWindowsService extends Service {
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.CENTER;
@@ -169,7 +168,7 @@ public class FloatWindowsService extends Service {
             @Override
             public void OnDismiss() {
                 mIcon.setVisibility(View.VISIBLE);
-
+                mFloatLayout.setVisibility(View.GONE);
             }
         });
 
@@ -238,7 +237,6 @@ public class FloatWindowsService extends Service {
                     }
                 });
 
-        // pieMenu.setDismissOnOutsideClick(true, menuLayout);
         pieMenu.setAnimationSpeed(300);
 
 

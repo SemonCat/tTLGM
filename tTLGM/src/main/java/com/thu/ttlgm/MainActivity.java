@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,11 +38,16 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import aidl.IFloatWindowsService;
+
 public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getName();
 
     private Class mCurrentClass;
+
+    private ServiceConnection mConnection;
+    private IFloatWindowsService mIFloatWindowsService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +56,7 @@ public class MainActivity extends BaseActivity {
         //SetupDefault
         replaceFragment(new ClassChooserFragment(),ClassChooserFragment.class.getName());
 
-        //StartFloat
-        startService(new Intent(this, FloatWindowsService.class));
+        setupService();
     }
 
     @Override
@@ -56,8 +64,51 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+    private void setupService(){
+        mConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                mIFloatWindowsService = IFloatWindowsService.Stub.asInterface(iBinder);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+
+            }
+        };
+        bindService(new Intent(this, FloatWindowsService.class), mConnection,BIND_AUTO_CREATE);
+        //StartFloat
+        startService(new Intent(this, FloatWindowsService.class));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mIFloatWindowsService!=null){
+
+            try {
+                mIFloatWindowsService.setVisible(false);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mIFloatWindowsService!=null){
+            try {
+                mIFloatWindowsService.setVisible(true);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void toHome(View mView){
-        replaceFragment(new ClassChooserFragment(),ClassChooserFragment.class.getName());
+        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
     }
 
     public void toStudents(View mView){

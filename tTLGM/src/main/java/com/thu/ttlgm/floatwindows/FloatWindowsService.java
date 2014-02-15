@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.thu.ttlgm.component.Radial.RadialMenuWidget;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import aidl.IFloatWindowsService;
 
 /**
  * Created by SemonCat on 2014/1/22.
@@ -35,7 +38,7 @@ public class FloatWindowsService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         // TODO Auto-generated method stub
-        return null;
+        return mBinder;
     }
 
     @Override
@@ -202,9 +205,14 @@ public class FloatWindowsService extends Service {
         if (mFloatImageView != null) windowManager.removeView(mFloatImageView);
     }
 
-    private int dip2px(float dipValue) {
+    private IFloatWindowsService.Stub mBinder = new IFloatWindowsService.Stub() {
+        @Override
+        public void setVisible(boolean visible) throws RemoteException {
 
-        final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
+            if (visible)
+                mFloatImageView.setVisibility(View.VISIBLE);
+            else
+                mFloatImageView.setVisibility(View.GONE);
+        }
+    };
 }

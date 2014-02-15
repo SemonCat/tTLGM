@@ -1,44 +1,23 @@
 package com.thu.ttlgm;
 
-import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 
-import com.thu.ttlgm.bean.*;
 import com.thu.ttlgm.bean.Class;
-import com.thu.ttlgm.component.UImageButton;
-import com.thu.ttlgm.floatwindows.FloatWindowsService;
+import com.thu.ttlgm.floatwindows.FloatWindowService;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
-import com.thu.ttlgm.utils.DataParser;
-import com.thu.ttlgm.utils.ViewUtil;
-import com.thu.ttlgm.websocket.WebSocketClient;
 
-import org.apache.http.message.BasicNameValuePair;
-
-import java.io.File;
-import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-
-import aidl.IFloatWindowsService;
+import aidl.IFloatWindowService;
 
 public class MainActivity extends BaseActivity {
 
@@ -47,7 +26,7 @@ public class MainActivity extends BaseActivity {
     private Class mCurrentClass;
 
     private ServiceConnection mConnection;
-    private IFloatWindowsService mIFloatWindowsService;
+    private IFloatWindowService mIFloatWindowService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +47,7 @@ public class MainActivity extends BaseActivity {
         mConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                mIFloatWindowsService = IFloatWindowsService.Stub.asInterface(iBinder);
+                mIFloatWindowService = IFloatWindowService.Stub.asInterface(iBinder);
             }
 
             @Override
@@ -76,18 +55,18 @@ public class MainActivity extends BaseActivity {
 
             }
         };
-        bindService(new Intent(this, FloatWindowsService.class), mConnection,BIND_AUTO_CREATE);
+        bindService(new Intent(this, FloatWindowService.class), mConnection,BIND_AUTO_CREATE);
         //StartFloat
-        startService(new Intent(this, FloatWindowsService.class));
+        startService(new Intent(this, FloatWindowService.class));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (mIFloatWindowsService!=null){
+        if (mIFloatWindowService!=null){
 
             try {
-                mIFloatWindowsService.setVisible(false);
+                mIFloatWindowService.setVisible(false);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -98,9 +77,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mIFloatWindowsService!=null){
+        if (mIFloatWindowService!=null){
             try {
-                mIFloatWindowsService.setVisible(true);
+                mIFloatWindowService.setVisible(true);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

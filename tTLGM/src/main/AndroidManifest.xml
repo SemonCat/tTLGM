@@ -42,7 +42,7 @@
         </activity>
 
         <service
-            android:name="com.thu.ttlgm.floatwindows.FloatWindowsService"
+            android:name=".floatwindows.FloatWindowService"
             android:exported="true" />
 
     </application>

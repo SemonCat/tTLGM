@@ -18,12 +18,12 @@ import com.thu.ttlgm.component.Radial.RadialMenuWidget;
 import java.util.ArrayList;
 import java.util.List;
 
-import aidl.IFloatWindowsService;
+import aidl.IFloatWindowService;
 
 /**
  * Created by SemonCat on 2014/1/22.
  */
-public class FloatWindowsService extends Service {
+public class FloatWindowService extends Service {
     private WindowManager windowManager;
     private FloatLayout mFloatLayout;
 
@@ -205,7 +205,7 @@ public class FloatWindowsService extends Service {
         if (mFloatImageView != null) windowManager.removeView(mFloatImageView);
     }
 
-    private IFloatWindowsService.Stub mBinder = new IFloatWindowsService.Stub() {
+    private IFloatWindowService.Stub mBinder = new IFloatWindowService.Stub() {
         @Override
         public void setVisible(boolean visible) throws RemoteException {
 

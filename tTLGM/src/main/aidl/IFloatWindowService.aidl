@@ -1,4 +1,4 @@
 package aidl;
-interface IFloatWindowsService{
+interface IFloatWindowService{
     void setVisible(boolean visible);
 }

@@ -1,23 +1,12 @@
-package com.thu.ttlgm.floatwindows;
+package com.thu.ttlgm.floatwindow;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.thu.ttlgm.MainActivity;
 import com.thu.ttlgm.R;
-import com.thu.ttlgm.arc.ArcMenu;
 
 /**
  * Created by SemonCat on 2014/1/22.

@@ -11,7 +11,7 @@ import android.os.RemoteException;
 import android.view.View;
 
 import com.thu.ttlgm.bean.Class;
-import com.thu.ttlgm.floatwindows.FloatWindowService;
+import com.thu.ttlgm.floatwindow.FloatWindowService;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;

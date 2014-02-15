@@ -1,4 +1,4 @@
-package com.thu.ttlgm.floatwindows;
+package com.thu.ttlgm.floatwindow;
 
 import android.content.Context;
 import android.view.MotionEvent;

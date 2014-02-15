@@ -42,8 +42,7 @@
         </activity>
 
         <service
-            android:name=".floatwindows.FloatWindowService"
-            android:exported="true" />
+            android:name=".floatwindow.FloatWindowService" />
 
     </application>
 

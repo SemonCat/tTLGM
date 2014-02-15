@@ -38,6 +38,7 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.2'
     compile 'org.zeroturnaround:zt-zip:1.7@jar'
     compile 'com.joanzapata.pdfview:android-pdfview:1.0.1@jar'
+    compile 'com.facebook.rebound:rebound:0.3.3'
     compile files('libs/android-viewbadger.jar')
     compile files('libs/VuDroid.jar')
 }

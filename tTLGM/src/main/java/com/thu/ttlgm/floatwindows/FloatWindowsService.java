@@ -6,12 +6,9 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.component.Radial.RadialMenuItem;
@@ -27,7 +24,12 @@ public class FloatWindowsService extends Service {
     private WindowManager windowManager;
     private FloatLayout mFloatLayout;
 
-    private ImageView mIcon;
+    private FloatImageView mFloatImageView;
+
+    private int mRingMargin = 5;
+    private int mCenterRingSize = 25;
+    private int mInnerRingSize = 50;
+    private int mOuterRingSize = 50;
 
 
     @Override
@@ -45,9 +47,7 @@ public class FloatWindowsService extends Service {
 
         mFloatLayout = new FloatLayout(this);
         mFloatLayout.setVisibility(View.GONE);
-        mIcon = new ImageView(this);
-        mIcon.setImageResource(R.drawable.bubble);
-        mIcon.setPadding(20,20,20,20);
+
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -56,101 +56,34 @@ public class FloatWindowsService extends Service {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
+
+
         params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = 0;
+        params.y = 20;
 
         windowManager.addView(mFloatLayout, params);
         params.gravity = Gravity.TOP | Gravity.LEFT;
-        windowManager.addView(mIcon, params);
+
+        mFloatImageView = new FloatImageView(this,windowManager,params);
+        mFloatImageView.setImageResource(R.drawable.bubble);
 
 
-        mIcon.setOnTouchListener(new View.OnTouchListener() {
-            private WindowManager.LayoutParams paramsF = params;
-            private int initialX;
-            private int initialY;
-            private float initialTouchX;
-            private float initialTouchY;
+        windowManager.addView(mFloatImageView, params);
 
-            private int lastX,lastY,right,left,top,bottom;
-            private float x1,y1,x2,y2;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                int screenWidth = getResources().getDisplayMetrics().widthPixels;
-                int screenHeight = getResources().getDisplayMetrics().heightPixels;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastX = (int) event.getRawX();
-                        lastY = (int) event.getRawY();
-                        x1 =  event.getRawX();//得到相對應屏幕左上角的坐標
-                        y1 =  event.getRawY();
-                        // Get current time in nano seconds.
 
-                        initialX = paramsF.x;
-                        initialY = paramsF.y;
-                        initialTouchX = event.getRawX();
-                        initialTouchY = event.getRawY();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        x2 = event.getRawX();
-                        y2 = event.getRawY();
-                        Log.i("i", x1 + ",,," + y1 +",,,"+x2+",,,"+y2);
-                        double distance = Math.sqrt(Math.abs(x1-x2)*Math.abs(x1-x2)+Math.abs(y1-y2)*Math.abs(y1-y2));//兩點之間的距離
-                        Log.i("i", "x1 - x2>>>>>>"+ distance);
-                        if (distance < 30)
-                            mIcon.performClick();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        paramsF.x = initialX + (int) (event.getRawX() - initialTouchX);
-                        paramsF.y = initialY + (int) (event.getRawY() - initialTouchY);
-
-                        windowManager.updateViewLayout(v, paramsF);
-
-                        int dx = (int) event.getRawX() - lastX;
-                        int dy = (int) event.getRawY() - lastY;
-
-                        left = v.getLeft() + dx;
-                        top = v.getTop() + dy;
-                        right = v.getRight() + dx;
-                        bottom = v.getBottom() + dy;
-                        if (left < 0) {
-                            left = 0;
-                            right = left + v.getWidth();
-                        }
-                        if (right > screenWidth) {
-                            right = screenWidth;
-                            left = right - v.getWidth();
-                        }
-                        if (top < 0) {
-                            top = 0;
-                            bottom = top + v.getHeight();
-                        }
-                        if (bottom > screenHeight) {
-                            bottom = screenHeight;
-                            top = bottom - v.getHeight();
-                        }
-                        Log.i("i", "值：" + left +">>>"+ top+">>>"+right+">>>"+bottom);
-                        v.layout(left, top, right, bottom);
-                        lastX = (int) event.getRawX();
-                        lastY = (int) event.getRawY();
-
-                        break;
-                }
-                return true;
-            }
-        });
-
-        mIcon.setOnClickListener(new View.OnClickListener() {
+        mFloatImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 mFloatLayout.setVisibility(View.VISIBLE);
                 pieMenu.show(mFloatLayout, Gravity.CENTER, 0, 0);
-                mIcon.setVisibility(View.GONE);
+                mFloatImageView.setVisibility(View.GONE);
 
             }
         });
+
+
+
 
         setupRadiaMenu();
     }
@@ -167,7 +100,7 @@ public class FloatWindowsService extends Service {
         pieMenu.setEventListener(new RadialMenuWidget.RadialEventListener() {
             @Override
             public void OnDismiss() {
-                mIcon.setVisibility(View.VISIBLE);
+                mFloatImageView.setVisibility(View.VISIBLE);
                 mFloatLayout.setVisibility(View.GONE);
             }
         });
@@ -243,9 +176,10 @@ public class FloatWindowsService extends Service {
         pieMenu.setIconSize(30, 50);
         pieMenu.setTextSize(20);
         pieMenu.setOutlineColor(Color.BLACK, 225);
-        pieMenu.setInnerRingRadius(60,180);
-        pieMenu.setCenterCircleRadius(50);
-        pieMenu.setOuterRingRadius(190,250);
+        pieMenu.setCenterCircleRadius(mCenterRingSize);
+        pieMenu.setInnerRingRadius(mCenterRingSize+mRingMargin, mCenterRingSize+mRingMargin+mInnerRingSize);
+        pieMenu.setOuterRingRadius(mCenterRingSize+mRingMargin+mInnerRingSize+mRingMargin,mCenterRingSize+mRingMargin+mInnerRingSize+mRingMargin+ mOuterRingSize);
+
         //pieMenu.setInnerRingColor(0xAA66CC, 180);
         //pieMenu.setOuterRingColor(0x0099CC, 180);
         pieMenu.setCenterCircle(menuCloseItem);
@@ -258,12 +192,19 @@ public class FloatWindowsService extends Service {
         });
 
 
-    }
+    } 
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (mFloatLayout != null) windowManager.removeView(mFloatLayout);
-        if (mIcon != null) windowManager.removeView(mIcon);
+        if (mFloatImageView != null) windowManager.removeView(mFloatImageView);
+    }
+
+    private int dip2px(float dipValue) {
+
+        final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 }

@@ -3,6 +3,7 @@ package com.thu.ttlgm.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.view.ViewGroup;
 import com.thu.ttlgm.MainActivity;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.ClassPagerAdapter;
-import com.thu.ttlgm.bean.Subject;
+import com.thu.ttlgm.bean.*;
 import com.thu.ttlgm.component.UViewPager;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
@@ -25,12 +26,10 @@ public class ClassChooserFragment extends BaseFragment{
 
     private static final String TAG = ClassChooserFragment.class.getName();
 
-    private Context mContext;
 
     //ViewPager
     private UViewPager mUViewPager;
     private ClassPagerAdapter mAdapter;
-    private static final String CURRENTITEMPOSITION = "CurrentItemPosition";
     private int mCurrentItemPosition;
 
 
@@ -38,35 +37,38 @@ public class ClassChooserFragment extends BaseFragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mContext = getActivity().getApplicationContext();
-
     }
 
     private Subject getClassData(){
 
         File File = new File(ConstantUtil.SubjectDataPath);
 
-        return DataParser.SubjectParser(mContext,File);
+        return DataParser.SubjectParser(getActivity(),File);
     }
 
     @Override
     protected void setupView() {
         mUViewPager = (UViewPager) getActivity().findViewById(R.id.ViewPagerClass);
-
+        Log.d(TAG,"setupView");
     }
 
+    private Handler mHandler = new Handler();
     @Override
     protected void setupAdapter() {
+
         mAdapter = new ClassPagerAdapter(getActivity(),getClassData());
         mUViewPager.setAdapter(mAdapter);
         mUViewPager.enableCenterLockOfChilds();
         mCurrentItemPosition =
                 mAdapter.getItemPosition(((MainActivity)getActivity()).getCurrentClass());
 
-        Log.d(TAG,"Currect:"+mCurrentItemPosition);
-
-        mUViewPager.setCurrentItemInCenter(mCurrentItemPosition);
-
+        mUViewPager.setCurrentItemInCenter(0);
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mUViewPager.setCurrentItem(mCurrentItemPosition,true);
+            }
+        });
     }
 
 
@@ -96,8 +98,4 @@ public class ClassChooserFragment extends BaseFragment{
         return inflater.inflate(R.layout.fragment_classchooser, container, false);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 }

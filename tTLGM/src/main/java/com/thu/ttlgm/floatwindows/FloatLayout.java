@@ -36,14 +36,14 @@ public class FloatLayout extends FrameLayout{
 
         ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_floatwindows, this);
 
-        setupView();
+        //setupView();
 
-        setupEvent();
+        //setupEvent();
 
 
     }
 
-
+/*
     private void setupView(){
         ArcMenu menu = (ArcMenu) findViewById(R.id.arc_menu);
 
@@ -71,7 +71,7 @@ public class FloatLayout extends FrameLayout{
     private void setupRadia(){
 
     }
-
+*/
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 

@@ -60,4 +60,14 @@ public class Class implements Serializable{
                 new SimpleDateFormat("yyyy/MM/dd").format(getDate())+" Class Week:"+getWeek()+
                 " Class Content:"+getContent();
     }
+
+    @Override
+    public int hashCode() {
+        return Title.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return this.getWeek()==(((Class)o).getWeek());
+    }
 }

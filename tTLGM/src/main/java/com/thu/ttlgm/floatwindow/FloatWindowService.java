@@ -30,14 +30,13 @@ public class FloatWindowService extends Service {
     private FloatImageView mFloatImageView;
 
     private int mRingMargin = 5;
-    private int mCenterRingSize = 25;
-    private int mInnerRingSize = 50;
-    private int mOuterRingSize = 50;
+    private int mCenterRingSize = 35;
+    private int mInnerRingSize = 75;
+    private int mOuterRingSize = 75;
 
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO Auto-generated method stub
         return mBinder;
     }
 
@@ -52,6 +51,15 @@ public class FloatWindowService extends Service {
         mFloatLayout.setVisibility(View.GONE);
 
 
+        final WindowManager.LayoutParams mFloatLayoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_PHONE,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT);
+
+
+        windowManager.addView(mFloatLayout, mFloatLayoutParams);
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -60,11 +68,7 @@ public class FloatWindowService extends Service {
                 PixelFormat.TRANSLUCENT);
 
 
-
-        params.gravity = Gravity.CENTER;
         params.y = 20;
-
-        windowManager.addView(mFloatLayout, params);
         params.gravity = Gravity.TOP | Gravity.LEFT;
 
         mFloatImageView = new FloatImageView(this,windowManager,params);
@@ -93,8 +97,9 @@ public class FloatWindowService extends Service {
 
     private RadialMenuWidget pieMenu;
 
-    public RadialMenuItem menuItem, menuCloseItem, menuExpandItem;
-    public RadialMenuItem firstChildItem, secondChildItem, thirdChildItem;
+    public RadialMenuItem mFirstMenuScreen, menuCloseItem, mFirstMenuElse;
+    public RadialMenuItem mSecondMenuScreenToggle, mSecondMenuScreenSwitch;
+    public RadialMenuItem mSecondMenuElseBlood, mSecondMenuElseCamera, mSecondMenuElseWhiteboard;
     private List<RadialMenuItem> children = new ArrayList<RadialMenuItem>();
 
     private void setupRadiaMenu() {
@@ -116,18 +121,37 @@ public class FloatWindowService extends Service {
         menuCloseItem = new RadialMenuItem("close", null);
         menuCloseItem
                 .setDisplayIcon(android.R.drawable.ic_menu_close_clear_cancel);
-        menuItem = new RadialMenuItem("test",
-                "test");
-        menuItem.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
+        mFirstMenuScreen = new RadialMenuItem("投影",
+                "投影");
+
+        mSecondMenuScreenToggle = new RadialMenuItem("投影畫面","投影畫面");
+        mSecondMenuScreenToggle.setDisplayIcon(R.drawable.screen);
+        mSecondMenuScreenToggle.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
             @Override
             public void execute() {
                 pieMenu.dismiss();
             }
         });
 
-        firstChildItem = new RadialMenuItem("test",
-                "test");
-        firstChildItem
+        mSecondMenuScreenSwitch = new RadialMenuItem("畫面切換","畫面切換");
+        mSecondMenuScreenSwitch.setDisplayIcon(R.drawable.switch_screen);
+        mSecondMenuScreenSwitch.setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
+            @Override
+            public void execute() {
+                pieMenu.dismiss();
+            }
+        });
+
+        ArrayList<RadialMenuItem> mFirstMenuScreenChilds = new ArrayList<RadialMenuItem>();
+        mFirstMenuScreenChilds.add(mSecondMenuScreenToggle);
+        mFirstMenuScreenChilds.add(mSecondMenuScreenSwitch);
+
+        mFirstMenuScreen.setMenuChildren(mFirstMenuScreenChilds);
+
+        mSecondMenuElseBlood = new RadialMenuItem("補血",
+                "補血");
+        mSecondMenuElseBlood.setDisplayIcon(R.drawable.blood);
+        mSecondMenuElseBlood
                 .setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
                     @Override
                     public void execute() {
@@ -136,9 +160,9 @@ public class FloatWindowService extends Service {
                     }
                 });
 
-        secondChildItem = new RadialMenuItem("test", "test");
-        secondChildItem.setDisplayIcon(R.drawable.ic_launcher);
-        secondChildItem
+        mSecondMenuElseCamera = new RadialMenuItem("拍照", "拍照");
+        mSecondMenuElseCamera.setDisplayIcon(R.drawable.camera);
+        mSecondMenuElseCamera
                 .setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
                     @Override
                     public void execute() {
@@ -147,9 +171,10 @@ public class FloatWindowService extends Service {
                     }
                 });
 
-        thirdChildItem = new RadialMenuItem("test", "test");
-        thirdChildItem.setDisplayIcon(R.drawable.ic_launcher);
-        thirdChildItem
+        mSecondMenuElseWhiteboard = new RadialMenuItem("白板", "白板");
+        mSecondMenuElseWhiteboard.setDisplayIcon(R.drawable.whiteboard);
+
+        mSecondMenuElseWhiteboard
                 .setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
                     @Override
                     public void execute() {
@@ -158,11 +183,11 @@ public class FloatWindowService extends Service {
                     }
                 });
 
-        menuExpandItem = new RadialMenuItem("test", "test");
-        children.add(firstChildItem);
-        children.add(secondChildItem);
-        children.add(thirdChildItem);
-        menuExpandItem.setMenuChildren(children);
+        mFirstMenuElse = new RadialMenuItem("其他", "其他");
+        children.add(mSecondMenuElseBlood);
+        children.add(mSecondMenuElseCamera);
+        children.add(mSecondMenuElseWhiteboard);
+        mFirstMenuElse.setMenuChildren(children);
 
         menuCloseItem
                 .setOnMenuItemPressed(new RadialMenuItem.RadialMenuItemClickListener() {
@@ -183,14 +208,14 @@ public class FloatWindowService extends Service {
         pieMenu.setInnerRingRadius(mCenterRingSize+mRingMargin, mCenterRingSize+mRingMargin+mInnerRingSize);
         pieMenu.setOuterRingRadius(mCenterRingSize+mRingMargin+mInnerRingSize+mRingMargin,mCenterRingSize+mRingMargin+mInnerRingSize+mRingMargin+ mOuterRingSize);
 
-        //pieMenu.setInnerRingColor(0xAA66CC, 180);
-        //pieMenu.setOuterRingColor(0x0099CC, 180);
+        pieMenu.setInnerRingColor(getResources().getColor(R.color.PieFirstMenuScreen), 180);
+        pieMenu.setOuterRingColor(getResources().getColor(R.color.PieSecondMenuElseBlood), 180);
         pieMenu.setCenterCircle(menuCloseItem);
 
         pieMenu.addMenuEntry(new ArrayList<RadialMenuItem>() {
             {
-                add(menuItem);
-                add(menuExpandItem);
+                add(mFirstMenuScreen);
+                add(mFirstMenuElse);
             }
         });
 

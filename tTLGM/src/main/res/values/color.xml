@@ -11,4 +11,17 @@
     <color name="ResourceImage_Title">#ffd98e97</color>
     <color name="ResourceImage_Content">#ffc09c9e</color>
 
+    <color name="black_overlay">#66000000</color>
+    
+    <!-- PIE MENU -->
+    <color name="PieFirstMenuScreen">#ff485162</color>
+    <color name="PieMenuClose">#ffbcbab9</color>
+    <color name="PieFirstMenuElse">#ff919caf</color>
+
+    <color name="PieSecondMenuScreenToggle">#ff727c62</color>
+    <color name="PieSecondMenuScreenSwitch">#ffebfbc5</color>
+
+    <color name="PieSecondMenuElseBlood">#ff625a48</color>
+    <color name="PieSecondMenuElseCamera">#fffbf1ea</color>
+    <color name="PieSecondMenuElseWhiteboard">#ffafa591</color>
 </resources>

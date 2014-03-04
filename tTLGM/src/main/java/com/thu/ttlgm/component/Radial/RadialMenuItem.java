@@ -48,7 +48,7 @@ public class RadialMenuItem implements RadialMenuInterface {
 	/**
 	 * Set menu item icon.
 	 * @param displayIcon - (int) Icon resource ID.
-	 * <strong>secondChildItem.setDisplayIcon(R.drawable.ic_launcher);</strong>
+	 * <strong>mSecondMenuElseCamera.setDisplayIcon(R.drawable.ic_launcher);</strong>
 	 */
 	public void setDisplayIcon(int displayIcon) {
 		this.menuIcon = displayIcon;

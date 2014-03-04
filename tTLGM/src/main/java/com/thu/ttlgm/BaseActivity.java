@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by SemonCat on 2014/1/11.
@@ -50,6 +51,7 @@ public class BaseActivity extends Activity {
         */
         setupView();
         setupEvent();
+        addSlidingDrawer();
     }
 
     protected int setupLayout() {
@@ -61,6 +63,15 @@ public class BaseActivity extends Activity {
     }
 
     protected void setupEvent() {
+
+    }
+
+    private void addSlidingDrawer(){
+        ViewGroup mRootView = (ViewGroup) getWindow().
+                getDecorView().findViewById(android.R.id.content);
+
+        View mView = getLayoutInflater().inflate(R.layout.sliding_drawer,
+                mRootView);
 
     }
 

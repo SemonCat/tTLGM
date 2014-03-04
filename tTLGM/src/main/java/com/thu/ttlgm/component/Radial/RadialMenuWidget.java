@@ -94,7 +94,7 @@ public class RadialMenuWidget extends View {
 	private RadialMenuWedge selected2 = null; // Keeps track of which wedge is
 												// selected
 	private Rect[] iconRect2 = new Rect[wedgeQty2];
-	private RadialMenuInterface wedge2Data = null; // Keeps track off which menuItem
+	private RadialMenuInterface wedge2Data = null; // Keeps track off which mFirstMenuScreen
 												// data is being used for the
 												// outer ring
 
@@ -155,7 +155,7 @@ public class RadialMenuWidget extends View {
 	 * <strong> Usage </strong>
 	 * 
 	 * RadialMenuWidget pieMenu = new RadialMenuWidget(this);
-	 * pieMenu.addMenuEntry(menuItem);
+	 * pieMenu.addMenuEntry(mFirstMenuScreen);
 	 * pieMenu.show(view);
 	 */
 	public RadialMenuWidget(Context context) {

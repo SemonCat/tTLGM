@@ -55,9 +55,9 @@ public class MainActivity extends BaseActivity {
 
             }
         };
-        bindService(new Intent(this, FloatWindowService.class), mConnection,BIND_AUTO_CREATE);
+        //bindService(new Intent(this, FloatWindowService.class), mConnection,BIND_AUTO_CREATE);
         //StartFloat
-        startService(new Intent(this, FloatWindowService.class));
+        //startService(new Intent(this, FloatWindowService.class));
     }
 
     @Override

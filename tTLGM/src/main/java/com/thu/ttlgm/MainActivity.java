@@ -16,6 +16,7 @@ import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.service.SQService;
 
 import aidl.IFloatWindowService;
 
@@ -36,6 +37,8 @@ public class MainActivity extends BaseActivity {
         replaceFragment(new ClassChooserFragment(),ClassChooserFragment.class.getName());
 
         setupService();
+
+        SQService.startServer();
     }
 
     @Override
@@ -86,41 +89,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void toHome(View mView){
-        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
-    }
-
-    public void toStudents(View mView){
-        replaceFragment(new StudentsFragment(),StudentsFragment.class.getName());
-
-    }
-
-    public void toWorks(View mView){
-
-    }
-
-    public void toFiles(View mView){
-        replaceFragment(new ResourcePickerFragment(),ResourcePickerFragment.class.getName());
-    }
-
-    public void toGames(View mView){
-        replaceFragment(new GameFragment(),GameFragment.class.getName());
-    }
-
-    private void replaceFragment(Fragment mFragment,String TAG){
 
 
-        FragmentTransaction transaction =getFragmentManager().beginTransaction();
-        Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
-        if (findFragment!=null){
-            return;
-        }
-        transaction.replace(R.id.Fragment_Content, mFragment,TAG);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
-        transaction.commit();
-
-    }
 
 
     public Class getCurrentClass() {

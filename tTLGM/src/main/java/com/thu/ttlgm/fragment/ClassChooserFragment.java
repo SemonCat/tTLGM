@@ -13,6 +13,7 @@ import com.thu.ttlgm.MainActivity;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.ClassPagerAdapter;
 import com.thu.ttlgm.bean.*;
+import com.thu.ttlgm.bean.Class;
 import com.thu.ttlgm.component.UViewPager;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
@@ -59,8 +60,13 @@ public class ClassChooserFragment extends BaseFragment{
         mAdapter = new ClassPagerAdapter(getActivity(),getClassData());
         mUViewPager.setAdapter(mAdapter);
         mUViewPager.enableCenterLockOfChilds();
-        mCurrentItemPosition =
-                mAdapter.getItemPosition(((MainActivity)getActivity()).getCurrentClass());
+
+        Class mData = ((MainActivity)getActivity()).getCurrentClass();
+        if (mData!=null){
+
+            mCurrentItemPosition =
+                mAdapter.getItemPosition(mData);
+        }
 
         mUViewPager.setCurrentItemInCenter(0);
         mHandler.post(new Runnable() {

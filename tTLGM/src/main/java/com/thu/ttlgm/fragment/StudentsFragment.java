@@ -1,21 +1,33 @@
 package com.thu.ttlgm.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.StudentAdapter;
 import com.thu.ttlgm.bean.Student;
 import com.thu.ttlgm.bean.Subject;
+import com.thu.ttlgm.service.SQService;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,6 +40,8 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
     private TextView SortByBlood;
     private TextView SortByMoney;
 
+    private CheckBox ShowUnLogin;
+    private PullToRefreshGridView mPullRefreshGridView;
     private GridView mStudentList;
     private StudentAdapter mAdapter;
 
@@ -39,10 +53,27 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void setupView() {
-        mStudentList = (GridView) getActivity().findViewById(R.id.studentList);
+        mPullRefreshGridView = (PullToRefreshGridView) getActivity().findViewById(R.id.studentList);
+        mStudentList = mPullRefreshGridView.getRefreshableView();
+        // Set a listener to be invoked when the list should be refreshed.
+        mPullRefreshGridView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
+
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
+                getStudentDataFromServer();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
+
+            }
+
+        });
+
         SortByID = (TextView) getActivity().findViewById(R.id.SortByID);
         SortByBlood = (TextView) getActivity().findViewById(R.id.SortByBlood);
         SortByMoney = (TextView) getActivity().findViewById(R.id.SortByMoney);
+        ShowUnLogin = (CheckBox) getActivity().findViewById(R.id.ShowUnLogin);
     }
 
     @Override
@@ -51,9 +82,15 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
         List<Student> mStudents = new ArrayList<Student>();
         if (mSubject!=null)
             mStudents = mSubject.getStudents();
-        mAdapter = new StudentAdapter(getActivity(),mStudents);
+        mAdapter = new StudentAdapter(getActivity());
         mAdapter.Sort(StudentAdapter.SortType.ID_DESC);
-        mStudentList.setAdapter(mAdapter);
+
+        SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
+        swingBottomInAnimationAdapter.setAbsListView(mStudentList);
+        swingBottomInAnimationAdapter.setInitialDelayMillis(300);
+
+        mStudentList.setAdapter(swingBottomInAnimationAdapter);
+        getStudentDataFromServer();
     }
 
     @Override
@@ -61,6 +98,14 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
         SortByID.setOnClickListener(this);
         SortByBlood.setOnClickListener(this);
         SortByMoney.setOnClickListener(this);
+        ShowUnLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                mAdapter.OnlyShowLogin(!isChecked);
+
+            }
+        });
     }
 
     private boolean ID_DESC = true;
@@ -105,9 +150,20 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
         return DataParser.SubjectParser(getActivity(),File);
     }
 
+    private void getStudentDataFromServer(){
+        SQService.getAllStudents(new SQService.OnAllStudentGetListener() {
+            @Override
+            public void OnAllStudentGetEvent(List<Student> mStudentList) {
+                mPullRefreshGridView.onRefreshComplete();
+                mAdapter.refreshOnUiThread(mStudentList);
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_studnets, container, false);
     }
+
 }

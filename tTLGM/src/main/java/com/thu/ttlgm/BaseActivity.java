@@ -1,57 +1,49 @@
 package com.thu.ttlgm;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.thu.ttlgm.component.SlidingDrawer;
+import com.thu.ttlgm.fragment.ClassChooserFragment;
+import com.thu.ttlgm.fragment.GameFragment;
+import com.thu.ttlgm.fragment.ResourcePickerFragment;
+import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.service.PollHandler;
 
 /**
  * Created by SemonCat on 2014/1/11.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends Activity implements PollHandler.OnMessageReceive {
 
     private Handler mHideHandler = new Handler();
+
+    private SlidingDrawer mDrawer;
+
+    private PollHandler mPollHandler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setupLayout());
 
-        // hide the navigation bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        //hideSystemUi();
-
-
-        // register a listener for when the navigation bar re-appears
-        /*
-        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(
-
-                new View.OnSystemUiVisibilityChangeListener() {
-
-                    @Override
-
-                    public void onSystemUiVisibilityChange(int visibility) {
-
-                        if (visibility == 0) {
-
-                            // the navigation bar re-appears, let’s hide it
-                            // after 2 seconds
-                            mHideHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    hideSystemUi();
-                                }
-                            }, 2000);
-
-                        }
-
-                    }
-
-                });
-        */
         setupView();
         setupEvent();
         addSlidingDrawer();
+        setupPollHandler();
     }
 
     protected int setupLayout() {
@@ -66,12 +58,91 @@ public class BaseActivity extends Activity {
 
     }
 
-    private void addSlidingDrawer(){
+    private void setupPollHandler() {
+        mPollHandler = new PollHandler();
+        mPollHandler.setListener(this);
+        mPollHandler.start();
+    }
+
+    private void addSlidingDrawer() {
         ViewGroup mRootView = (ViewGroup) getWindow().
                 getDecorView().findViewById(android.R.id.content);
 
-        View mView = getLayoutInflater().inflate(R.layout.sliding_drawer,
+        getLayoutInflater().inflate(R.layout.sliding_drawer,
                 mRootView);
+        mDrawer = (SlidingDrawer) findViewById(R.id.drawer);
+        final View HandleView = mDrawer.getHandle();
+
+        final View DownIcon = HandleView.findViewById(R.id.DownIcon);
+        mDrawer.setOnDrawerOpenListener(new SlidingDrawer.OnDrawerOpenListener() {
+            @Override
+            public void onDrawerOpened() {
+                HandleView.setBackgroundColor(getResources().getColor(R.color.DrawerContentBackground));
+                DownIcon.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        mDrawer.setOnDrawerCloseListener(new SlidingDrawer.OnDrawerCloseListener() {
+            @Override
+            public void onDrawerClosed() {
+                HandleView.setBackgroundColor(Color.TRANSPARENT);
+                DownIcon.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void HideDrawer() {
+        if (mDrawer != null) {
+            mDrawer.animateClose();
+        }
+    }
+
+    public void ShowDrawer() {
+        if (mDrawer != null) {
+            mDrawer.animateOpen();
+        }
+    }
+
+    public void toHome(View mView) {
+        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
+        HideDrawer();
+    }
+
+    public void toStudents(View mView) {
+        replaceFragment(new StudentsFragment(), StudentsFragment.class.getName());
+        HideDrawer();
+    }
+
+    public void toWorks(View mView) {
+        HideDrawer();
+    }
+
+    public void toFiles(View mView) {
+        replaceFragment(new ResourcePickerFragment(), ResourcePickerFragment.class.getName());
+        HideDrawer();
+    }
+
+    public void toGroupGame(View mView) {
+        Intent mIntent = new Intent(this, GroupGameActivity.class);
+        mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(mIntent);
+
+        HideDrawer();
+    }
+
+    public void replaceFragment(Fragment mFragment, String TAG) {
+
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
+        if (findFragment != null) {
+            return;
+        }
+        transaction.replace(R.id.Fragment_Content, mFragment, TAG);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        transaction.commit();
 
     }
 
@@ -93,4 +164,37 @@ public class BaseActivity extends Activity {
 
     }
 
+    @Override
+    public void OnMissionResultReceive(String quizid, String taskid, String groupid, String Answer) {
+        Log.d("Mission", "ReceiveMessage,Quiz:" + quizid + ",Task:" + taskid + ",GroupId:" + groupid + ",Ans:" + Answer);
+    }
+
+    @Override
+    public void OnHpLow(String sid, int blood) {
+
+    }
+
+    @Override
+    public void getAdditional(String sid) {
+
+    }
+
+    long exitTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        if (this.isTaskRoot()) {
+
+
+            if ((System.currentTimeMillis() - exitTime) < 2000) {
+                super.onBackPressed();
+            } else {
+                Toast.makeText(getApplicationContext(), "再按一次以退出", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            }
+
+        }else{
+            super.onBackPressed();
+        }
+    }
 }

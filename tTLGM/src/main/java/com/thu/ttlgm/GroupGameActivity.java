@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 
 import com.thu.ttlgm.adapter.StudentGroupAdapter;
+import com.thu.ttlgm.bean.Student;
 import com.thu.ttlgm.component.FancyCoverFlow.FancyCoverFlow;
+import com.thu.ttlgm.service.SQService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -42,19 +47,22 @@ public class GroupGameActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
     protected void setupView() {
         mFancyCoverFlow = (FancyCoverFlow) findViewById(R.id.fancyCoverFlow);
-        mStudentGroupAdapter = new StudentGroupAdapter();
+        mStudentGroupAdapter = new StudentGroupAdapter(this,new ArrayList<Student>());
         mFancyCoverFlow.setAdapter(mStudentGroupAdapter);
         mFancyCoverFlow.setSelection(Integer.MAX_VALUE / 2);
-
+        getStudentDataFromServer();
+        /*
         mFancyCoverFlow2  = (FancyCoverFlow) findViewById(R.id.fancyCoverFlow2);
         mStudentGroupAdapter2 = new StudentGroupAdapter();
         mFancyCoverFlow2.setAdapter(mStudentGroupAdapter2);
         mFancyCoverFlow2.setSelection(Integer.MAX_VALUE / 2);
+        */
     }
 
     @Override
@@ -83,18 +91,33 @@ public class GroupGameActivity extends BaseActivity{
         public void run() {
             synchronized (mFancyCoverFlow) {
 
+                /*
                 Message mMessage = mHandler.obtainMessage();
 
                 mHandler.sendMessage(mMessage);
+                */
+                getStudentDataFromServer();
             }
         }
 
     }
 
 
+    public void Finish(View mView){
+
+    }
 
     @Override
     protected int setupLayout() {
         return R.layout.activity_groupgame;
+    }
+
+    private void getStudentDataFromServer(){
+        SQService.getAllStudents(new SQService.OnAllStudentGetListener() {
+            @Override
+            public void OnAllStudentGetEvent(List<Student> mStudentList) {
+                mStudentGroupAdapter.refreshOnUiThread(mStudentList);
+            }
+        });
     }
 }

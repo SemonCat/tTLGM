@@ -3,14 +3,21 @@ package com.thu.ttlgm.adapter;
 import android.content.Context;
 import android.location.Address;
 import android.media.Image;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.readystatesoftware.viewbadger.BadgeView;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.bean.Student;
@@ -26,14 +33,19 @@ import java.util.Random;
 /**
  * Created by SemonCat on 2014/1/16.
  */
-public class StudentAdapter extends BaseAdapter{
+public class StudentAdapter extends BaseAdapter {
 
     private static final String TAG = StudentAdapter.class.getName();
 
     private Context mContext;
     private List<Student> mData;
+    private List<Student> mTmpData;
 
     private Random mRandom = new Random();
+
+    private Handler mHandler = new Handler();
+
+    DisplayImageOptions options;
 
     private int[] bloods = {35,68,41,68,10,25};
     private int[] moneys = {205,631,211,642,148,621};
@@ -51,16 +63,45 @@ public class StudentAdapter extends BaseAdapter{
         this.mContext = context;
         this.mData = data;
 
+        /*
         int i = 0;
         for (Student mStudent : data){
             mStudent.setMoney(moneys[i]);
             mStudent.setBlood(bloods[i]);
             i++;
-        }
+        }*/
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.default_icon)
+                .showImageForEmptyUri(R.drawable.default_icon)
+                .showImageOnFail(R.drawable.default_icon)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .resetViewBeforeLoading(true)
+                .build();
     }
 
     public StudentAdapter(Context context,Subject data) {
         this(context,data.getStudents());
+    }
+
+    public StudentAdapter(Context context){
+        this(context,new ArrayList<Student>());
+    }
+
+    public void refresh(List<Student> data){
+        this.mData = data;
+        notifyDataSetChanged();
+    }
+
+    public void refreshOnUiThread(final List<Student> data){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mData = data;
+                notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
@@ -103,15 +144,15 @@ public class StudentAdapter extends BaseAdapter{
         holder.StudentID.setText(mStudent.getID());
         holder.Department.setText(mStudent.getDepartment());
 
-        /*
-        int blood = mRandom.nextInt(99)+1;
-        int money = mRandom.nextInt(400)+100;
-        */
         int blood = mStudent.getBlood();
         int money = mStudent.getMoney();
 
         holder.Icon.setProgress(blood);
 
+        String URL = mStudent.getImageUrl();
+        if (URL.startsWith("http")){
+            ImageLoader.getInstance().displayImage(URL,holder.Icon,options);
+        }
         holder.mBadgeView.setText(String.valueOf(money));
         holder.mBadgeView.show();
 
@@ -193,6 +234,23 @@ public class StudentAdapter extends BaseAdapter{
             notifyDataSetChanged();
 
         }
+    }
+
+    public void OnlyShowLogin(boolean onlyShowLogin){
+        if (onlyShowLogin){
+            mTmpData = new ArrayList<Student>(mData);
+            mData.clear();
+            for (Student mStudent:mData){
+                if (mStudent.IsLogin()){
+                    mData.add(mStudent);
+                }
+            }
+
+            refresh(mData);
+        }else{
+            refresh(mTmpData);
+        }
+
     }
 
     class ViewHolder{

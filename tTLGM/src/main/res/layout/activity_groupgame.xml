@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:fcf="http://schemas.android.com/apk/res-auto">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.thu.ttlgm.component.FancyCoverFlow.FancyCoverFlow
-        android:id="@+id/fancyCoverFlow"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="10dp"
-        fcf:maxRotation="45"
-        fcf:unselectedAlpha="0.3"
-        fcf:unselectedSaturation="0.0"
-        fcf:unselectedScale="0.4"
-        fcf:scaleDownGravity="0.5"
-        />
 
-    <com.thu.ttlgm.component.FancyCoverFlow.FancyCoverFlow
-        android:id="@+id/fancyCoverFlow2"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="10dp"
-        fcf:maxRotation="45"
-        fcf:unselectedAlpha="0.3"
-        fcf:unselectedSaturation="0.0"
-        fcf:unselectedScale="0.4"
-        fcf:scaleDownGravity="0.5"
-        />
-</LinearLayout>
+        android:layout_height="match_parent"
+        xmlns:fcf="http://schemas.android.com/apk/res-auto"
+        android:weightSum="1"
+        android:gravity="center"
+        android:background="@android:color/black"
+        android:layout_centerInParent="true">
+
+        <com.thu.ttlgm.component.FancyCoverFlow.FancyCoverFlow
+            android:id="@+id/fancyCoverFlow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:padding="10dp"
+            fcf:maxRotation="45"
+            fcf:unselectedAlpha="0.3"
+            fcf:unselectedSaturation="0.0"
+            fcf:unselectedScale="0.4"
+            fcf:scaleDownGravity="0.5" />
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/finish_frame"
+        android:src="@drawable/finish_icon"
+        android:onClick="Finish"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
+</RelativeLayout>
+

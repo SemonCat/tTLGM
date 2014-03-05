@@ -24,4 +24,8 @@
     <color name="PieSecondMenuElseBlood">#ff625a48</color>
     <color name="PieSecondMenuElseCamera">#fffbf1ea</color>
     <color name="PieSecondMenuElseWhiteboard">#ffafa591</color>
+
+    <!--DRAWER-->
+    <color name="DrawerHandleBackground">@android:color/transparent</color>
+    <color name="DrawerContentBackground">@android:color/darker_gray</color>
 </resources>

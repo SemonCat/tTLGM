@@ -18,7 +18,7 @@ import uk.co.senab.photoview.PhotoView;
 /**
  * Created by SemonCat on 2014/2/5.
  */
-public class PPTActivity extends BaseActivity {
+public class PPTActivity extends BasePlayActivity {
 
     public static final String PPTPathString = "pptPath";
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.thu.ttlgm.component.SlidingDrawer;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
+import com.thu.ttlgm.fragment.GroupGameFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
 import com.thu.ttlgm.service.PollHandler;
@@ -32,6 +33,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     private SlidingDrawer mDrawer;
 
     private PollHandler mPollHandler;
+
+    private static final int StartFragment = 0x123123;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,15 +127,19 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     }
 
     public void toGroupGame(View mView) {
+        replaceFragment(new GroupGameFragment(), GroupGameFragment.class.getName());
+
+
+        /*
         Intent mIntent = new Intent(this, GroupGameActivity.class);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(mIntent);
+        */
 
         HideDrawer();
     }
 
-    public void replaceFragment(Fragment mFragment, String TAG) {
-
+    public void replaceFragment(final Fragment mFragment,final String TAG) {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
@@ -143,6 +150,12 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
         transaction.commit();
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
     }
 

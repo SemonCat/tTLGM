@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.thu.ttlgm.PPTActivity;
-import com.thu.ttlgm.PdfActivity;
+import com.thu.ttlgm.BaseActivity;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.ResourceAdapter;
 import com.thu.ttlgm.utils.ConstantUtil;
@@ -68,15 +67,31 @@ public class ResourcePickerFragment extends BaseFragment{
     }
 
     private void OpenPDF(String Path){
+        /*
         Intent mIntent = new Intent(getActivity(), PdfActivity.class);
         mIntent.putExtra(PdfActivity.PDFPathString,Path);
         startActivity(mIntent);
+        */
+
+        Bundle args = new Bundle();
+        args.putString(PdfFragment.PDFPathString,Path);
+        PdfFragment pdfFragment = new PdfFragment();
+        pdfFragment.setArguments(args);
+        ((BaseActivity)getActivity()).replaceFragment(pdfFragment,PdfFragment.class.getName());
     }
 
     private void OpenPPT(String Path){
+        /*
         Intent mIntent = new Intent(getActivity(), PPTActivity.class);
         mIntent.putExtra(PPTActivity.PPTPathString,Path);
         startActivity(mIntent);
+        */
+
+        Bundle args = new Bundle();
+        args.putString(PPTFragment.PPTPathString,Path);
+        PPTFragment pptFragment = new PPTFragment();
+        pptFragment.setArguments(args);
+        ((BaseActivity)getActivity()).replaceFragment(pptFragment,PPTFragment.class.getName());
     }
 
     @Override

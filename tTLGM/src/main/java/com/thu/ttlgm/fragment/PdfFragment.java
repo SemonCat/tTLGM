@@ -1,24 +1,25 @@
-package com.thu.ttlgm;
+package com.thu.ttlgm.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.joanzapata.pdfview.PDFView;
-import com.thu.ttlgm.utils.ConstantUtil;
+import com.thu.ttlgm.R;
 
 import java.io.File;
 
 /**
- * Created by SemonCat on 2014/2/3.
+ * Created by SemonCat on 2014/3/5.
  */
-public class PdfActivity extends BasePlayActivity{
+public class PdfFragment extends PlayFragment{
 
-    private static final String TAG = PdfActivity.class.getName();
+    private static final String TAG = PdfFragment.class.getName();
 
     private PDFView mPDFView;
 
@@ -88,32 +89,35 @@ public class PdfActivity extends BasePlayActivity{
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         setupGesture();
         setupPDFView();
     }
 
+
+
     private int ScreenWidth;
     private void setupGesture(){
-        mGestureDetector = new GestureDetector(this,mListener);
+        mGestureDetector = new GestureDetector(getActivity(),mListener);
         DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         ScreenWidth = metrics.widthPixels;
 
     }
 
     @Override
     protected void setupView() {
-        mPDFView = (PDFView)findViewById(R.id.PdfView);
+        mPDFView = (PDFView)getActivity().findViewById(R.id.PdfView);
 
     }
 
     private void setupPDFView(){
+        /*
         String Path = getIntent().getStringExtra(PDFPathString);
+        */
+        String Path = getArguments().getString(PDFPathString);
         File mFile = new File(Path);
         if (mFile.exists()){
 
@@ -132,14 +136,14 @@ public class PdfActivity extends BasePlayActivity{
             */
         }else{
             finish();
-            Log.d(TAG,"File==null");
+            Log.d(TAG, "File==null");
         }
 
     }
 
     @Override
-    protected int setupLayout() {
-        return R.layout.activity_pdf;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_pdf, container, false);
     }
 
     public void onSwipeRight() {
@@ -156,11 +160,4 @@ public class PdfActivity extends BasePlayActivity{
 
     public void onSwipeBottom() {
     }
-
-    /*
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return mGestureDetector.onTouchEvent(event);
-    }
-    */
 }

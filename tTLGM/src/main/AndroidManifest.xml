@@ -28,18 +28,6 @@
         </activity>
 
         <activity
-            android:name="com.thu.ttlgm.PdfActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="sensorLandscape" >
-        </activity>
-
-        <activity
-            android:name="com.thu.ttlgm.PPTActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="sensorLandscape" >
-        </activity>
-
-        <activity
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
             android:name="com.thu.ttlgm.GroupGameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

@@ -26,4 +26,11 @@ public class ConstantUtil {
     /**pdf**/
     public static final String PDFDir = "/PDF";
     public static final String PDFPath = TLGMPath + PDFDir;
+
+    /**Facebook**/
+    public static final String Facebook = "https://www.facebook.com/";
+
+    public static final String GroupId = "415585308579029";
+
+    public static final String WeekAlbum = "415593318578228";
 }

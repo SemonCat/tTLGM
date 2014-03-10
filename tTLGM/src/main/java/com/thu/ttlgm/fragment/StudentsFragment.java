@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.StudentAdapter;
 import com.thu.ttlgm.bean.Student;
@@ -69,6 +71,10 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
             }
 
         });
+
+        PauseOnScrollListener mPauseOnScrollListener = new PauseOnScrollListener(ImageLoader.getInstance(), true,true);
+        mStudentList.setOnScrollListener(mPauseOnScrollListener);
+
 
         SortByID = (TextView) getActivity().findViewById(R.id.SortByID);
         SortByBlood = (TextView) getActivity().findViewById(R.id.SortByBlood);

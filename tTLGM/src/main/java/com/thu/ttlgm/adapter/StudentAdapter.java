@@ -47,6 +47,8 @@ public class StudentAdapter extends BaseAdapter {
 
     DisplayImageOptions options;
 
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+
     private int[] bloods = {35,68,41,68,10,25};
     private int[] moneys = {205,631,211,642,148,621};
 
@@ -70,14 +72,12 @@ public class StudentAdapter extends BaseAdapter {
             mStudent.setBlood(bloods[i]);
             i++;
         }*/
+
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.default_icon)
-                .showImageForEmptyUri(R.drawable.default_icon)
-                .showImageOnFail(R.drawable.default_icon)
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
-                .resetViewBeforeLoading(true)
                 .build();
+
     }
 
     public StudentAdapter(Context context,Subject data) {
@@ -116,7 +116,7 @@ public class StudentAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return Integer.valueOf(mData.get(position).getID());
+        return position;
     }
 
     @Override
@@ -151,7 +151,9 @@ public class StudentAdapter extends BaseAdapter {
 
         String URL = mStudent.getImageUrl();
         if (URL.startsWith("http")){
-            ImageLoader.getInstance().displayImage(URL,holder.Icon,options);
+            imageLoader.displayImage(URL,holder.Icon,options);
+        }else{
+            holder.Icon.setImageResource(R.drawable.default_icon);
         }
         holder.mBadgeView.setText(String.valueOf(money));
         holder.mBadgeView.show();

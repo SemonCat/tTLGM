@@ -10,19 +10,25 @@ import com.thu.ttlgm.component.FancyCoverFlow.FancyCoverFlow;
 import com.thu.ttlgm.component.FancyCoverFlow.FancyCoverFlowAdapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by SemonCat on 2014/2/9.
  */
 public class StudentGroupAdapter extends FancyCoverFlowAdapter {
+
+    private static final String TAG = StudentGroupAdapter.class.getName();
 // =============================================================================
     // Private members
     // =============================================================================
@@ -40,6 +46,8 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
     private Handler mHandler = new Handler();
     DisplayImageOptions options;
 
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+
     // =============================================================================
     // Supertype overrides
     // =============================================================================
@@ -49,13 +57,10 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
         this.mContext = context;
         this.mData = data;
 
+
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.default_icon)
-                .showImageForEmptyUri(R.drawable.default_icon)
-                .showImageOnFail(R.drawable.default_icon)
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
-                .resetViewBeforeLoading(true)
                 .build();
 
     }
@@ -69,8 +74,32 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mData = data;
-                notifyDataSetChanged();
+                synchronized (mData){
+
+                    mData = new CopyOnWriteArrayList<Student>(data);
+                    notifyDataSetChanged();
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 第一次資料載入完成以後，設定中間顯示
+     * @param data
+     * @param mView
+     */
+    public void refreshOnUiThreadAndSetInCenter(final List<Student> data, final FancyCoverFlow mView){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (mData){
+                    mData = new CopyOnWriteArrayList<Student>(data);
+                    notifyDataSetChanged();
+                    if (mView!=null){
+                        mView.setSelection(Integer.MAX_VALUE/2);
+                    }
+                }
             }
         });
 
@@ -119,8 +148,11 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
 
         String URL = mStudent.getImageUrl();
         if (URL.startsWith("http")){
-            ImageLoader.getInstance().displayImage(URL,holder.Icon,options);
+            imageLoader.displayImage(URL, holder.Icon,options);
+        }else{
+            holder.Icon.setImageResource(R.drawable.default_icon);
         }
+
 
         return convertView;
     }

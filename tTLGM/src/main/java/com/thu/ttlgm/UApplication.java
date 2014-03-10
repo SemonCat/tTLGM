@@ -19,8 +19,9 @@ public class UApplication extends Application {
         // or you can create default configuration by
         // ImageLoaderConfiguration.createDefault(this);
         // method.
-        ImageLoaderConfiguration config = ImageLoaderConfiguration.createDefault(this);
-        // Initialize ImageLoader with configuration.
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .threadPoolSize(5) // default
+                .build();// Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
     }
 }

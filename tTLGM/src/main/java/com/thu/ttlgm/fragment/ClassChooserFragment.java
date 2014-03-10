@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.thu.ttlgm.BaseActivity;
 import com.thu.ttlgm.MainActivity;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.ClassPagerAdapter;
@@ -33,10 +35,12 @@ public class ClassChooserFragment extends BaseFragment{
     private ClassPagerAdapter mAdapter;
     private int mCurrentItemPosition;
 
+    private ImageView StartClass;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
 
     }
 
@@ -50,7 +54,7 @@ public class ClassChooserFragment extends BaseFragment{
     @Override
     protected void setupView() {
         mUViewPager = (UViewPager) getActivity().findViewById(R.id.ViewPagerClass);
-        Log.d(TAG,"setupView");
+        StartClass = (ImageView) getActivity().findViewById(R.id.StartClass);
     }
 
     private Handler mHandler = new Handler();
@@ -66,9 +70,11 @@ public class ClassChooserFragment extends BaseFragment{
 
             mCurrentItemPosition =
                 mAdapter.getItemPosition(mData);
+        }else{
+            mCurrentItemPosition = 1;
         }
 
-        mUViewPager.setCurrentItemInCenter(0);
+        mUViewPager.setCurrentItemInCenter(1);
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -94,6 +100,16 @@ public class ClassChooserFragment extends BaseFragment{
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+
+
+
+        StartClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).toFiles(v);
             }
         });
     }

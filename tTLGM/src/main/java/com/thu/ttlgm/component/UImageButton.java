@@ -105,6 +105,13 @@ public class UImageButton extends ImageButton {
                 }
 
                 break;
+
+            case MotionEvent.ACTION_CANCEL:
+                if (mOtherButtons!=null){
+                    for (View mOtherButton : mOtherButtons)
+                        mOtherButton.setFocusable(true);
+                }
+                break;
         }
 
         return super.onTouchEvent(event);

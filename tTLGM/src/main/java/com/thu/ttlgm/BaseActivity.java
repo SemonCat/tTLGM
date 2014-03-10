@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebViewFragment;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.GroupGameFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.fragment.WorkFragment;
 import com.thu.ttlgm.service.PollHandler;
 
 /**
@@ -67,6 +69,12 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         mPollHandler.start();
     }
 
+    public void setPollHandlerListener(PollHandler.OnMessageReceive mListener){
+        if (mPollHandler!=null){
+            mPollHandler.setListener(mListener);
+        }
+    }
+
     private void addSlidingDrawer() {
         ViewGroup mRootView = (ViewGroup) getWindow().
                 getDecorView().findViewById(android.R.id.content);
@@ -96,13 +104,13 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     }
 
     public void HideDrawer() {
-        if (mDrawer != null) {
+        if (mDrawer != null && mDrawer.isOpened()) {
             mDrawer.animateClose();
         }
     }
 
     public void ShowDrawer() {
-        if (mDrawer != null) {
+        if (mDrawer != null && !mDrawer.isOpened()) {
             mDrawer.animateOpen();
         }
     }
@@ -118,6 +126,7 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     }
 
     public void toWorks(View mView) {
+        replaceFragment(new WorkFragment(), WebViewFragment.class.getName());
         HideDrawer();
     }
 

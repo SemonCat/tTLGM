@@ -7,20 +7,33 @@
     android:orientation="vertical" >
 
 
-    <TextView
-        android:id="@+id/WeekInfo"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:gravity="center"
+        android:layout_weight="0.5">
 
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Week" />
+        <ImageView
+            android:id="@+id/WeekInfoBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/WeekInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Week"
+            android:textSize="50dp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7">
+        android:layout_weight="0.5">
 
         <LinearLayout
             android:paddingLeft="30dp"
@@ -37,15 +50,9 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="ClassTitle"
                 android:layout_gravity="center"
+                android:textSize="20dp"
                  />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_marginTop="20dip"
-                android:text="ClassContent"
-                android:id="@+id/ClassContent" />
         </LinearLayout>
     </ScrollView>
 

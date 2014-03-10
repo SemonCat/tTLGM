@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.thu.ttlgm.GroupGameActivity;
-import com.thu.ttlgm.MainActivity;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.GameAdapter;
 
@@ -45,7 +43,7 @@ public class GameFragment extends BaseFragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position){
             case 0:
-                startActivity(new Intent(getActivity(), GroupGameActivity.class));
+                startActivity(new Intent(getActivity(), GameFragment.class));
                 break;
             case 1:
                 break;

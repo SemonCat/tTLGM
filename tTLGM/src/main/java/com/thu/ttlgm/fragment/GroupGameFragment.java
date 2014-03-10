@@ -6,8 +6,11 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 
-import com.thu.ttlgm.GroupGameActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.StudentGroupAdapter;
 import com.thu.ttlgm.bean.Student;
@@ -25,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class GroupGameFragment extends BaseFragment{
 
-    private static final String TAG = GroupGameActivity.class.getName();
+    private static final String TAG = GroupGameFragment.class.getName();
 
     private FancyCoverFlow mFancyCoverFlow;
     private FancyCoverFlow mFancyCoverFlow2;
@@ -36,7 +39,11 @@ public class GroupGameFragment extends BaseFragment{
     private ScheduledExecutorService scheduledExecutorService;
 
     //切換間隔，單位秒
-    private final static int updateinterval = 1;
+    private final static int updateinterval = 3;
+
+    private boolean IsFirstLoad = true;
+
+    private ImageView Finish;
 
     private Handler mHandler = new Handler(){
         @Override
@@ -57,6 +64,7 @@ public class GroupGameFragment extends BaseFragment{
         mStudentGroupAdapter = new StudentGroupAdapter(getActivity(),new ArrayList<Student>());
         mFancyCoverFlow.setAdapter(mStudentGroupAdapter);
         mFancyCoverFlow.setSelection(Integer.MAX_VALUE / 2);
+
         getStudentDataFromServer();
         /*
         mFancyCoverFlow2  = (FancyCoverFlow) findViewById(R.id.fancyCoverFlow2);
@@ -64,6 +72,15 @@ public class GroupGameFragment extends BaseFragment{
         mFancyCoverFlow2.setAdapter(mStudentGroupAdapter2);
         mFancyCoverFlow2.setSelection(Integer.MAX_VALUE / 2);
         */
+
+        Finish = (ImageView) getActivity().findViewById(R.id.Finish);
+        Finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.Fragment_Content,new GroupGameStep2Fragment()).commit();
+                getActivity().getFragmentManager().beginTransaction().remove(GroupGameFragment.this).commit();
+            }
+        });
     }
 
     @Override
@@ -103,22 +120,31 @@ public class GroupGameFragment extends BaseFragment{
 
     }
 
-
-    public void Finish(View mView){
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_groupgame, container, false);
+        return inflater.inflate(R.layout.fragment_groupgame, container, false);
     }
 
     private void getStudentDataFromServer(){
         SQService.getAllStudents(new SQService.OnAllStudentGetListener() {
             @Override
             public void OnAllStudentGetEvent(List<Student> mStudentList) {
-                mStudentGroupAdapter.refreshOnUiThread(mStudentList);
+                synchronized (mFancyCoverFlow) {
+                    try{
+                        if (IsFirstLoad){
+                            IsFirstLoad = false;
+                            mStudentGroupAdapter.refreshOnUiThreadAndSetInCenter(mStudentList, mFancyCoverFlow);
+                            return;
+                        }
+
+                        mStudentGroupAdapter.refreshOnUiThread(mStudentList);
+                    }catch (IllegalArgumentException mIllegalArgumentException){
+
+                    }
+                }
+
+
             }
         });
     }

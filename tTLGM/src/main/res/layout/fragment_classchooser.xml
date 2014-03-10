@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
 
     <com.thu.ttlgm.component.UViewPager
         android:id="@+id/ViewPagerClass"
@@ -11,4 +13,22 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/StartClass"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:src="@drawable/begin"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/line"
+        android:scaleType="centerInside"/>
+
+</RelativeLayout>

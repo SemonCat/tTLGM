@@ -28,6 +28,10 @@ public class Student {
 
     private boolean IsLogin;
 
+    private String GroupID;
+
+    private String FacebookID;
+
     public static Student toStudent(StudentInfo mInfo) {
         Student mStudent = new Student();
         mStudent.ID = mInfo.getSid();
@@ -35,6 +39,8 @@ public class Student {
         mStudent.Name = mInfo.getName();
         mStudent.ImageUrl = mInfo.getImgUrl();
         mStudent.IsLogin = false;
+        mStudent.GroupID = mInfo.getGid();
+        mStudent.FacebookID = mInfo.getFb();
         return mStudent;
     }
 
@@ -87,6 +93,21 @@ public class Student {
         ImageUrl = imageUrl;
     }
 
+    public String getGroupID() {
+        return GroupID;
+    }
+
+    public void setGroupID(String groupID) {
+        GroupID = groupID;
+    }
+
+    public String getFacebookID() {
+        return FacebookID;
+    }
+
+    public void setFacebookID(String facebookID) {
+        FacebookID = facebookID;
+    }
 
     public boolean IsLogin() {
         return IsLogin;

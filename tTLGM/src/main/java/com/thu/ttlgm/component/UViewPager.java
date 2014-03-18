@@ -451,7 +451,7 @@ public class UViewPager extends ViewGroup {
      *
      * @param item Item index to select
      */
-    private void setCurrentItem(int item) {
+    public void setCurrentItem(int item) {
         mPopulatePending = false;
         setCurrentItemInternal(item, !mFirstLayout, false);
     }

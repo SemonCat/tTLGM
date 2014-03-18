@@ -33,6 +33,7 @@ public class BaseFragment extends Fragment{
     }
 
     protected void finish(){
+
         getFragmentManager().beginTransaction().remove(this).commit();
     }
 

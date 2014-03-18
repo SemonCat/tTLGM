@@ -41,6 +41,7 @@ public class Student {
         mStudent.IsLogin = false;
         mStudent.GroupID = mInfo.getGid();
         mStudent.FacebookID = mInfo.getFb();
+        mStudent.Money = mInfo.getCoin();
         return mStudent;
     }
 

@@ -58,7 +58,53 @@ public class SQService {
     }
 
     public static void startServer(){
-        String URL = ServerIP+"/ServerSetting?service=clear";
+        String URL = ServerIP+"/ServerSetting?service=reload";
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(URL,new AsyncHttpResponseHandler(){});
+    }
+
+    public static void startHpServer(int hpMinTxt){
+        String URL = ServerIP+"/HpInterface?service=1&mins="
+                + hpMinTxt;
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(URL,new AsyncHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (responseBody!=null){
+                    String message = new String(responseBody);
+                    Log.d(TAG,"Success:"+message);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                if (responseBody!=null){
+                    String message = new String(responseBody);
+                    Log.d(TAG,"Failure:"+message);
+                }
+            }
+        });
+    }
+
+    public static void pauseHpServer(){
+        String URL = ServerIP+"/HpInterface?service=6";
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(URL,new AsyncHttpResponseHandler(){});
+    }
+
+    public static void resumeHpServer(){
+        String URL = ServerIP+"/HpInterface?service=7";
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(URL,new AsyncHttpResponseHandler(){});
+    }
+
+    public static void AddStudentCoin(String Sid,int coin){
+        String URL = ServerIP+"/AddStudentCoin?sid="+Sid+"&coin="+coin;
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(URL,new AsyncHttpResponseHandler(){});
@@ -158,24 +204,24 @@ public class SQService {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.d(TAG,"Error:"+new String(responseBody));
+                //Log.d(TAG,"Error:"+new String(responseBody));
             }
         });
     }
 
     public static void getCacheStudentList(final OnStudentGetListener mListener){
-        if (cacheStudnetList.size()==0){
+        if (cacheStudnetList.size()==0 || cacheStudnetList.isEmpty()){
             getAllStudents(new OnAllStudentGetListener() {
                 @Override
                 public void OnAllStudentGetEvent(List<Student> mStudentList) {
                     if (mListener!=null)
-                        mListener.OnStudentGetEvent(mStudentList);
+                        mListener.OnStudentGetEvent(new ArrayList<Student>(mStudentList));
                 }
             });
         }else{
 
             if (mListener!=null)
-                mListener.OnStudentGetEvent(cacheStudnetList);
+                mListener.OnStudentGetEvent(new ArrayList<Student>(cacheStudnetList));
         }
     }
 

@@ -28,6 +28,11 @@ public class PPTImageAdapter extends PagerAdapter {
 
     }
 
+    public File[] getFiles(){
+        return mImages;
+    }
+
+
     @Override
     public int getCount() {
         return mImages.length;
@@ -41,6 +46,7 @@ public class PPTImageAdapter extends PagerAdapter {
 
             PhotoView photoView = new PhotoView(container.getContext());
             photoView.setImageBitmap(mBitmap);
+
 
             // Now just add PhotoView to ViewPager and return it
             container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

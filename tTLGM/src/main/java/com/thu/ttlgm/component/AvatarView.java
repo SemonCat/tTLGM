@@ -31,6 +31,7 @@ public class AvatarView extends RoundedImageView {
     private Paint mPaint;
     private int mMaskColor = 0x81000000;
 
+    private boolean disableNumberText = false;
 
     public AvatarView(Context context) {
         this(context, null);
@@ -68,7 +69,10 @@ public class AvatarView extends RoundedImageView {
         canvas.drawArc(oval,startAngle,2*(90-startAngle),false,mPaint);
 
         /**畫血量趴數**/
-        drawPercent(canvas,mPaint);
+
+        if (!disableNumberText){
+            drawPercent(canvas,mPaint);
+        }
     }
 
     private void drawPercent(Canvas canvas,Paint mPaint) {
@@ -116,5 +120,11 @@ public class AvatarView extends RoundedImageView {
         invalidate();
 
     }
+
+    public void setNumberTextEnable(boolean IsEnable){
+        this.disableNumberText = !IsEnable;
+        invalidate();
+    }
+
 
 }

@@ -14,9 +14,11 @@ import com.thu.ttlgm.bean.Class;
 import com.thu.ttlgm.floatwindow.FloatWindowService;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
+import com.thu.ttlgm.fragment.RandomFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
 import com.thu.ttlgm.service.SQService;
+import com.thu.ttlgm.utils.SharedPreferencesUtils;
 
 import aidl.IFloatWindowService;
 
@@ -33,12 +35,18 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //清空PPT頁數紀錄
+        SharedPreferencesUtils.setPPTPage(this, 0);
+
         //SetupDefault
         replaceFragment(new ClassChooserFragment(),ClassChooserFragment.class.getName());
 
         setupService();
 
         SQService.startServer();
+
+        //快取圖片
+        RandomFragment.LoadCache();
     }
 
     @Override

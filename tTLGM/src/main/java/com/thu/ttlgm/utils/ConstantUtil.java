@@ -8,6 +8,8 @@ import java.io.File;
  * Created by SemonCat on 2014/1/16.
  */
 public class ConstantUtil {
+    public static final String BugSenseApiKey = "0b6e3c1f";
+
     public static final String SDCardPath = Environment.getExternalStorageDirectory().toString();
     public static final String TLGMPath = SDCardPath + File.separator +
             "TLGM";
@@ -16,8 +18,12 @@ public class ConstantUtil {
     public static final String ServerIP = "http://54.214.24.26:8080/StudentSquare_server";
 
 
+    public static final int HpInterval = 20;
+
     public static final String SubjectFileName = "/ClassData.xml";
     public static final String SubjectDataPath = TLGMPath + SubjectFileName;
+
+    public static final String WeekPath = "/Week";
 
     /**ppt**/
     public static final String PPTDir = "/PPT";
@@ -26,6 +32,10 @@ public class ConstantUtil {
     /**pdf**/
     public static final String PDFDir = "/PDF";
     public static final String PDFPath = TLGMPath + PDFDir;
+
+    /**movie**/
+    public static final String MovieDir = "/MOVIE";
+    public static final String MoviePath = TLGMPath + MovieDir;
 
     /**Facebook**/
     public static final String Facebook = "https://www.facebook.com/";

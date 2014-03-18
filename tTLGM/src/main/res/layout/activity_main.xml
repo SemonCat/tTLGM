@@ -31,5 +31,14 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/CalcArea"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+
+
+    </FrameLayout>
+
 </RelativeLayout>
 

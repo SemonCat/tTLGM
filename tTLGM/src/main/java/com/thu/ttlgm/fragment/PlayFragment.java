@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -56,6 +57,14 @@ public class PlayFragment extends BaseFragment implements PollHandler.OnMessageR
         container = (RelativeLayout) getActivity().findViewById(R.id.container);
         LayoutInflater  inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mAlertListView = (ListView) inflater.inflate(R.layout.layout_alert, null);
+
+        mAlertListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                OnAlertTouch(event);
+                return false;
+            }
+        });
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(dip2px(60), ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -131,6 +140,10 @@ public class PlayFragment extends BaseFragment implements PollHandler.OnMessageR
 
             }
         });
+    }
+
+    public void OnAlertTouch(MotionEvent event){
+
     }
 
     public int dip2px(float dipValue) {

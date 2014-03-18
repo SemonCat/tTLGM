@@ -19,6 +19,7 @@ import com.thu.ttlgm.bean.Class;
 import com.thu.ttlgm.component.UViewPager;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
+import com.thu.ttlgm.utils.SharedPreferencesUtils;
 
 import java.io.File;
 
@@ -78,7 +79,7 @@ public class ClassChooserFragment extends BaseFragment{
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mUViewPager.setCurrentItem(mCurrentItemPosition,true);
+                mUViewPager.setCurrentItemInCenter(SharedPreferencesUtils.getWeek(getActivity()));
             }
         });
     }
@@ -94,7 +95,9 @@ public class ClassChooserFragment extends BaseFragment{
 
             @Override
             public void onPageSelected(int position) {
+
                 ((MainActivity)getActivity()).setCurrentClass(mAdapter.getItem(position));
+                SharedPreferencesUtils.setWeek(getActivity(),position);
             }
 
             @Override

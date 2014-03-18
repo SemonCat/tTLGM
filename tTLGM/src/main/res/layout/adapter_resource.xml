@@ -10,5 +10,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="檔案名稱"
+        android:maxLines="2"
+        android:ellipsize = "end"
         android:id="@+id/FileName" />
 </LinearLayout>

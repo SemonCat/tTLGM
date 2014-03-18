@@ -16,19 +16,24 @@ import android.webkit.WebViewFragment;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.thu.ttlgm.calc.CQCalculatorFragment;
+import com.thu.ttlgm.component.HpControler;
 import com.thu.ttlgm.component.SlidingDrawer;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.GroupGameFragment;
+import com.thu.ttlgm.fragment.RandomFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
 import com.thu.ttlgm.fragment.WorkFragment;
 import com.thu.ttlgm.service.PollHandler;
+import com.thu.ttlgm.service.SQService;
+import com.thu.ttlgm.utils.ConstantUtil;
 
 /**
  * Created by SemonCat on 2014/1/11.
  */
-public class BaseActivity extends Activity implements PollHandler.OnMessageReceive {
+public class BaseActivity extends Activity implements PollHandler.OnMessageReceive,HpControler.OnHpControlerListener{
 
     private Handler mHideHandler = new Handler();
 
@@ -37,6 +42,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     private PollHandler mPollHandler;
 
     private static final int StartFragment = 0x123123;
+
+    private HpControler mHpControler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +91,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         mDrawer = (SlidingDrawer) findViewById(R.id.drawer);
         final View HandleView = mDrawer.getHandle();
 
+
+
         final View DownIcon = HandleView.findViewById(R.id.DownIcon);
         mDrawer.setOnDrawerOpenListener(new SlidingDrawer.OnDrawerOpenListener() {
             @Override
@@ -101,6 +110,13 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
                 DownIcon.setVisibility(View.GONE);
             }
         });
+
+        setupHpControl();
+    }
+
+    private void setupHpControl(){
+        mHpControler = new HpControler(this,mDrawer);
+        mHpControler.setListener(this);
     }
 
     public void HideDrawer() {
@@ -148,6 +164,39 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         HideDrawer();
     }
 
+    public void toRandom(View mView){
+        addFragment(new RandomFragment(),RandomFragment.class.getName());
+        HideDrawer();
+
+        setDrawerEnable(false);
+    }
+
+    public void toCalc(View mView){
+        String TAG = CQCalculatorFragment.class.getName();
+
+        Fragment mFragment = new CQCalculatorFragment();
+
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
+        if (findFragment != null) {
+            HideDrawer();
+            return;
+        }
+
+        transaction.add(R.id.CalcArea, mFragment,TAG);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        transaction.commit();
+
+        HideDrawer();
+
+        setDrawerEnable(false);
+    }
+
+
+
     public void replaceFragment(final Fragment mFragment,final String TAG) {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -160,6 +209,24 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
         transaction.commit();
 
+
+    }
+
+    public void addFragment(Fragment mFragment,String TAG) {
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
+        if (findFragment != null) {
+            HideDrawer();
+            return;
+        }
+
+
+        transaction.add(R.id.Fragment_Content, mFragment,TAG);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        transaction.commit();
 
     }
 
@@ -217,6 +284,55 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
         }else{
             super.onBackPressed();
+        }
+    }
+
+    public void startHpServer(){
+        mHpControler.startHp();
+        SQService.startHpServer(ConstantUtil.HpInterval);
+    }
+
+    public void stopHpServer(){
+        SQService.pauseHpServer();
+    }
+
+    public void pauseHpServer(){
+        SQService.pauseHpServer();
+    }
+
+    public void resumeHpServer(){
+        SQService.resumeHpServer();
+    }
+
+    @Override
+    public void OnHpStartClick() {
+        Log.d("Hp","OnHpStartClick");
+        SQService.startHpServer(ConstantUtil.HpInterval);
+    }
+
+    @Override
+    public void OnHpPauseClick() {
+        Log.d("Hp","OnHpPauseClick");
+        pauseHpServer();
+    }
+
+    @Override
+    public void OnHpStopClick() {
+        Log.d("Hp","OnHpStopClick");
+        stopHpServer();
+    }
+
+    @Override
+    public void OnHpResumeClick() {
+        Log.d("Hp","OnHpResumeClick");
+        resumeHpServer();
+    }
+
+    public void setDrawerEnable(boolean Enable){
+        if (Enable) {
+            mDrawer.setVisibility(View.VISIBLE);
+        }else{
+            mDrawer.setVisibility(View.GONE);
         }
     }
 }

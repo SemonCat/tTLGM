@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/typeText"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/calcColor"
+        android:text="種類一"/>
+
+
+    <TextView
+        android:id="@+id/andText"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/calcColor"
+        android:text="1 +"/>
+
+
+    <EditText
+        android:id="@+id/inputEditText"
+        android:layout_width="0dp"
+        android:inputType="number"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textColor="@color/calcColor"
+        android:gravity="center"
+        />
+
+
+</LinearLayout>

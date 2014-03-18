@@ -28,4 +28,7 @@
     <!--DRAWER-->
     <color name="DrawerHandleBackground">@android:color/transparent</color>
     <color name="DrawerContentBackground">@android:color/darker_gray</color>
+
+    <color name="calcColor">#000000</color>
+
 </resources>

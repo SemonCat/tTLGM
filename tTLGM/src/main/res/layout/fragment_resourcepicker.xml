@@ -13,20 +13,21 @@
         android:background="@android:color/white"/>
 
     <LinearLayout
+        android:id="@+id/PPTArea"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:weightSum="1"
-        android:background="@color/ResourcePPT_Title">
+        android:background="@color/ResourcePPT_Title"
+        android:clickable="true">
 
             <ImageView
                 android:clickable="false"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.3"
-                android:padding="30dp"
                 android:src="@drawable/ppt"/>
 
         <View
@@ -51,6 +52,7 @@
         android:background="@android:color/white"/>
 
     <LinearLayout
+        android:id="@+id/VideoArea"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
@@ -64,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
-            android:padding="30dp"
             android:src="@drawable/video"/>
 
         <View
@@ -73,6 +74,7 @@
             android:background="@android:color/white"/>
 
         <ListView
+            android:id="@+id/ListViewResourceMovie"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.7"
@@ -88,6 +90,7 @@
         android:background="@android:color/white"/>
 
     <LinearLayout
+        android:id="@+id/WordArea"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
@@ -101,7 +104,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
-            android:padding="30dp"
             android:src="@drawable/word"/>
 
         <View
@@ -125,6 +127,7 @@
         android:background="@android:color/white"/>
 
     <LinearLayout
+        android:id="@+id/PdfArea"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
@@ -138,7 +141,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
-            android:padding="30dp"
             android:src="@drawable/pdf"/>
 
         <View
@@ -163,6 +165,7 @@
         android:background="@android:color/white"/>
 
     <LinearLayout
+        android:id="@+id/ImageArea"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
@@ -176,7 +179,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
-            android:padding="30dp"
             android:src="@drawable/image"/>
 
         <View

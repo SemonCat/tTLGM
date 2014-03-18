@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/DrawerContentBackground"
     android:id="@id/content"
     android:orientation="vertical"
@@ -10,58 +9,53 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/white"/>
-
-
-
-
+        android:background="@android:color/white" />
 
     <LinearLayout
-        android:id="@+id/FunctionArea"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="100dip"
+        android:layout_height="70dip"
         android:gravity="center">
 
         <com.thu.ttlgm.component.UImageButton
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:padding="10dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:src="@drawable/home"
             android:scaleType="fitXY"
             android:background="@drawable/round_button_green"
-            android:onClick="toHome"/>
+            android:onClick="toHome" />
 
         <com.thu.ttlgm.component.UImageButton
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:padding="10dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:src="@drawable/students"
             android:scaleType="fitXY"
             android:background="@drawable/round_button_green"
-            android:onClick="toStudents"/>
+            android:onClick="toStudents" />
 
         <com.thu.ttlgm.component.UImageButton
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:padding="10dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:src="@drawable/works"
             android:scaleType="fitXY"
             android:background="@drawable/round_button_green"
-            android:onClick="toWorks"/>
+            android:onClick="toWorks" />
 
         <com.thu.ttlgm.component.UImageButton
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:padding="10dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:src="@drawable/files"
             android:scaleType="fitXY"
             android:background="@drawable/round_button_green"
-            android:onClick="toFiles"/>
+            android:onClick="toFiles" />
 
 
     </LinearLayout>
@@ -69,12 +63,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="100dip"
+        android:layout_height="60dip"
         android:gravity="center"
         android:weightSum="1">
 
@@ -84,24 +78,97 @@
             android:layout_weight="0.5"
             android:src="@drawable/groupinggameicon"
             android:clickable="true"
-            android:onClick="toGroupGame"/>
+            android:onClick="toGroupGame" />
 
         <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white" />
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:src="@drawable/celt"
-            android:clickable="true"/>
+            android:clickable="true" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/obj_t_bloodicon" />
+
+        <com.yvelabs.chronometer2.Chronometer
+            android:id="@+id/Timer"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"/>
+
+        <ToggleButton
+            android:id="@+id/HpControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/hp_control"
+            android:layout_margin="10dp"
+            android:textOn=""
+            android:textOff=""
+            android:focusable="false"
+            android:checked="true"
+            android:focusableInTouchMode="false" />
+
+        <ImageView
+            android:id="@+id/HpStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/btn_t_bloodstop"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/white" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="80dip"
+        android:gravity="center">
+
+        <com.thu.ttlgm.component.UImageButton
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/btn_t_random"
+            android:scaleType="fitXY"
+            android:background="@drawable/round_button_green"
+            android:onClick="toRandom"/>
+
+        <com.thu.ttlgm.component.UImageButton
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/btn_t_cq"
+            android:scaleType="fitXY"
+            android:background="@drawable/round_button_green"
+            android:onClick="toCalc"/>
+
+
+    </LinearLayout>
 </LinearLayout>

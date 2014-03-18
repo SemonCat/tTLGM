@@ -49,4 +49,6 @@ dependencies {
     compile 'com.nhaarman.listviewanimations:library:2.6.0'
     compile files('libs/android-viewbadger.jar')
     compile files('libs/VuDroid.jar')
+    compile files('libs/yvelabs-chronometer-v2.0.jar')
+    compile files('libs/bugsense-3.6.jar')
 }

@@ -5,14 +5,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:padding="30dp">
+    android:background="@android:color/white">
 
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="200dp"
-        android:layout_height="fill_parent">
+        android:layout_width="150dp"
+        android:layout_height="fill_parent"
+        android:background="@drawable/obj_t_studentlistbar">
 
         <TextView
             android:id="@+id/SortByID"
@@ -53,7 +53,18 @@
             android:padding="20dp"
             android:id="@+id/ShowUnLogin"
             android:layout_gravity="center_horizontal"
-            android:checked="true"/>
+            android:checked="true"
+            android:visibility="gone"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="顯示血量"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:padding="15dp"
+            android:id="@+id/ShowBlood"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"/>
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshGridView

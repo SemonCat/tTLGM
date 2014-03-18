@@ -1,6 +1,7 @@
 package com.thu.ttlgm.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Address;
 import android.media.Image;
 import android.os.Handler;
@@ -44,6 +45,8 @@ public class StudentAdapter extends BaseAdapter {
     private Random mRandom = new Random();
 
     private Handler mHandler = new Handler();
+
+    private boolean IsShowBlood = false;
 
     DisplayImageOptions options;
 
@@ -133,6 +136,11 @@ public class StudentAdapter extends BaseAdapter {
             holder.Name = (TextView) convertView.findViewById(R.id.name);
             holder.Department = (TextView) convertView.findViewById(R.id.department);
             holder.mBadgeView = new BadgeView(mContext, holder.Icon);
+            holder.mBadgeView.setBadgeBackgroundColor(Color.YELLOW);
+            holder.mBadgeView.setTextColor(Color.BLACK);
+            holder.mBadgeView.setBadgePosition(BadgeView.POSITION_TOP_LEFT);
+
+            holder.mBadgeView2 = new BadgeView(mContext, holder.Icon);
 
             convertView.setTag(holder);
         }else{
@@ -147,6 +155,7 @@ public class StudentAdapter extends BaseAdapter {
         int blood = mStudent.getBlood();
         int money = mStudent.getMoney();
 
+        holder.Icon.setNumberTextEnable(IsShowBlood);
         holder.Icon.setProgress(blood);
 
         String URL = mStudent.getImageUrl();
@@ -157,6 +166,10 @@ public class StudentAdapter extends BaseAdapter {
         }
         holder.mBadgeView.setText(String.valueOf(money));
         holder.mBadgeView.show();
+
+
+        holder.mBadgeView2.setText(String.valueOf(blood));
+        holder.mBadgeView2.show();
 
 
         return convertView;
@@ -255,11 +268,18 @@ public class StudentAdapter extends BaseAdapter {
 
     }
 
+    public void setShowBlood(boolean Enable){
+        IsShowBlood = Enable;
+
+        notifyDataSetInvalidated();
+    }
+
     class ViewHolder{
         AvatarView Icon;
         TextView Name;
         TextView StudentID;
         TextView Department;
         BadgeView mBadgeView;
+        BadgeView mBadgeView2;
     }
 }

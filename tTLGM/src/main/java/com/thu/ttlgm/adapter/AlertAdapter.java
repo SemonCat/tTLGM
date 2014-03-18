@@ -83,6 +83,8 @@ public class AlertAdapter extends BaseAdapter implements AnimateAdditionAdapter.
     }
 
     public void addStudent(Student mStudent){
+        if (mStudentList.contains(mStudent)) {return;}
+
         setupAutoDelete();
         mStudentList.add(mStudent);
         notifyDataSetChanged();

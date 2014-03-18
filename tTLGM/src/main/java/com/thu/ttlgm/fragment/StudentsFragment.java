@@ -43,6 +43,7 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
     private TextView SortByMoney;
 
     private CheckBox ShowUnLogin;
+    private CheckBox ShowBlood;
     private PullToRefreshGridView mPullRefreshGridView;
     private GridView mStudentList;
     private StudentAdapter mAdapter;
@@ -80,6 +81,8 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
         SortByBlood = (TextView) getActivity().findViewById(R.id.SortByBlood);
         SortByMoney = (TextView) getActivity().findViewById(R.id.SortByMoney);
         ShowUnLogin = (CheckBox) getActivity().findViewById(R.id.ShowUnLogin);
+
+        ShowBlood = (CheckBox) getActivity().findViewById(R.id.ShowBlood);
     }
 
     @Override
@@ -110,6 +113,13 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
 
                 mAdapter.OnlyShowLogin(!isChecked);
 
+            }
+        });
+
+        ShowBlood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mAdapter.setShowBlood(isChecked);
             }
         });
     }

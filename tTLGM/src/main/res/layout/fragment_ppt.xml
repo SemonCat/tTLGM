@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.thu.ttlgm.component.HackyViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"/>
 
     <Button
         android:id="@+id/PlayGame"
@@ -15,5 +17,21 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:background="@null"/>
+
+    <ImageView
+        android:id="@+id/leftButton"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/btn_t_hintback"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/rightButton"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_t_hintforward"
+        android:clickable="true"/>
 
 </RelativeLayout>

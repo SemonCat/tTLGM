@@ -134,16 +134,17 @@ public class PPTFragment extends PlayFragment{
 
                 if (MissionCode!=null){
                     Log.d(TAG,"sendMission:"+MissionCode);
+                    SQService.startQuestion(MissionCode,"1");
+
+                    if (MissionCode.equals("21")){
+                        SQService.startQuestion("0","1");
+                    }else if(MissionCode.equals("22")){
+                        SQService.startQuestion("1","1");
+                    }
                 }
 
 
-                if (mPosition==missionPosition[0]){
-                    SQService.startQuestion("0","1");
-                }else if(mPosition==missionPosition[1]){
-                    SQService.startQuestion("1","1");
-                }else if(mPosition==missionPosition[2]){
-                    SQService.startQuestion("2","1");
-                }
+
 
 
             }

@@ -69,6 +69,7 @@ public class SQService {
                 + hpMinTxt;
         AsyncHttpClient client = new AsyncHttpClient();
 
+        resumeHpServer();
         client.get(URL,new AsyncHttpResponseHandler(){
 
             @Override

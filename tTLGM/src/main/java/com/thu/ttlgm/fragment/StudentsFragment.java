@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridView;
@@ -71,10 +72,22 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
 
             }
 
+
         });
 
         PauseOnScrollListener mPauseOnScrollListener = new PauseOnScrollListener(ImageLoader.getInstance(), true,true);
         mStudentList.setOnScrollListener(mPauseOnScrollListener);
+
+        mStudentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String Sid = mAdapter.getItem(position).getID();
+                SQService.AddStudentCoin(Sid,ConstantUtil.TeacherAddCoin);
+                Toast.makeText(getActivity(),"加錢成功！",Toast.LENGTH_SHORT).show();
+                getStudentDataFromServer();
+                return false;
+            }
+        });
 
 
         SortByID = (TextView) getActivity().findViewById(R.id.SortByID);

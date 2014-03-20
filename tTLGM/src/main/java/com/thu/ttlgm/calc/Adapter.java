@@ -166,10 +166,11 @@ public class Adapter extends BaseAdapter {
         contentArrayList.get(lastPosition).setContent(setString);
 
         //Log.d("getList",contentArrayList.get(lastPosition).getContent());
+        /*
         if ((lastPosition == counter - 1 )&& counter<20) {
             addCounter();
 
-        }
+        }*/
         notifyDataSetChanged();
     }
     public int getLastPosition(){
@@ -179,16 +180,17 @@ public class Adapter extends BaseAdapter {
 
 
         float sum=1;
-        if(counter-1>0){
-            for(int i=0;i<counter-1;i++){
+        if(counter>0){
+            for(int i=0;i<counter;i++){
                 try {
                     sum=sum*(Float.valueOf(contentArrayList.get(i).getContent())+1);
                 }catch (NumberFormatException mNumberFormatException){
                     continue;
                 }
             }
+
         }else {
-            sum=0;
+            sum=1;
         }
        // Log.d("SUM",String.valueOf(sum));
         //Log.d("LOG1024",String.valueOf(log(1024,2)));
@@ -196,8 +198,8 @@ public class Adapter extends BaseAdapter {
     }
     public double getScore(){
         float sum=1;
-        if(counter-1>0){
-            for(int i=0;i<counter-1;i++){
+        if(counter>0){
+            for(int i=0;i<counter;i++){
                 try {
                     sum=sum*(Float.valueOf(contentArrayList.get(i).getContent())+1);
                 }catch (NumberFormatException mNumberFormatException){
@@ -205,7 +207,11 @@ public class Adapter extends BaseAdapter {
                 }
 
             }
-            return log(sum,2);
+            if (sum>0){
+                //Log.d("SUM",String.valueOf(sum));
+                return log(sum,2);
+            }
+            else return 0;
         }else {
             sum=0;
         }

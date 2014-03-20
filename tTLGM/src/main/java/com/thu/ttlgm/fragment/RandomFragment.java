@@ -28,6 +28,7 @@ import com.thu.ttlgm.R;
 import com.thu.ttlgm.bean.Student;
 import com.thu.ttlgm.component.IconView;
 import com.thu.ttlgm.service.SQService;
+import com.thu.ttlgm.utils.ConstantUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +154,8 @@ public class RandomFragment extends BaseFragment{
             @Override
             public void onClick(View v) {
                 Add.setEnabled(false);
-                SQService.AddStudentCoin(mTarget.getID(),1);
+                SQService.AddStudentCoin(mTarget.getID(),
+                        ConstantUtil.TeacherAddCoin);
 
                 AddCoinTip.setVisibility(View.VISIBLE);
                 AddCoinTip.startAnimation(animation);

@@ -17,8 +17,10 @@ public class ConstantUtil {
 
     public static final String ServerIP = "http://54.214.24.26:8080/StudentSquare_server";
 
+    public static final int TeacherAddCoin = 1;
 
-    public static final int HpInterval = 20;
+
+    public static final int HpInterval = 40;
 
     public static final String SubjectFileName = "/ClassData.xml";
     public static final String SubjectDataPath = TLGMPath + SubjectFileName;

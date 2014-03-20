@@ -7,8 +7,8 @@
 
     <com.thu.ttlgm.component.IconView
         android:id="@+id/TargetIcon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/default_icon"
         app:corner_radius="360dip"
         app:border_width="2dip"
@@ -87,7 +87,7 @@
                 android:id="@+id/CoinTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$100"
+                android:text="$1"
                 android:textSize="50dp"
                 android:textColor="#fffbcc12"
                 android:layout_gravity="center"

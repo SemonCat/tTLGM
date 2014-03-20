@@ -172,6 +172,12 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     }
 
     public void toCalc(View mView){
+        addFragment(new CQCalculatorFragment(),CQCalculatorFragment.class.getName());
+        HideDrawer();
+
+        setDrawerEnable(false);
+
+        /*
         String TAG = CQCalculatorFragment.class.getName();
 
         Fragment mFragment = new CQCalculatorFragment();
@@ -193,6 +199,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         HideDrawer();
 
         setDrawerEnable(false);
+        */
+
     }
 
 

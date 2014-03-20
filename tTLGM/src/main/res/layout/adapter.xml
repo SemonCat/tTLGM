@@ -3,7 +3,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="4"
+    >
 
 
     <TextView
@@ -12,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/calcColor"
+        android:textSize="12dp"
         android:text="種類一"/>
 
 
@@ -22,7 +24,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="@color/calcColor"
+        android:textSize="20dp"
         android:text="1 +"/>
 
 
@@ -31,9 +33,9 @@
         android:layout_width="0dp"
         android:inputType="number"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:textColor="@color/calcColor"
+        android:layout_weight="2"
         android:gravity="center"
+        android:textSize="20dp"
         />
 
 

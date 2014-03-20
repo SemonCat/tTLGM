@@ -1,19 +1,24 @@
 package com.thu.ttlgm.calc;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.thu.ttlgm.MainActivity;
+import com.thu.ttlgm.BaseActivity;
 import com.thu.ttlgm.R;
+import com.thu.ttlgm.component.IconView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,8 @@ import java.util.List;
 
 public class CQCalculatorFragment extends Fragment {
 
+    private IconView CalcIcon;
+    private LinearLayout CalcContent;
 
     private long lastTouch = System.currentTimeMillis();
 
@@ -29,20 +36,30 @@ public class CQCalculatorFragment extends Fragment {
     private int nowGroup=0;
     final boolean checkedCalc[]=new boolean[groupCount];
     private double groupScore[]=new double[groupCount];
+    private ArrayList<Double> sortedGroupScore=new ArrayList<Double>();
+    private ArrayList<String> sortedGroupName=new ArrayList<String>();
 
-    private int CalcArea = R.id.CalcArea;
-
+    private final String[] groupName=new String[]{"第一組", "第二組", "第三組", "第四組", "第五組", "第六組", "第七組", "第八組", "第九組",};
     public CQCalculatorFragment() {
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        CalcIcon = (IconView) getActivity().findViewById(R.id.CalcIcon);
+        CalcIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CalcContent.setVisibility(View.VISIBLE);
+                CalcIcon.setVisibility(View.GONE);
+            }
+        });
+        CalcContent = (LinearLayout) getActivity().findViewById(R.id.CalcContent);
         final ListView mlistview = (ListView) getActivity().findViewById(R.id.listview);
         final String[] typeName = new String[] { "種類一", "種類二", "種類三", "種類四", "種類五",
                 "種類六", "種類七", "種類八", "種類九", "種類十" , "種類十一" , "種類十二" , "種類十三"
                 , "種類十四" , "種類十五" , "種類十六" , "種類十七" , "種類十八" , "種類十九" , "種類二十" };
-        final String[] groupName= new String[]{"第一組", "第二組", "第三組", "第四組", "第五組", "第六組", "第七組", "第八組", "第九組",};
         for(int i=0;i<groupCount;i++){
             checkedCalc[i]=true;
             groupScore[i]=0;
@@ -57,6 +74,9 @@ public class CQCalculatorFragment extends Fragment {
 
         final Adapter calcAdapter = new Adapter(getActivity(),initData(),typeName);
 
+        final ListView sortListView = (ListView) getActivity().findViewById(R.id.sortlistview);
+
+
         calcAdapter.setListener(new Adapter.OnDataChangeListener() {
             @Override
             public void beforeDataChangeEvent(int mposition) {
@@ -68,6 +88,28 @@ public class CQCalculatorFragment extends Fragment {
                 mlistview.setSelection(position);
             }
         });
+        View blankPlaceView=getActivity().findViewById(R.id.blankPlaceLayout);
+        blankPlaceView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bubble();
+            }
+        });
+
+        final LinearLayout calcView=(LinearLayout)getActivity().findViewById(R.id.calcList_layout);
+        final LinearLayout sortView=(LinearLayout)getActivity().findViewById(R.id.sort_layout);
+
+        View addButtonView = LayoutInflater.from(getActivity()).inflate(R.layout.addbuttonlayout, null);
+        Button footButton =(Button) addButtonView.findViewById(R.id.addButton);
+        footButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calcAdapter.addCounter();
+                calcAdapter.notifyDataSetChanged();
+            }
+        });
+
+        mlistview.addFooterView(addButtonView);
         mlistview.setAdapter(calcAdapter);
         mlistview.setItemChecked(calcAdapter.getLastPosition(), true);
         groupTextView.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +131,7 @@ public class CQCalculatorFragment extends Fragment {
             public void onClick(View view) {
                 if (System.currentTimeMillis()-lastTouch<1000){
                     getActivity().getFragmentManager().beginTransaction().remove(CQCalculatorFragment.this).commit();
-
-                    ((MainActivity)getActivity()).setDrawerEnable(true);
+                    ((BaseActivity)getActivity()).setDrawerEnable(true);
                 }else{
                     Toast.makeText(getActivity(),"若要關閉，請連續點擊X鍵。",Toast.LENGTH_SHORT).show();
                 }
@@ -99,8 +140,25 @@ public class CQCalculatorFragment extends Fragment {
         });
 
 
-        Button calcButton=(Button)(getActivity().findViewById(R.id.cacl));
-        Button sort=(Button) getActivity().findViewById(R.id.sort);
+
+
+
+
+        Button removeSortButton=(Button) getActivity().findViewById(R.id.removeSortButton);
+        removeSortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sortView.setVisibility(View.GONE);
+                LinearLayout buttonLayout=(LinearLayout)getActivity().findViewById(R.id.calcButtonLayout);
+                buttonLayout.setVisibility(View.VISIBLE);
+                calcView.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        TextView calcButton=(TextView)(getActivity().findViewById(R.id.cacl));
+        TextView sort=(TextView) getActivity().findViewById(R.id.sort);
         TextView button0=(TextView) getActivity().findViewById(R.id.button0);
         TextView button1=(TextView) getActivity().findViewById(R.id.button1);
         TextView button2=(TextView) getActivity().findViewById(R.id.button2);
@@ -116,10 +174,19 @@ public class CQCalculatorFragment extends Fragment {
         calcButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(calcAdapter.getSum()>0){
+                if(calcAdapter.getSum()>1){
+
+                    LinearLayout buttonLayout=(LinearLayout)getActivity().findViewById(R.id.calcButtonLayout);
+                    buttonLayout.setVisibility(View.GONE);
                     groupScore[nowGroup]=calcAdapter.getScore();
                     checkedCalc[nowGroup]=false;
-                    getFragmentManager().beginTransaction().add(CalcArea, new sortFragment(groupScore,groupName)).commit();
+                    sortedScore(groupScore);
+
+                    sortAdapter sortAdapter=new sortAdapter(getActivity(),sortedGroupScore,sortedGroupName);
+                    sortListView.setAdapter(sortAdapter);
+
+                    calcView.setVisibility(View.GONE);
+                    sortView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -226,17 +293,50 @@ public class CQCalculatorFragment extends Fragment {
         sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().add(CalcArea, new sortFragment(groupScore,groupName)).commit();
+
+                LinearLayout buttonLayout=(LinearLayout)getActivity().findViewById(R.id.calcButtonLayout);
+                buttonLayout.setVisibility(View.GONE);
+
+                calcView.setVisibility(View.GONE);
+                sortView.setVisibility(View.VISIBLE);
             }
         });
 
-        //算盤
+    }
+    private void bubble(){
+        CalcContent.setVisibility(View.GONE);
+        CalcIcon.setVisibility(View.VISIBLE);
+    }
 
+    private void sortedScore(double[] array){
+        if (sortedGroupScore.size()>0){
+            sortedGroupScore.clear();
+        }
+        if(sortedGroupName.size()>0){
+            sortedGroupName.clear();
+        }
 
+        for(int i=0;i<array.length;i++){
+            if(array[i]>0){
+                sortedGroupScore.add(array[i]);
+                sortedGroupName.add(groupName[i]);
+            }
+        }
+        if(sortedGroupScore.size()>1){
+            for (int i=0; i<sortedGroupScore.size();i++){
+                for (int j = i; j < sortedGroupScore.size(); j++)
+                    if (sortedGroupScore.get(j) > sortedGroupScore.get(i))
+                    {
+                        double temp=sortedGroupScore.get(j);
+                        sortedGroupScore.set(j,sortedGroupScore.get(i));
+                        sortedGroupScore.set(i,temp);
 
-
-
-
+                        String temp2=sortedGroupName.get(j);
+                        sortedGroupName.set(j,sortedGroupName.get(i));
+                        sortedGroupName.set(i,temp2);
+                    }
+            }
+        }
 
     }
     private int getNowGroup(int now){

@@ -2,6 +2,7 @@ package com.thu.ttlgm.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -51,9 +52,13 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
 
     private SwingBottomInAnimationAdapter swingBottomInAnimationAdapter;
 
+    private Handler mHandler;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mHandler = new Handler();
 
     }
 
@@ -87,17 +92,13 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
                 SQService.AddStudentCoin(Sid,ConstantUtil.TeacherAddCoin);
                 Toast.makeText(getActivity(),"加錢成功！",Toast.LENGTH_SHORT).show();
 
-                SQService.getAllStudents(
-                        new SQService.OnAllStudentGetListener() {
+                mHandler.postDelayed(new Runnable() {
                     @Override
-                    public void OnAllStudentGetEvent
-                            (List<Student> mStudentList) {
-
-                        Log.d(TAG,"更新學生");
-                        mAdapter.refreshOnUiThread(mStudentList);
-
+                    public void run() {
+                        getStudentDataFromServer();
                     }
-                });
+                },500);
+
                 return false;
             }
         });

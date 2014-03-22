@@ -2,23 +2,16 @@ package com.thu.ttlgm.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.location.Address;
-import android.media.Image;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.readystatesoftware.viewbadger.BadgeView;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.bean.Student;
@@ -135,12 +128,14 @@ public class StudentAdapter extends BaseAdapter {
             holder.StudentID = (TextView) convertView.findViewById(R.id.student_id);
             holder.Name = (TextView) convertView.findViewById(R.id.name);
             holder.Department = (TextView) convertView.findViewById(R.id.department);
-            holder.mBadgeView = new BadgeView(mContext, holder.Icon);
-            holder.mBadgeView.setBadgeBackgroundColor(Color.YELLOW);
-            holder.mBadgeView.setTextColor(Color.BLACK);
-            holder.mBadgeView.setBadgePosition(BadgeView.POSITION_TOP_LEFT);
+            holder.Coin = new BadgeView(mContext, holder.Icon);
+            holder.Coin.setBadgeBackgroundColor(Color.YELLOW);
+            holder.Coin.setTextColor(Color.BLACK);
+            holder.Coin.setBadgePosition(BadgeView.POSITION_TOP_LEFT);
+            holder.Coin.show();
 
-            holder.mBadgeView2 = new BadgeView(mContext, holder.Icon);
+            holder.Blood = new BadgeView(mContext, holder.Icon);
+            holder.Blood.show();
 
             convertView.setTag(holder);
         }else{
@@ -164,12 +159,12 @@ public class StudentAdapter extends BaseAdapter {
         }else{
             holder.Icon.setImageResource(R.drawable.default_icon);
         }
-        holder.mBadgeView.setText(String.valueOf(money));
-        holder.mBadgeView.show();
+        holder.Coin.setText(String.valueOf(money));
 
 
-        holder.mBadgeView2.setText(String.valueOf(blood));
-        holder.mBadgeView2.show();
+
+        holder.Blood.setText(String.valueOf(blood));
+
 
 
         return convertView;
@@ -279,7 +274,7 @@ public class StudentAdapter extends BaseAdapter {
         TextView Name;
         TextView StudentID;
         TextView Department;
-        BadgeView mBadgeView;
-        BadgeView mBadgeView2;
+        BadgeView Coin;
+        BadgeView Blood;
     }
 }

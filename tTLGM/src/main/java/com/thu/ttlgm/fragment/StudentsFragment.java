@@ -49,6 +49,8 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
     private GridView mStudentList;
     private StudentAdapter mAdapter;
 
+    private SwingBottomInAnimationAdapter swingBottomInAnimationAdapter;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -85,14 +87,15 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
                 SQService.AddStudentCoin(Sid,ConstantUtil.TeacherAddCoin);
                 Toast.makeText(getActivity(),"加錢成功！",Toast.LENGTH_SHORT).show();
 
-
                 SQService.getAllStudents(
                         new SQService.OnAllStudentGetListener() {
                     @Override
                     public void OnAllStudentGetEvent
                             (List<Student> mStudentList) {
 
+                        Log.d(TAG,"更新學生");
                         mAdapter.refreshOnUiThread(mStudentList);
+
                     }
                 });
                 return false;
@@ -110,16 +113,14 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void setupAdapter() {
-        Subject mSubject = getClassData();
-        List<Student> mStudents = new ArrayList<Student>();
-        if (mSubject!=null)
-            mStudents = mSubject.getStudents();
+
         mAdapter = new StudentAdapter(getActivity());
         mAdapter.Sort(StudentAdapter.SortType.ID_DESC);
 
-        SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
+        swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
         swingBottomInAnimationAdapter.setAbsListView(mStudentList);
-        swingBottomInAnimationAdapter.setInitialDelayMillis(300);
+        swingBottomInAnimationAdapter.setAnimationDelayMillis(300);
+
 
         mStudentList.setAdapter(swingBottomInAnimationAdapter);
         getStudentDataFromServer();
@@ -180,13 +181,6 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
                 Money_DESC = !Money_DESC;
                 break;
         }
-    }
-
-    private Subject getClassData(){
-
-        File File = new File(ConstantUtil.SubjectDataPath);
-
-        return DataParser.SubjectParser(getActivity(),File);
     }
 
     private void getStudentDataFromServer(){

@@ -159,16 +159,5 @@
             android:background="@drawable/round_button_green"
             android:onClick="toRandom"/>
 
-        <com.thu.ttlgm.component.UImageButton
-            android:layout_margin="10dp"
-            android:padding="10dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:src="@drawable/btn_t_cq"
-            android:scaleType="fitXY"
-            android:background="@drawable/round_button_green"
-            android:onClick="toCalc"/>
-
-
     </LinearLayout>
 </LinearLayout>

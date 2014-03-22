@@ -16,7 +16,6 @@ import android.webkit.WebViewFragment;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.thu.ttlgm.calc.CQCalculatorFragment;
 import com.thu.ttlgm.component.HpControler;
 import com.thu.ttlgm.component.SlidingDrawer;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
@@ -170,40 +169,6 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
         setDrawerEnable(false);
     }
-
-    public void toCalc(View mView){
-        addFragment(new CQCalculatorFragment(),CQCalculatorFragment.class.getName());
-        HideDrawer();
-
-        setDrawerEnable(false);
-
-        /*
-        String TAG = CQCalculatorFragment.class.getName();
-
-        Fragment mFragment = new CQCalculatorFragment();
-
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
-        if (findFragment != null) {
-            HideDrawer();
-            return;
-        }
-
-        transaction.add(R.id.CalcArea, mFragment,TAG);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-
-        transaction.commit();
-
-        HideDrawer();
-
-        setDrawerEnable(false);
-        */
-
-    }
-
-
 
     public void replaceFragment(final Fragment mFragment,final String TAG) {
 

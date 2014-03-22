@@ -10,6 +10,9 @@ import java.io.File;
 public class ConstantUtil {
     public static final String BugSenseApiKey = "0b6e3c1f";
 
+    public static final String FacebookAccessToken =
+            "1417907878451151|5Hw5asKx9VIV-M3XVHkwK4GwOic";
+
     public static final String SDCardPath = Environment.getExternalStorageDirectory().toString();
     public static final String TLGMPath = SDCardPath + File.separator +
             "TLGM";
@@ -29,15 +32,12 @@ public class ConstantUtil {
 
     /**ppt**/
     public static final String PPTDir = "/PPT";
-    public static final String PPTPath = TLGMPath + PPTDir;
 
     /**pdf**/
     public static final String PDFDir = "/PDF";
-    public static final String PDFPath = TLGMPath + PDFDir;
 
     /**movie**/
     public static final String MovieDir = "/MOVIE";
-    public static final String MoviePath = TLGMPath + MovieDir;
 
     /**Facebook**/
     public static final String Facebook = "https://www.facebook.com/";

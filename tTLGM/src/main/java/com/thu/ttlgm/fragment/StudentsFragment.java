@@ -84,7 +84,17 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
                 String Sid = mAdapter.getItem(position).getID();
                 SQService.AddStudentCoin(Sid,ConstantUtil.TeacherAddCoin);
                 Toast.makeText(getActivity(),"加錢成功！",Toast.LENGTH_SHORT).show();
-                getStudentDataFromServer();
+
+
+                SQService.getAllStudents(
+                        new SQService.OnAllStudentGetListener() {
+                    @Override
+                    public void OnAllStudentGetEvent
+                            (List<Student> mStudentList) {
+
+                        mAdapter.refreshOnUiThread(mStudentList);
+                    }
+                });
                 return false;
             }
         });

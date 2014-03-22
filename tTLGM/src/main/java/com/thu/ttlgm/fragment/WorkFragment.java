@@ -102,6 +102,7 @@ public class WorkFragment extends BaseFragment implements OnClickListener{
             mWebview.getSettings().setAllowFileAccess(true);
             mWebview.getSettings().setDomStorageEnabled(true);
             mWebview.getSettings().setJavaScriptEnabled(true);
+            mWebview.getSettings().setLoadWithOverviewMode(true);
             mWebview.getSettings().setAppCacheEnabled(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
                 mWebview.getSettings().setDisplayZoomControls(false);

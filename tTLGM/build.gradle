@@ -40,13 +40,14 @@ dependencies {
     compile 'org.simpleframework:simple-xml:+@jar'
     compile 'com.makeramen:roundedimageview:1.2.1'
     compile 'com.github.chrisbanes.photoview:library:1.2.2'
-    compile 'org.zeroturnaround:zt-zip:1.7@jar'
     compile 'com.joanzapata.pdfview:android-pdfview:1.0.1@jar'
     compile 'com.facebook.rebound:rebound:0.3.3'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1@jar'
     compile 'com.loopj.android:android-async-http:1.4.4@aar'
     compile 'com.github.chrisbanes.pulltorefresh:library:2.1.2-SNAPSHOT@aar'
     compile 'com.nhaarman.listviewanimations:library:2.6.0'
+    compile 'com.facebook:facebook-android-sdk:3.7@aar'
+    compile 'com.etsy.android.grid:library:1.0.4'
     compile files('libs/android-viewbadger.jar')
     compile files('libs/VuDroid.jar')
     compile files('libs/yvelabs-chronometer-v2.0.jar')

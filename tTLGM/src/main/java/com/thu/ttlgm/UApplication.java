@@ -1,10 +1,13 @@
 package com.thu.ttlgm;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.os.Build;
+import android.webkit.CookieSyncManager;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -41,6 +44,11 @@ public class UApplication extends Application {
         // ImageLoaderConfiguration.createDefault(this);
         // method.
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(
+                        new DisplayImageOptions.Builder()
+                        .showImageOnLoading(R.drawable.obj_o_picloading)
+                        .cacheInMemory(true)
+                        .cacheOnDisc(true).build())
                 .threadPoolSize(5) // default
                 .build();// Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);

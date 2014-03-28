@@ -18,6 +18,11 @@ public class ConstantUtil {
             "TLGM";
 
 
+    public static final String ImageHost = "http://tlgm.s3.amazonaws.com/";
+    public static final String AWSAccessKeyID = "AKIAJ6OP4TD5JQRPWOBA";
+    public static final String AWSSecretKey = "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";
+
+
     public static final String ServerIP = "http://54.214.24.26:8080/StudentSquare_server";
 
     public static final int TeacherAddCoin = 1;
@@ -45,4 +50,6 @@ public class ConstantUtil {
     public static final String GroupId = "415585308579029";
 
     public static final String WeekAlbum = "415593318578228";
+
+    public static final String WhiteBoardAlbum = "426055220865371";
 }

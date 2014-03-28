@@ -8,10 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.bean.Album;
+import com.thu.ttlgm.bean.Photo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +19,22 @@ import java.util.List;
 /**
  * Created by SemonCat on 2014/3/21.
  */
-public class AlbumAdapter extends BaseAdapter{
+public class PhotoAdapter extends BaseAdapter{
 
     private Context mContext;
-    private List<Album> mAlbumList;
+    private List<Photo> mAlbumList;
 
-    public AlbumAdapter(Context mContext) {
+    public PhotoAdapter(Context mContext) {
         this.mContext = mContext;
-        mAlbumList = new ArrayList<Album>();
+        mAlbumList = new ArrayList<Photo>();
     }
 
-    public AlbumAdapter(Context context,List<Album> albumList) {
+    public PhotoAdapter(Context context, List<Photo> albumList) {
         this.mAlbumList  = albumList;
         this.mContext = context;
     }
 
-    public void Refresh(List<Album> albumList){
+    public void Refresh(List<Photo> albumList){
         this.mAlbumList = albumList;
         notifyDataSetChanged();
     }
@@ -45,7 +45,7 @@ public class AlbumAdapter extends BaseAdapter{
     }
 
     @Override
-    public Album getItem(int position) {
+    public Photo getItem(int position) {
         return mAlbumList.get(position);
     }
 
@@ -56,33 +56,27 @@ public class AlbumAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        PhotoAdapter.ViewHolder holder;
         if (convertView == null) {
             convertView = ((LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.adapter_album,
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.adapter_photo,
                     parent, false);
 
-            holder = new ViewHolder();
-            holder.AlbumCover = (ImageView) convertView.findViewById(R.id.AlbumCover);
-            holder.AlbumTitle = (TextView) convertView.findViewById(R.id.AlbumTitle);
+            holder = new PhotoAdapter.ViewHolder();
+            holder.Photo = (ImageView) convertView.findViewById(R.id.Photo);
+            holder.Caption = (TextView) convertView.findViewById(R.id.Caption);
 
             convertView.setTag(holder);
         }else{
-            holder = (ViewHolder) convertView.getTag();
+            holder = (PhotoAdapter.ViewHolder) convertView.getTag();
         }
 
-        Album mAlbum = getItem(position);
+        Photo mPhoto = getItem(position);
 
-        if (mAlbum.getPhotos().size()>0) {
-            String ImageUrl = mAlbum.getPhotos().get(0).getSrc_big();
-            if (ImageUrl!=null){
-            ImageLoader.getInstance().displayImage(ImageUrl,holder.AlbumCover);
-            }
-        }else{
-            holder.AlbumCover.setImageResource(R.drawable.default_icon);
-        }
+        ImageLoader.getInstance().displayImage(mPhoto.getSrc_big(),holder.Photo);
 
-        holder.AlbumTitle.setText(mAlbum.getName());
+
+        holder.Caption.setText(mPhoto.getCaption());
 
 
         return convertView;
@@ -90,8 +84,9 @@ public class AlbumAdapter extends BaseAdapter{
 
     }
 
+
     class ViewHolder{
-        ImageView AlbumCover;
-        TextView AlbumTitle;
+        ImageView Photo;
+        TextView Caption;
     }
 }

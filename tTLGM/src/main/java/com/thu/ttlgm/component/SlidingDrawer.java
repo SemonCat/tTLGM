@@ -698,6 +698,7 @@ public class SlidingDrawer extends ViewGroup {
         }
 
         return mTracking || mAnimating || super.onTouchEvent(event);
+
     }
 
     @Override

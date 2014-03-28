@@ -17,6 +17,7 @@ import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.RandomFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.service.FacebookAlbumUtils;
 import com.thu.ttlgm.service.SQService;
 import com.thu.ttlgm.utils.SharedPreferencesUtils;
 
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity {
 
         //快取圖片
         RandomFragment.LoadCache();
+        //快取相簿
+        FacebookAlbumUtils.LoadAlbumCache();
     }
 
     @Override

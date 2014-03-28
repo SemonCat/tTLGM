@@ -49,6 +49,8 @@ public class PollHandler {
          */
         void getAdditional(String sid);
 
+        void getWhiteBoardImage(String URL);
+
     }
     private static final String TAG = PollHandler.class.getName();
     private static final int time = 3000;
@@ -60,7 +62,7 @@ public class PollHandler {
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
-    private OnMessageReceive mListener;
+    private List<OnMessageReceive> mListener;
 
     //常數
     private static final String RECEIVE_ANSWER = "$2";
@@ -69,8 +71,9 @@ public class PollHandler {
 
     private static final String ADDITIONAL = "additional";
 
+    private static final String AmazonURL = "http://tlgm.s3.amazonaws.com/";
 
-
+    private static final String WHITEBOARD = "#white";
 
     public PollHandler() {
 
@@ -127,22 +130,31 @@ public class PollHandler {
                         String spiltMessage[] = myMsg.get(0).split(",");
 
 
+                        //Log.d(TAG,"spiltMessage[1]:"+spiltMessage[1]);
+
                         if (spiltMessage[0].equals(HP_INFO)){
                             if (spiltMessage[1].equals(ADDITIONAL)){
                                 //Log.d(TAG,"GetHpInfo,SID:"+ key+",getAdditional");
                                 if (mListener!=null)
-                                    mListener.getAdditional(key);
+                                    for (OnMessageReceive listener:mListener)
+                                        listener.getAdditional(key);
                             }else{
                                 //Log.d(TAG,"GetHpInfo,SID:"+ key+",Blood:"+spiltMessage[1]);
                                 if (mListener!=null)
-                                    mListener.OnHpLow(key,Integer.valueOf(spiltMessage[1].replace("%","")));
+                                    for (OnMessageReceive listener:mListener)
+                                        listener.OnHpLow(key,Integer.valueOf(spiltMessage[1].replace("%","")));
                             }
 
                         }else if (spiltMessage[0].equals(RECEIVE_ANSWER)){
 
                             if (mListener!=null)
-                                mListener.OnMissionResultReceive(spiltMessage[1],spiltMessage[2],key,spiltMessage[3]);
+                                for (OnMessageReceive listener:mListener)
+                                    listener.OnMissionResultReceive(spiltMessage[1],spiltMessage[2],key,spiltMessage[3]);
 
+                        }else if (spiltMessage[0].equals(WHITEBOARD)){
+                            if (mListener!=null)
+                                for (OnMessageReceive listener:mListener)
+                                    listener.getWhiteBoardImage(spiltMessage[1]);
                         }
 
 
@@ -178,7 +190,10 @@ public class PollHandler {
     }
 
 
-    public void setListener(OnMessageReceive mListener) {
-        this.mListener = mListener;
+    public void setListener(OnMessageReceive listener) {
+        if (mListener==null){
+            mListener = new ArrayList<OnMessageReceive>();
+        }
+        mListener.add(listener);
     }
 }

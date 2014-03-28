@@ -142,6 +142,11 @@ public class PlayFragment extends BaseFragment implements PollHandler.OnMessageR
         });
     }
 
+    @Override
+    public void getWhiteBoardImage(String URL) {
+
+    }
+
     public void OnAlertTouch(MotionEvent event){
 
     }

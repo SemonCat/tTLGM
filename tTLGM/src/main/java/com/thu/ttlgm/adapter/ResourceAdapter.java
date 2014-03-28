@@ -49,6 +49,8 @@ public class ResourceAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
         File mFile = getItem(position);
 
         ViewHolder holder;
@@ -66,7 +68,9 @@ public class ResourceAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.FileName.setText(mFile.getName());
+
+            holder.FileName.setText(mFile.getName());
+
 
 
         return convertView;

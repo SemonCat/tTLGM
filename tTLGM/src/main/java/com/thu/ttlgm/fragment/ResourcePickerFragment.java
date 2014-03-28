@@ -164,16 +164,17 @@ public class ResourcePickerFragment extends BaseFragment implements View.OnClick
 
         resetLayout();
 
-        setAllAreaTag(true);
         if (((Boolean)v.getTag()).booleanValue()==true){
             slideAnimator(1,5,v).start();
 
 
+            setAllAreaTag(true);
             v.setTag(Boolean.valueOf(false));
 
         }else{
             slideAnimator(5,1,v).start();
 
+            setAllAreaTag(true);
             v.setTag(Boolean.valueOf(true));
 
         }

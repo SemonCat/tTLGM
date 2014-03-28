@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_background_white"
+    android:orientation="vertical"
+    android:padding="16dp" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/Image"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerInside"
+            android:maxHeight="200dp"
+            android:maxWidth="200dp"/>
+
+        <ImageView
+            android:id="@+id/Wrong"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/obj_o_cancel"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom|center"
+        android:background="#30aaaaaa"/>
+
+    <TextView
+        android:id="@+id/ImageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:gravity="center"
+        android:paddingBottom="2dp"
+        android:textSize="15dp"
+        android:singleLine="true"
+        android:text="標題"/>
+
+
+</FrameLayout>

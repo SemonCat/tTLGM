@@ -18,12 +18,14 @@ import android.widget.Toast;
 
 import com.thu.ttlgm.component.HpControler;
 import com.thu.ttlgm.component.SlidingDrawer;
+import com.thu.ttlgm.fragment.AlbumFragment;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.GroupGameFragment;
 import com.thu.ttlgm.fragment.RandomFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.fragment.WhiteBoardFragment;
 import com.thu.ttlgm.fragment.WorkFragment;
 import com.thu.ttlgm.service.PollHandler;
 import com.thu.ttlgm.service.SQService;
@@ -141,7 +143,7 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     }
 
     public void toWorks(View mView) {
-        replaceFragment(new WorkFragment(), WebViewFragment.class.getName());
+        replaceFragment(new AlbumFragment(), AlbumFragment.class.getName());
         HideDrawer();
     }
 
@@ -168,6 +170,12 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         HideDrawer();
 
         setDrawerEnable(false);
+    }
+
+    public void toWhiteBoard(View mView){
+        replaceFragment(new WhiteBoardFragment(), WhiteBoardFragment.class.getName());
+
+        HideDrawer();
     }
 
     public void replaceFragment(final Fragment mFragment,final String TAG) {
@@ -238,6 +246,11 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
     @Override
     public void getAdditional(String sid) {
+
+    }
+
+    @Override
+    public void getWhiteBoardImage(String URL) {
 
     }
 

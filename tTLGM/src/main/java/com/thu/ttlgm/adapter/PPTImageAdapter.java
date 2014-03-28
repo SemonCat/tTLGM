@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.thu.ttlgm.R;
 
 import java.io.File;
@@ -42,11 +43,16 @@ public class PPTImageAdapter extends PagerAdapter {
     public View instantiateItem(ViewGroup container, int position) {
         if(mImages[position].exists()){
 
+            /*
             Bitmap mBitmap = BitmapFactory.decodeFile(mImages[position].getAbsolutePath());
 
             PhotoView photoView = new PhotoView(container.getContext());
             photoView.setImageBitmap(mBitmap);
+            */
 
+            PhotoView photoView = new PhotoView(container.getContext());
+
+            ImageLoader.getInstance().displayImage("file://"+mImages[position].getAbsolutePath(),photoView);
 
             // Now just add PhotoView to ViewPager and return it
             container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

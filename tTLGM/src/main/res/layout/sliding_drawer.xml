@@ -9,7 +9,7 @@
     widget:animateOnClick="true"
     widget:collapsedOffset="16dp"
     widget:content="@+id/content"
-    widget:expandedOffset="32dp"
+    widget:expandedOffset="150dp"
     widget:handle="@+id/handle"
     widget:orientation="bottomUp">
 

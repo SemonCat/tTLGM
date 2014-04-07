@@ -5,10 +5,12 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -27,9 +29,13 @@ import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
 import com.thu.ttlgm.fragment.WhiteBoardFragment;
 import com.thu.ttlgm.fragment.WorkFragment;
+import com.thu.ttlgm.input.GestureListener;
 import com.thu.ttlgm.service.PollHandler;
 import com.thu.ttlgm.service.SQService;
 import com.thu.ttlgm.utils.ConstantUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SemonCat on 2014/1/11.
@@ -46,6 +52,10 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
     private HpControler mHpControler;
 
+    private GestureListener mGestureListener;
+
+    private List<View.OnTouchListener> mListenerList;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setupLayout());
@@ -53,10 +63,40 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+
+        mListenerList = new ArrayList<View.OnTouchListener>();
+
+
         setupView();
         setupEvent();
         addSlidingDrawer();
         setupPollHandler();
+
+        setupGesture();
+    }
+
+    private void setupGesture(){
+
+        mGestureListener = new GestureListener(this);
+        mGestureListener.setListener(new GestureListener.OnGestureEvent() {
+            @Override
+            public void onSwipeTop() {
+                ShowDrawer();
+            }
+
+            @Override
+            public void onSwipeBottom() {
+                HideDrawer();
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        return super.dispatchTouchEvent(ev);
     }
 
     protected int setupLayout() {
@@ -112,6 +152,18 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
             }
         });
 
+
+        mDrawer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                for (View.OnTouchListener mListener : mListenerList ){
+                    mListener.onTouch(v,event);
+                }
+
+                return false;
+            }
+        });
         setupHpControl();
     }
 
@@ -314,11 +366,17 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         resumeHpServer();
     }
 
+
+
     public void setDrawerEnable(boolean Enable){
         if (Enable) {
             mDrawer.setVisibility(View.VISIBLE);
         }else{
             mDrawer.setVisibility(View.GONE);
         }
+    }
+
+    public List<View.OnTouchListener> getListenerList() {
+        return mListenerList;
     }
 }

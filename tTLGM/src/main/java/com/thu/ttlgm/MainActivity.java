@@ -5,9 +5,11 @@ import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
 
 import com.thu.ttlgm.bean.Class;
@@ -17,6 +19,7 @@ import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.RandomFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.input.GestureListener;
 import com.thu.ttlgm.service.FacebookAlbumUtils;
 import com.thu.ttlgm.service.SQService;
 import com.thu.ttlgm.utils.SharedPreferencesUtils;
@@ -50,6 +53,11 @@ public class MainActivity extends BaseActivity {
         RandomFragment.LoadCache();
         //快取相簿
         FacebookAlbumUtils.LoadAlbumCache();
+
+
+
+
+
     }
 
     @Override

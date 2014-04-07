@@ -12,7 +12,6 @@ import com.thu.ttlgm.BaseActivity;
  */
 public class BaseFragment extends Fragment{
 
-    private View.OnTouchListener mListener;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -21,20 +20,6 @@ public class BaseFragment extends Fragment{
         setupView();
         setupAdapter();
         setupEvent();
-
-
-        mListener = new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (getView()!=null){
-                    getView().dispatchTouchEvent(event);
-                }
-
-                return false;
-            }
-        };
-
-        ((BaseActivity)getActivity()).getListenerList().add(mListener);
 
     }
 
@@ -53,8 +38,6 @@ public class BaseFragment extends Fragment{
     }
 
     protected void finish(){
-
-        ((BaseActivity)getActivity()).getListenerList().remove(mListener);
         getFragmentManager().beginTransaction().remove(this).commit();
     }
 

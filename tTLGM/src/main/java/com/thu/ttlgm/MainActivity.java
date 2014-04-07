@@ -9,16 +9,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 
 import com.thu.ttlgm.bean.Class;
 import com.thu.ttlgm.floatwindow.FloatWindowService;
+import com.thu.ttlgm.fragment.AlbumFragment;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
 import com.thu.ttlgm.fragment.GameFragment;
+import com.thu.ttlgm.fragment.GroupGameFragment;
 import com.thu.ttlgm.fragment.RandomFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.fragment.WhiteBoardFragment;
 import com.thu.ttlgm.input.GestureListener;
 import com.thu.ttlgm.service.FacebookAlbumUtils;
 import com.thu.ttlgm.service.SQService;
@@ -32,6 +36,8 @@ public class MainActivity extends BaseActivity {
 
     private Class mCurrentClass;
 
+    private DrawerLayout mDrawerLayout;
+
     private ServiceConnection mConnection;
     private IFloatWindowService mIFloatWindowService;
 
@@ -39,11 +45,13 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setupDrawer();
+
         //清空PPT頁數紀錄
         SharedPreferencesUtils.setPPTPage(this, 0);
 
         //SetupDefault
-        replaceFragment(new ClassChooserFragment(),ClassChooserFragment.class.getName());
+        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
 
         setupService();
 
@@ -54,18 +62,20 @@ public class MainActivity extends BaseActivity {
         //快取相簿
         FacebookAlbumUtils.LoadAlbumCache();
 
-
-
-
-
     }
+
+    private void setupDrawer() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.Navi_Drawer);
+    }
+
 
     @Override
     protected int setupLayout() {
         return R.layout.activity_main;
     }
 
-    private void setupService(){
+    private void setupService() {
+        /*
         mConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
@@ -77,15 +87,17 @@ public class MainActivity extends BaseActivity {
 
             }
         };
+
         //bindService(new Intent(this, FloatWindowService.class), mConnection,BIND_AUTO_CREATE);
         //StartFloat
         //startService(new Intent(this, FloatWindowService.class));
+        */
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (mIFloatWindowService!=null){
+        if (mIFloatWindowService != null) {
 
             try {
                 mIFloatWindowService.setVisible(false);
@@ -99,7 +111,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mIFloatWindowService!=null){
+        if (mIFloatWindowService != null) {
             try {
                 mIFloatWindowService.setVisible(true);
             } catch (RemoteException e) {
@@ -109,8 +121,48 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    public void toHome(View mView) {
+        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
 
+    public void toStudents(View mView) {
+        replaceFragment(new StudentsFragment(), StudentsFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
 
+    public void toWorks(View mView) {
+        replaceFragment(new AlbumFragment(), AlbumFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
+
+    public void toFiles(View mView) {
+        replaceFragment(new ResourcePickerFragment(), ResourcePickerFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
+
+    public void toGroupGame(View mView) {
+        replaceFragment(new GroupGameFragment(), GroupGameFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
+
+    public void toRandom(View mView) {
+        addFragment(new RandomFragment(), RandomFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+
+    }
+
+    public void toWhiteBoard(View mView) {
+        replaceFragment(new WhiteBoardFragment(), WhiteBoardFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
 
 
     public Class getCurrentClass() {

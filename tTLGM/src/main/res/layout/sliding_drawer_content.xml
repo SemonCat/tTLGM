@@ -3,8 +3,9 @@
     android:background="@color/DrawerContentBackground"
     android:id="@id/content"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start">
 
     <View
         android:layout_width="match_parent"

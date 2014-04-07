@@ -107,12 +107,10 @@ public class ClassChooserFragment extends BaseFragment{
         });
 
 
-
-
         StartClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).toFiles(v);
+                ((MainActivity)getActivity()).toFiles(v);
             }
         });
     }

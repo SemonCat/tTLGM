@@ -1,37 +1,29 @@
-<RelativeLayout
-        android:id="@+id/MainLayout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        tools:context="com.thu.ttlgm.MainActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/Navi_Drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/Fragment_Content"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         </FrameLayout>
 
+        <include
+            android:id="@+id/drawer_content"
+            layout="@layout/sliding_drawer_content" />
+
+    </android.support.v4.widget.DrawerLayout>
+
+</FrameLayout>
 
 
 
-    </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/CalcArea"
-        android:layout_width="150dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true">
-
-
-    </FrameLayout>
-
-</RelativeLayout>
 

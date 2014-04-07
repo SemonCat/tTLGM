@@ -141,7 +141,7 @@ public class FacebookAlbumUtils {
     private static void getAllAlbum(final List<Album> mAlbumList) throws Exception{
         if (!CheckLogin()){
             LoginFacebook();
-            Log.d(TAG,"登入");
+            //Log.d(TAG,"登入");
         }
 
 

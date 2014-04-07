@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.+'
+    compile 'com.android.support:support-v4:+'
     compile 'org.simpleframework:simple-xml:+@jar'
     compile 'com.makeramen:roundedimageview:1.2.1'
     compile 'com.github.chrisbanes.photoview:library:1.2.2'

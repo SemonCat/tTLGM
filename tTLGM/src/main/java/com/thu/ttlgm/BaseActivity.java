@@ -52,9 +52,6 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
     private HpControler mHpControler;
 
-    private GestureListener mGestureListener;
-
-    private List<View.OnTouchListener> mListenerList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,39 +61,14 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
-        mListenerList = new ArrayList<View.OnTouchListener>();
+
 
 
         setupView();
         setupEvent();
-        addSlidingDrawer();
+        //addSlidingDrawer();
         setupPollHandler();
 
-        setupGesture();
-    }
-
-    private void setupGesture(){
-
-        mGestureListener = new GestureListener(this);
-        mGestureListener.setListener(new GestureListener.OnGestureEvent() {
-            @Override
-            public void onSwipeTop() {
-                ShowDrawer();
-            }
-
-            @Override
-            public void onSwipeBottom() {
-                HideDrawer();
-            }
-        });
-
-
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-
-        return super.dispatchTouchEvent(ev);
     }
 
     protected int setupLayout() {
@@ -153,17 +125,7 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         });
 
 
-        mDrawer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
 
-                for (View.OnTouchListener mListener : mListenerList ){
-                    mListener.onTouch(v,event);
-                }
-
-                return false;
-            }
-        });
         setupHpControl();
     }
 
@@ -184,51 +146,6 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         }
     }
 
-    public void toHome(View mView) {
-        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
-        HideDrawer();
-    }
-
-    public void toStudents(View mView) {
-        replaceFragment(new StudentsFragment(), StudentsFragment.class.getName());
-        HideDrawer();
-    }
-
-    public void toWorks(View mView) {
-        replaceFragment(new AlbumFragment(), AlbumFragment.class.getName());
-        HideDrawer();
-    }
-
-    public void toFiles(View mView) {
-        replaceFragment(new ResourcePickerFragment(), ResourcePickerFragment.class.getName());
-        HideDrawer();
-    }
-
-    public void toGroupGame(View mView) {
-        replaceFragment(new GroupGameFragment(), GroupGameFragment.class.getName());
-
-
-        /*
-        Intent mIntent = new Intent(this, GroupGameActivity.class);
-        mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(mIntent);
-        */
-
-        HideDrawer();
-    }
-
-    public void toRandom(View mView){
-        addFragment(new RandomFragment(),RandomFragment.class.getName());
-        HideDrawer();
-
-        setDrawerEnable(false);
-    }
-
-    public void toWhiteBoard(View mView){
-        replaceFragment(new WhiteBoardFragment(), WhiteBoardFragment.class.getName());
-
-        HideDrawer();
-    }
 
     public void replaceFragment(final Fragment mFragment,final String TAG) {
 
@@ -376,7 +293,5 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         }
     }
 
-    public List<View.OnTouchListener> getListenerList() {
-        return mListenerList;
-    }
+
 }

@@ -116,7 +116,7 @@ public class RandomFragment extends BaseFragment{
             public void onClick(View v) {
 
                 finish();
-                ((MainActivity)getActivity()).setDrawerEnable(true);
+                //((MainActivity)getActivity()).setDrawerEnable(true);
             }
         });
 
@@ -169,7 +169,7 @@ public class RandomFragment extends BaseFragment{
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         finish();
-                        ((MainActivity)getActivity()).setDrawerEnable(true);
+                        //((MainActivity)getActivity()).setDrawerEnable(true);
                     }
 
                     @Override

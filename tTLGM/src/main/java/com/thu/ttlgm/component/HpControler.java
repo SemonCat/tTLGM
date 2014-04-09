@@ -1,6 +1,7 @@
 package com.thu.ttlgm.component;
 
 import android.content.Context;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -26,9 +27,7 @@ public class HpControler {
 
     private Context mContext;
 
-    private SlidingDrawer mSlidingDrawer;
-
-    private Chronometer Timer;
+    private UChronometer Timer;
 
     private ToggleButton HpControl;
 
@@ -38,9 +37,20 @@ public class HpControler {
 
     private boolean IsStart;
 
+    private View Container;
+
     public HpControler(Context context,SlidingDrawer slidingDrawer){
         this.mContext = context;
-        this.mSlidingDrawer = slidingDrawer;
+        this.Container = slidingDrawer.getContent();
+        this.IsStart = false;
+
+        setupView();
+        setupEvent();
+    }
+
+    public HpControler(Context context,DrawerLayout mDrawerLayout){
+        this.mContext = context;
+        this.Container = mDrawerLayout;
         this.IsStart = false;
 
         setupView();
@@ -49,9 +59,8 @@ public class HpControler {
 
 
     private void setupView(){
-        View Container  = mSlidingDrawer.getContent();
 
-        Timer = (Chronometer) Container.findViewById(R.id.Timer);
+        Timer = (UChronometer) Container.findViewById(R.id.Timer);
 
         HpControl = (ToggleButton) Container.findViewById(R.id.HpControl);
 

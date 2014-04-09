@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="holo_blue">#FF33E5B5</color>
+
+
+
     <color name="ResourcePPT_Title">#ffee8282</color>
     <color name="ResourcePPT_Content">#ffd35858</color>
     <color name="ResourceVideo_Title">#ff92d4e0</color>
@@ -26,8 +31,9 @@
     <color name="PieSecondMenuElseWhiteboard">#ffafa591</color>
 
     <!--DRAWER-->
+    <color name="drawer_divider">#A9A9A9</color>
     <color name="DrawerHandleBackground">@android:color/transparent</color>
-    <color name="DrawerContentBackground">@android:color/darker_gray</color>
+    <color name="DrawerContentBackground">@android:color/white</color>
 
     <color name="calcColor">#000000</color>
 

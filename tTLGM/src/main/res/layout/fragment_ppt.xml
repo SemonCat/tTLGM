@@ -10,14 +10,14 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 
     <Button
         android:id="@+id/PlayGame"
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
-        android:background="@null"/>
+        android:background="@null" />
 
     <ImageView
         android:id="@+id/leftButton"
@@ -25,7 +25,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:src="@drawable/btn_t_hintback"
-        android:clickable="true"/>
+        android:clickable="true" />
 
     <ImageView
         android:id="@+id/rightButton"
@@ -33,6 +33,21 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:src="@drawable/btn_t_hintforward"
-        android:clickable="true"/>
+        android:clickable="true" />
+
+
+    <FrameLayout
+        android:id="@+id/ResourceParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <FrameLayout
+            android:id="@+id/ResourceContainer"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
+
 
 </RelativeLayout>

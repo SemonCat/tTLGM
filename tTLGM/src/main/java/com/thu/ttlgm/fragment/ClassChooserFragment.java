@@ -1,27 +1,31 @@
 package com.thu.ttlgm.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 
-import com.thu.ttlgm.BaseActivity;
 import com.thu.ttlgm.MainActivity;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.ClassPagerAdapter;
+import com.thu.ttlgm.adapter.ResourceAdapter;
 import com.thu.ttlgm.bean.*;
 import com.thu.ttlgm.bean.Class;
+import com.thu.ttlgm.component.JazzyViewPager.JazzyVerticalViewPager;
+import com.thu.ttlgm.component.JazzyViewPager.JazzyViewPager;
 import com.thu.ttlgm.component.UViewPager;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
 import com.thu.ttlgm.utils.SharedPreferencesUtils;
 
 import java.io.File;
+
+import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 /**
  * Created by SemonCat on 2014/1/11.
@@ -32,11 +36,12 @@ public class ClassChooserFragment extends BaseFragment{
 
 
     //ViewPager
-    private UViewPager mUViewPager;
+    private JazzyVerticalViewPager mVerticalViewPager;
     private ClassPagerAdapter mAdapter;
-    private int mCurrentItemPosition;
 
-    private ImageView StartClass;
+
+    private ViewPager.OnPageChangeListener mOnPageChangeListener;
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -54,40 +59,14 @@ public class ClassChooserFragment extends BaseFragment{
 
     @Override
     protected void setupView() {
-        mUViewPager = (UViewPager) getActivity().findViewById(R.id.ViewPagerClass);
-        StartClass = (ImageView) getActivity().findViewById(R.id.StartClass);
+        mVerticalViewPager = (JazzyVerticalViewPager) getActivity().findViewById(R.id.ViewPagerClass);
+        mVerticalViewPager.setOffscreenPageLimit(3);
     }
 
-    private Handler mHandler = new Handler();
     @Override
     protected void setupAdapter() {
 
-        mAdapter = new ClassPagerAdapter(getActivity(),getClassData());
-        mUViewPager.setAdapter(mAdapter);
-        mUViewPager.enableCenterLockOfChilds();
-
-        Class mData = ((MainActivity)getActivity()).getCurrentClass();
-        if (mData!=null){
-
-            mCurrentItemPosition =
-                mAdapter.getItemPosition(mData);
-        }else{
-            mCurrentItemPosition = 1;
-        }
-
-        mUViewPager.setCurrentItemInCenter(1);
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mUViewPager.setCurrentItemInCenter(SharedPreferencesUtils.getWeek(getActivity()));
-            }
-        });
-    }
-
-
-    @Override
-    protected void setupEvent(){
-        mUViewPager.setOnPageChangeListener(new UViewPager.OnPageChangeListener() {
+        mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -96,23 +75,30 @@ public class ClassChooserFragment extends BaseFragment{
             @Override
             public void onPageSelected(int position) {
 
-                ((MainActivity)getActivity()).setCurrentClass(mAdapter.getItem(position));
-                SharedPreferencesUtils.setWeek(getActivity(),position);
+                ((MainActivity) getActivity()).setCurrentClass(mAdapter.getItem(position));
+                SharedPreferencesUtils.setWeek(getActivity(), position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        };
+
+        mAdapter = new ClassPagerAdapter(mVerticalViewPager,getActivity(),getFragmentManager(),getClassData());
+        mVerticalViewPager.setFadeEnabled(!mVerticalViewPager.getFadeEnabled());
+        mVerticalViewPager.setAdapter(mAdapter);
+
+        mVerticalViewPager.setCurrentItem(SharedPreferencesUtils.getWeek(getActivity()));
+        mOnPageChangeListener.onPageSelected(mVerticalViewPager.getCurrentItem());
+    }
 
 
-        StartClass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).toFiles(v);
-            }
-        });
+    @Override
+    protected void setupEvent(){
+        mVerticalViewPager.setOnPageChangeListener(mOnPageChangeListener);
+
+
     }
 
     @Override

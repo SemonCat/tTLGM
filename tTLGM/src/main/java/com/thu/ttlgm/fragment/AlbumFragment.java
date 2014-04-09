@@ -82,9 +82,9 @@ public class AlbumFragment extends BaseFragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle mBundle = new Bundle();
-                if (mAlbumList!=null){
-                    mBundle.putParcelableArrayList(PhotoFragment.PHOTO,new ArrayList<Photo>(
-                            mAlbumAdapter.getItem(position).getPhotos()));
+                List<Photo> mPhotoList = mAlbumAdapter.getItem(position).getPhotos();
+                if (mAlbumList!=null && mPhotoList!=null){
+                    mBundle.putParcelableArrayList(PhotoFragment.PHOTO,new ArrayList<Photo>(mPhotoList));
 
                     mBundle.putParcelable(PhotoFragment.ALBUM,mAlbumAdapter.getItem(position));
                 }

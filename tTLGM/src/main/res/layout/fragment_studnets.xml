@@ -12,7 +12,8 @@
         android:orientation="vertical"
         android:layout_width="150dp"
         android:layout_height="fill_parent"
-        android:background="@drawable/obj_t_studentlistbar">
+        android:background="@drawable/obj_t_studentlistbar"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/SortByID"
@@ -68,15 +69,29 @@
             android:visibility="gone"/>
     </LinearLayout>
 
-    <com.handmark.pulltorefresh.library.PullToRefreshGridView
-        android:id="@+id/studentList"
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:columnWidth="100dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"   />
+        android:layout_weight="1">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshGridView
+            android:id="@+id/studentList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:columnWidth="150dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/StudentLoadingBar"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
 </LinearLayout>

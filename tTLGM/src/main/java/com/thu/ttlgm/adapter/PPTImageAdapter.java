@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.thu.ttlgm.R;
 
 import java.io.File;
@@ -23,13 +26,23 @@ public class PPTImageAdapter extends PagerAdapter {
     private Context mContext;
     private File[] mImages;
 
-    public PPTImageAdapter(Context mContext,File[] mImages) {
+    private DisplayImageOptions options;;
+
+    public PPTImageAdapter(Context mContext, File[] mImages) {
         this.mContext = mContext;
         this.mImages = mImages;
 
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisc(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+
+
     }
 
-    public File[] getFiles(){
+    public File[] getFiles() {
         return mImages;
     }
 
@@ -41,26 +54,16 @@ public class PPTImageAdapter extends PagerAdapter {
 
     @Override
     public View instantiateItem(ViewGroup container, int position) {
-        if(mImages[position].exists()){
 
-            /*
-            Bitmap mBitmap = BitmapFactory.decodeFile(mImages[position].getAbsolutePath());
+        PhotoView photoView = new PhotoView(container.getContext());
 
-            PhotoView photoView = new PhotoView(container.getContext());
-            photoView.setImageBitmap(mBitmap);
-            */
+        ImageLoader.getInstance().displayImage("file://" + mImages[position].getAbsolutePath(), photoView,options);
 
-            PhotoView photoView = new PhotoView(container.getContext());
+        // Now just add PhotoView to ViewPager and return it
+        container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-            ImageLoader.getInstance().displayImage("file://"+mImages[position].getAbsolutePath(),photoView);
+        return photoView;
 
-            // Now just add PhotoView to ViewPager and return it
-            container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-            return photoView;
-        }else {
-            return container;
-        }
 
     }
 

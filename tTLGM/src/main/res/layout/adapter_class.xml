@@ -1,72 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:weightSum="1"
-    android:orientation="vertical" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.4">
 
-        <ImageView
-            android:id="@+id/WeekInfoBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:id="@+id/WeekInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Week"
-            android:textSize="50dp"
-            android:layout_gravity="center"/>
-    </FrameLayout>
-
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.6">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:background="@drawable/card_background_white"
+        android:layout_margin="30dp">
 
         <LinearLayout
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/ClassTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="ClassTitle"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="20dp"
-                 />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
 
-            <TextView
-                android:id="@+id/ClassDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="ClassDate"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="20dp"
-                />
+                <ImageView
+                    android:id="@+id/WeekInfoBackground"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/obj_t_nubg01"/>
+
+                <TextView
+                    android:id="@+id/WeekInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="1"
+                    android:textSize="60dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+
+                    <TextView
+                        android:id="@+id/ClassTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="ClassTitle"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/ClassDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="ClassDate"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="30dp" />
+
+                </LinearLayout>
+            </ScrollView>
+
 
         </LinearLayout>
-    </ScrollView>
+
+        <ListView
+            android:id="@+id/Resource"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="20dp"/>
+    </LinearLayout>
 
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/PPT_Tip"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:src="@drawable/btn_t_hintback"/>
+</FrameLayout>

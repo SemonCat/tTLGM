@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,9 +133,11 @@ public class StudentAdapter extends BaseAdapter {
             holder.Coin.setBadgeBackgroundColor(Color.YELLOW);
             holder.Coin.setTextColor(Color.BLACK);
             holder.Coin.setBadgePosition(BadgeView.POSITION_TOP_LEFT);
+            holder.Coin.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20);
             holder.Coin.show();
 
             holder.Blood = new BadgeView(mContext, holder.Icon);
+            holder.Blood.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20);
             holder.Blood.show();
 
             convertView.setTag(holder);

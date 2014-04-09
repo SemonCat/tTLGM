@@ -3,7 +3,6 @@ package com.thu.ttlgm.fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,15 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.facebook.rebound.BaseSpringSystem;
-import com.facebook.rebound.SimpleSpringListener;
-import com.facebook.rebound.Spring;
-import com.facebook.rebound.SpringSystem;
-import com.facebook.rebound.SpringUtil;
 import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.thu.ttlgm.MainActivity;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.bean.Student;
 import com.thu.ttlgm.component.IconView;
@@ -64,7 +57,7 @@ public class RandomFragment extends BaseFragment{
 
     private long StartTime = 50;
 
-    private Animation animation;
+    private Animation fade_out_push_top_Anim;
 
     private Animation rotateAnim;
 
@@ -78,7 +71,7 @@ public class RandomFragment extends BaseFragment{
     }
 
     private void setupAnim(){
-        animation = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out_push_top);
+        fade_out_push_top_Anim = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out_push_top);
 
         rotateAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.rotate_around_center_point);
     }
@@ -158,9 +151,9 @@ public class RandomFragment extends BaseFragment{
                         ConstantUtil.TeacherAddCoin);
 
                 AddCoinTip.setVisibility(View.VISIBLE);
-                AddCoinTip.startAnimation(animation);
+                AddCoinTip.startAnimation(fade_out_push_top_Anim);
 
-                animation.setAnimationListener(new Animation.AnimationListener() {
+                fade_out_push_top_Anim.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
 
@@ -317,10 +310,15 @@ public class RandomFragment extends BaseFragment{
     }
 
     private void HideRandomArea(){
+
+        RandomBackground.clearAnimation();
+
         RandomBackground.setVisibility(View.GONE);
         RandomArea.setVisibility(View.GONE);
 
         TargetIcon.setVisibility(View.VISIBLE);
+
+
     }
 
     private void ShowRandomArea(){

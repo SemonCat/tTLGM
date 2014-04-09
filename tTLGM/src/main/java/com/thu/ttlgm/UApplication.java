@@ -7,10 +7,12 @@ import android.webkit.CookieSyncManager;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LargestLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.thu.ttlgm.utils.ConstantUtil;
 
 /**
@@ -46,10 +48,15 @@ public class UApplication extends Application {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .defaultDisplayImageOptions(
                         new DisplayImageOptions.Builder()
-                        .showImageOnLoading(R.drawable.obj_o_picloading)
-                        .cacheInMemory(true)
-                        .cacheOnDisc(true).build())
+                                .resetViewBeforeLoading(true)
+                                .showImageOnLoading(R.drawable.obj_o_picloading)
+                                .cacheInMemory(true)
+                                .displayer(new FadeInBitmapDisplayer(300))
+                                .cacheOnDisc(true).build()
+                )
+                .memoryCache(new LargestLimitedMemoryCache(5))
                 .threadPoolSize(5) // default
+                .denyCacheImageMultipleSizesInMemory()
                 .build();// Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config);
     }

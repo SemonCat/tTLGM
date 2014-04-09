@@ -1,0 +1,21 @@
+<!-- Generated template screen file. Fill the id tags below with content
+with which to populate your previewed layout. For help with sample
+data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/fragment_work">
+        <web_view_btn_back></web_view_btn_back>
+        <web_view_btn_forward></web_view_btn_forward>
+        <web_view_btn_refresh></web_view_btn_refresh>
+        <loading></loading>
+        <web_view_btn_share></web_view_btn_share>
+        <web_view>
+            <!-- Replace this FrameLayout with a fragment like so:
+            <_content layout="@layout/my_fragment_layout">
+                <my_text_view>TextView in fragment</my_text_view>
+            </_content>
+            -->
+        </web_view>
+        <web_view_progress></web_view_progress>
+        <web_view_buttons_divider></web_view_buttons_divider>
+    </_content>
+</screen>

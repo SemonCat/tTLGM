@@ -17,13 +17,13 @@
         android:background="@drawable/card_background_white"
         android:text="返回"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_gravity="left|bottom"/>
+        android:layout_marginTop="16dp"
+        android:layout_gravity="left|top"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_gravity="top|center"
+        android:layout_gravity="bottom|center"
         android:orientation="vertical"
         android:background="#30aaaaaa">
 

@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by SemonCat on 2014/3/21.
  */
-public class AlbumAdapter extends BaseAdapter{
+public class AlbumAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Album> mAlbumList;
@@ -29,12 +29,12 @@ public class AlbumAdapter extends BaseAdapter{
         mAlbumList = new ArrayList<Album>();
     }
 
-    public AlbumAdapter(Context context,List<Album> albumList) {
-        this.mAlbumList  = albumList;
+    public AlbumAdapter(Context context, List<Album> albumList) {
+        this.mAlbumList = albumList;
         this.mContext = context;
     }
 
-    public void Refresh(List<Album> albumList){
+    public void Refresh(List<Album> albumList) {
         this.mAlbumList = albumList;
         notifyDataSetChanged();
     }
@@ -67,18 +67,19 @@ public class AlbumAdapter extends BaseAdapter{
             holder.AlbumTitle = (TextView) convertView.findViewById(R.id.AlbumTitle);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         Album mAlbum = getItem(position);
 
-        if (mAlbum.getPhotos().size()>0) {
+
+        if (mAlbum != null && mAlbum.getPhotos() != null && mAlbum.getPhotos().size() > 0) {
             String ImageUrl = mAlbum.getPhotos().get(0).getSrc_big();
-            if (ImageUrl!=null){
-            ImageLoader.getInstance().displayImage(ImageUrl,holder.AlbumCover);
+            if (ImageUrl != null) {
+                ImageLoader.getInstance().displayImage(ImageUrl, holder.AlbumCover);
             }
-        }else{
+        } else {
             holder.AlbumCover.setImageResource(R.drawable.default_icon);
         }
 
@@ -90,7 +91,7 @@ public class AlbumAdapter extends BaseAdapter{
 
     }
 
-    class ViewHolder{
+    class ViewHolder {
         ImageView AlbumCover;
         TextView AlbumTitle;
     }

@@ -11,9 +11,11 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.thu.ttlgm.bean.Class;
+import com.thu.ttlgm.component.HpControler;
 import com.thu.ttlgm.floatwindow.FloatWindowService;
 import com.thu.ttlgm.fragment.AlbumFragment;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
@@ -47,9 +49,6 @@ public class MainActivity extends BaseActivity {
 
         setupDrawer();
 
-        //清空PPT頁數紀錄
-        SharedPreferencesUtils.setPPTPage(this, 0);
-
         //SetupDefault
         replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
 
@@ -66,6 +65,13 @@ public class MainActivity extends BaseActivity {
 
     private void setupDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.Navi_Drawer);
+        setupHpControl();
+    }
+
+    @Override
+    protected void setupHpControl(){
+        mHpControler = new HpControler(this,mDrawerLayout);
+        mHpControler.setListener(this);
     }
 
 
@@ -122,6 +128,7 @@ public class MainActivity extends BaseActivity {
 
 
     public void toHome(View mView) {
+        clearFragmentBackStack();
         replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
         mDrawerLayout.closeDrawers();
         HideDrawer();

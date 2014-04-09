@@ -32,27 +32,9 @@ public class SharedPreferencesUtils {
         return mSharedPreferences.getInt(WEEK,1);
     }
 
-    public static void setPPTPage(Context mContext,int page){
-        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mSharedPreferences.edit().putInt(PPT_PAGE,page).commit();
-
-    }
-
-    public static int getPPTPage(Context mContext){
-        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-
-        return mSharedPreferences.getInt(PPT_PAGE,0);
-    }
-
     public static void setPPTPage(Context mContext,int week,int page){
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        /*
-        List<String> mPPTPage = new ArrayList<String>();
-        mPPTPage.set(week,String.valueOf(page));
-
-        mSharedPreferences.edit().putStringSet(PPT_PAGE,new HashSet<String>(mPPTPage));\
-        */
         mSharedPreferences.edit().putInt(PPT_PAGE_WEEK+week,page).commit();
 
     }
@@ -60,15 +42,6 @@ public class SharedPreferencesUtils {
     public static int getPPTPage(Context mContext,int week){
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        /*
-        List<String> mPPTPage = new ArrayList<String>(mSharedPreferences.getStringSet(PPT_PAGE,new HashSet<String>()));
-
-        try{
-           return Integer.valueOf(mPPTPage.get(week));
-        }catch (Exception e){
-
-        }
-        */
         return mSharedPreferences.getInt(PPT_PAGE_WEEK+week,0);
 
     }

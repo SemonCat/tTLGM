@@ -40,7 +40,11 @@ import java.util.List;
 /**
  * Created by SemonCat on 2014/1/11.
  */
-public class BaseActivity extends Activity implements PollHandler.OnMessageReceive,HpControler.OnHpControlerListener{
+public class BaseActivity extends Activity implements PollHandler.OnMessageReceive, HpControler.OnHpControlerListener {
+
+    public interface OnGlobalTouchEvent{
+        void OnTouch(MotionEvent motionEvent);
+    }
 
     private Handler mHideHandler = new Handler();
 
@@ -50,18 +54,17 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
     private static final int StartFragment = 0x123123;
 
-    private HpControler mHpControler;
+    protected HpControler mHpControler;
 
+    private OnGlobalTouchEvent mOnTouchListenerList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setupLayout());
 
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-
-
 
 
         setupView();
@@ -89,8 +92,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         mPollHandler.start();
     }
 
-    public void setPollHandlerListener(PollHandler.OnMessageReceive mListener){
-        if (mPollHandler!=null){
+    public void setPollHandlerListener(PollHandler.OnMessageReceive mListener) {
+        if (mPollHandler != null) {
             mPollHandler.setListener(mListener);
         }
     }
@@ -103,7 +106,6 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
                 mRootView);
         mDrawer = (SlidingDrawer) findViewById(R.id.drawer);
         final View HandleView = mDrawer.getHandle();
-
 
 
         final View DownIcon = HandleView.findViewById(R.id.DownIcon);
@@ -125,12 +127,11 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         });
 
 
-
         setupHpControl();
     }
 
-    private void setupHpControl(){
-        mHpControler = new HpControler(this,mDrawer);
+    protected void setupHpControl() {
+        mHpControler = new HpControler(this, mDrawer);
         mHpControler.setListener(this);
     }
 
@@ -146,23 +147,35 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         }
     }
 
-
-    public void replaceFragment(final Fragment mFragment,final String TAG) {
+    public void replaceFragment(final Fragment mFragment, final String TAG, boolean AddToBackStack) {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
         Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
         if (findFragment != null) {
-            return;
+
+            //return;
         }
         transaction.replace(R.id.Fragment_Content, mFragment, TAG);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        if (AddToBackStack) {
+            transaction.addToBackStack(null);
+        }
 
         transaction.commit();
 
 
     }
 
-    public void addFragment(Fragment mFragment,String TAG) {
+
+    public void replaceFragment(final Fragment mFragment, final String TAG) {
+
+        replaceFragment(mFragment, TAG, false);
+
+    }
+
+    public void addFragment(Fragment mFragment, String TAG) {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -173,11 +186,19 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         }
 
 
-        transaction.add(R.id.Fragment_Content, mFragment,TAG);
+        transaction.add(R.id.Fragment_Content, mFragment, TAG);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
         transaction.commit();
 
+    }
+
+    public void clearFragmentBackStack() {
+        int counter = getFragmentManager().getBackStackEntryCount();
+
+        for (int i = 0; i < counter; i++) {
+            getFragmentManager().popBackStack();
+        }
     }
 
     @Override
@@ -199,7 +220,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
 
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE
+        );
 
     }
 
@@ -227,9 +249,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
     @Override
     public void onBackPressed() {
+
         if (this.isTaskRoot()) {
-
-
             if ((System.currentTimeMillis() - exitTime) < 2000) {
                 super.onBackPressed();
             } else {
@@ -237,61 +258,75 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
                 exitTime = System.currentTimeMillis();
             }
 
-        }else{
+        } else {
             super.onBackPressed();
         }
+
     }
 
-    public void startHpServer(){
+    public void startHpServer() {
         mHpControler.startHp();
         SQService.startHpServer(ConstantUtil.HpInterval);
     }
 
-    public void stopHpServer(){
+    public void stopHpServer() {
         SQService.pauseHpServer();
     }
 
-    public void pauseHpServer(){
+    public void pauseHpServer() {
         SQService.pauseHpServer();
     }
 
-    public void resumeHpServer(){
+    public void resumeHpServer() {
         SQService.resumeHpServer();
     }
 
     @Override
     public void OnHpStartClick() {
-        Log.d("Hp","OnHpStartClick");
+        Log.d("Hp", "OnHpStartClick");
         SQService.startHpServer(ConstantUtil.HpInterval);
     }
 
     @Override
     public void OnHpPauseClick() {
-        Log.d("Hp","OnHpPauseClick");
+        Log.d("Hp", "OnHpPauseClick");
         pauseHpServer();
     }
 
     @Override
     public void OnHpStopClick() {
-        Log.d("Hp","OnHpStopClick");
+        Log.d("Hp", "OnHpStopClick");
         stopHpServer();
     }
 
     @Override
     public void OnHpResumeClick() {
-        Log.d("Hp","OnHpResumeClick");
+        Log.d("Hp", "OnHpResumeClick");
         resumeHpServer();
     }
 
 
-
-    public void setDrawerEnable(boolean Enable){
+    public void setDrawerEnable(boolean Enable) {
         if (Enable) {
             mDrawer.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             mDrawer.setVisibility(View.GONE);
         }
     }
 
 
+
+    public void setGlobalTouchEventListener(OnGlobalTouchEvent mListener){
+
+        mOnTouchListenerList = mListener;
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        mOnTouchListenerList.OnTouch(ev);
+
+        return super.dispatchTouchEvent(ev);
+    }
 }

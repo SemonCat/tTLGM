@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
     private PullToRefreshGridView mPullRefreshGridView;
     private GridView mStudentList;
     private StudentAdapter mAdapter;
+    private ProgressBar mStudentLoadingBar;
 
     private SwingBottomInAnimationAdapter swingBottomInAnimationAdapter;
 
@@ -110,6 +112,7 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
         ShowUnLogin = (CheckBox) getActivity().findViewById(R.id.ShowUnLogin);
 
         ShowBlood = (CheckBox) getActivity().findViewById(R.id.ShowBlood);
+        mStudentLoadingBar = (ProgressBar) getActivity().findViewById(R.id.StudentLoadingBar);
     }
 
     @Override
@@ -190,6 +193,8 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
             public void OnAllStudentGetEvent(List<Student> mStudentList) {
                 mPullRefreshGridView.onRefreshComplete();
                 mAdapter.refreshOnUiThread(mStudentList);
+
+                mStudentLoadingBar.setVisibility(View.GONE);
             }
         });
     }

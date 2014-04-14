@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -54,6 +55,12 @@ public class PPTFragment extends PlayFragment {
 
     private ResourcePickerFragment mResourcePickerFragment;
 
+    private boolean IsVisible;
+
+    private BaseActivity.OnGlobalTouchEvent mOnGlobalTouchEvent;
+
+    private FrameLayout ResourceParent;
+
     public PPTFragment() {
 
     }
@@ -80,6 +87,8 @@ public class PPTFragment extends PlayFragment {
 
             setupView();
         }
+
+
     }
 
     @Override
@@ -105,11 +114,15 @@ public class PPTFragment extends PlayFragment {
         mResourcePickerFragment = new ResourcePickerFragment();
 
 
+
+    }
+
+    private void setupGesture(){
         mGestureListener = new GestureListener(getActivity());
         mGestureListener.setListener(new GestureListener.OnGestureEvent() {
             @Override
             public void onSwipeTop() {
-                if (getFragmentManager()!=null){
+                if (getFragmentManager()!=null && isVisible() && IsVisible){
                     FragmentTransaction mFragmentTransaction= getFragmentManager().beginTransaction();
                     mFragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
                     mFragmentTransaction.replace(R.id.ResourceContainer,
@@ -127,28 +140,32 @@ public class PPTFragment extends PlayFragment {
             }
         });
 
-        getActivity().findViewById(R.id.ResourceParent).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mResourcePickerFragment!=null){
-                    mResourcePickerFragment.finish();
-                }
-                return false;
-            }
-        });
-
-
         BaseActivity mBaseActivity = ((BaseActivity) getActivity());
 
         if (mBaseActivity!=null){
-            mBaseActivity.setGlobalTouchEventListener(new BaseActivity.OnGlobalTouchEvent() {
+            ResourceParent.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (mResourcePickerFragment!=null){
+                        mResourcePickerFragment.finish();
+                    }
+                    return false;
+                }
+            });
+
+
+            mOnGlobalTouchEvent = new BaseActivity.OnGlobalTouchEvent() {
                 @Override
                 public void OnTouch(MotionEvent motionEvent) {
                     if (mGestureListener != null) {
                         mGestureListener.onTouch(motionEvent);
                     }
                 }
-            });
+            };
+
+            mBaseActivity.setGlobalTouchEventListener(mOnGlobalTouchEvent);
+
+
         }
 
     }
@@ -197,6 +214,18 @@ public class PPTFragment extends PlayFragment {
             public void onPageSelected(int position) {
                 SharedPreferencesUtils.setPPTPage(getActivity(), week, position);
 
+
+                if (position==0){
+                    Left.setVisibility(View.GONE);
+                }else{
+                    Left.setVisibility(View.VISIBLE);
+                }
+
+                if (position==mAdapter.getCount() - 1){
+                    Right.setVisibility(View.GONE);
+                }else{
+                    Right.setVisibility(View.VISIBLE);
+                }
 
                 mPosition = position;
 
@@ -261,6 +290,22 @@ public class PPTFragment extends PlayFragment {
     }
 
     @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+
+        IsVisible = visible;
+
+        if (visible) {
+            Log.d("","Visible");
+            mAdapter.StartLoad();
+
+            if (getActivity()!=null){
+                setupGesture();
+            }
+        }
+    }
+
+    @Override
     public void OnAlertTouch(MotionEvent event) {
         Right.dispatchTouchEvent(event);
     }
@@ -273,6 +318,10 @@ public class PPTFragment extends PlayFragment {
 
         Left = (ImageView) mView.findViewById(R.id.leftButton);
         Right = (ImageView) mView.findViewById(R.id.rightButton);
+
+
+        ResourceParent = (FrameLayout) mView.findViewById(R.id.ResourceParent);
+
 
         return mView;
     }
@@ -317,5 +366,15 @@ public class PPTFragment extends PlayFragment {
         s = new File(s).getName();
         int dotPos = s.lastIndexOf(".");
         return s.substring(0, dotPos);
+    }
+
+    @Override
+    public void onDestroy() {
+        BaseActivity mBaseActivity = ((BaseActivity) getActivity());
+
+        if (mBaseActivity!=null){
+            mBaseActivity.setGlobalTouchEventListener(null);
+        }
+        super.onDestroy();
     }
 }

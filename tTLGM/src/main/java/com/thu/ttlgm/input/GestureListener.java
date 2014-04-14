@@ -74,7 +74,7 @@ public class GestureListener implements View.OnTouchListener {
                     }
                 }
             } catch (Exception exception) {
-                exception.printStackTrace();
+                //exception.printStackTrace();
             }
             return result;
         }

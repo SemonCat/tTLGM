@@ -99,6 +99,8 @@ public class PlayFragment extends BaseFragment implements PollHandler.OnMessageR
         mAlertListView.setAdapter(animateAdditionAdapter);
 
 
+        mAlertListView.setVisibility(View.GONE);
+
     }
 
     private void setupPollHandler(){

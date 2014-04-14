@@ -70,7 +70,7 @@ public class ClassPagerAdapter extends PagerAdapter{
 
     @Override
     public int getCount() {
-        if (mData!=null)
+        if (mData!=null && mData.getClassList()!=null)
             return mData.getClassList().size();
         else return 0;
     }

@@ -95,5 +95,6 @@
         android:layout_width="70dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:src="@drawable/btn_t_hintback"/>
+        android:src="@drawable/btn_t_hintback"
+        android:visibility="gone"/>
 </FrameLayout>

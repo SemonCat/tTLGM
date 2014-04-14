@@ -19,6 +19,15 @@ android {
     compileSdkVersion 19
     buildToolsVersion '19.0.3'
 
+    signingConfigs {
+        uConfig {
+            storeFile file("gamennovation.keystore")
+            storePassword "ao6jp4wu6"
+            keyAlias "gamennovation"
+            keyPassword "ao6jp4wu6"
+        }
+    }
+
     sourceSets {
         unitTest {
             java.srcDir file('tests/src')
@@ -36,7 +45,19 @@ android {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.uConfig
         }
+
+        debug {
+
+            debuggable true
+            signingConfig signingConfigs.uConfig
+
+        }
+    }
+
+    lintOptions{
+        checkReleaseBuilds false
     }
 
 }

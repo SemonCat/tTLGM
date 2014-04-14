@@ -163,7 +163,7 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
             transaction.addToBackStack(null);
         }
 
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
 
 
     }
@@ -189,7 +189,7 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
         transaction.add(R.id.Fragment_Content, mFragment, TAG);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
 
     }
 
@@ -325,7 +325,9 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
-        mOnTouchListenerList.OnTouch(ev);
+        if (mOnTouchListenerList!=null){
+            mOnTouchListenerList.OnTouch(ev);
+        }
 
         return super.dispatchTouchEvent(ev);
     }

@@ -130,7 +130,7 @@ public class FacebookAlbumUtils {
 
 
             }
-        }, 0, 5, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
 
     }
 

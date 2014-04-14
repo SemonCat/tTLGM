@@ -85,7 +85,7 @@ public class ClassChooserFragment extends BaseFragment{
             }
         };
 
-        mAdapter = new ClassPagerAdapter(mVerticalViewPager,getActivity(),getFragmentManager(),getClassData());
+        mAdapter = new ClassPagerAdapter(mVerticalViewPager,getActivity(),getChildFragmentManager(),getClassData());
         mVerticalViewPager.setFadeEnabled(!mVerticalViewPager.getFadeEnabled());
         mVerticalViewPager.setAdapter(mAdapter);
 

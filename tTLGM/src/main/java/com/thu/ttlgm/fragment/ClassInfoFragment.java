@@ -26,6 +26,7 @@ import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.ResourceAdapter;
 import com.thu.ttlgm.utils.ConstantUtil;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 
@@ -103,11 +104,17 @@ public class ClassInfoFragment extends BaseFragment{
 
     private void setupAnim(){
 
-        AnimatorSet mAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(),
-                R.anim.translate_right2left);
 
-        mAnimatorSet.setTarget(PPT_Tip);
-        mAnimatorSet.start();
+
+            AnimatorSet mAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(),
+                    R.anim.translate_right2left);
+
+            mAnimatorSet.setTarget(PPT_Tip);
+
+        if (hasPPT(mClass.getWeek())){
+            PPT_Tip.setVisibility(View.VISIBLE);
+            mAnimatorSet.start();
+        }
 
     }
 
@@ -143,12 +150,26 @@ public class ClassInfoFragment extends BaseFragment{
     }
 
 
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
 
 
+    }
+
+    public static boolean hasPPT(int week){
+        File mFile = new File(ConstantUtil.TLGMPath+ConstantUtil.PPTDir+ConstantUtil.WeekPath+week);
+
+
+        if (mFile.exists() && mFile.list().length>0){
+
+            if (mFile.listFiles()[0].exists() && mFile.listFiles()[0].list().length>0){
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

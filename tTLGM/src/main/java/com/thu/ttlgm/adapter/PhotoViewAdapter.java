@@ -6,9 +6,11 @@ import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.thu.ttlgm.bean.Photo;
+import com.thu.ttlgm.utils.ViewUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,14 +75,14 @@ public class PhotoViewAdapter extends PagerAdapter {
 
     }
 
-
     public void setListener(PhotoViewAttacher.OnPhotoTapListener mListener) {
         this.mListener = mListener;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
+        ImageView imageView = (ImageView) object;
+        container.removeView(imageView);
     }
 
     @Override

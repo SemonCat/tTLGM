@@ -51,7 +51,7 @@ public class UApplication extends Application {
                 .defaultDisplayImageOptions(
                         new DisplayImageOptions.Builder()
                                 .showImageOnLoading(R.drawable.obj_o_picloading)
-                                .cacheInMemory(false)
+                                .cacheInMemory(true)
                                 .cacheOnDisc(true)
                                 //.displayer(new FadeInBitmapDisplayer(300))
                                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)

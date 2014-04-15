@@ -19,11 +19,14 @@ import com.thu.ttlgm.component.HpControler;
 import com.thu.ttlgm.floatwindow.FloatWindowService;
 import com.thu.ttlgm.fragment.AlbumFragment;
 import com.thu.ttlgm.fragment.ClassChooserFragment;
+import com.thu.ttlgm.fragment.ClassInfoFragment;
 import com.thu.ttlgm.fragment.GameFragment;
 import com.thu.ttlgm.fragment.GroupGameFragment;
 import com.thu.ttlgm.fragment.RandomFragment;
 import com.thu.ttlgm.fragment.ResourcePickerFragment;
 import com.thu.ttlgm.fragment.StudentsFragment;
+import com.thu.ttlgm.fragment.UnitFragment;
+import com.thu.ttlgm.fragment.UnitIndexFragment;
 import com.thu.ttlgm.fragment.WhiteBoardFragment;
 import com.thu.ttlgm.input.GestureListener;
 import com.thu.ttlgm.service.FacebookAlbumUtils;
@@ -50,7 +53,7 @@ public class MainActivity extends BaseActivity {
         setupDrawer();
 
         //SetupDefault
-        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
+        replaceFragment(new UnitIndexFragment(), UnitIndexFragment.class.getName());
 
         setupService();
 
@@ -129,7 +132,14 @@ public class MainActivity extends BaseActivity {
 
     public void toHome(View mView) {
         clearFragmentBackStack();
-        replaceFragment(new ClassChooserFragment(), ClassChooserFragment.class.getName());
+        replaceFragment(new UnitIndexFragment(), UnitIndexFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
+
+    public void toUnit(View mView) {
+        clearFragmentBackStack();
+        replaceFragment(new UnitFragment(mCurrentClass), ClassInfoFragment.class.getName());
         mDrawerLayout.closeDrawers();
         HideDrawer();
     }

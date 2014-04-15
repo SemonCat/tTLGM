@@ -1,5 +1,6 @@
 package com.thu.ttlgm.fragment;
 
+import android.animation.ObjectAnimator;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -128,8 +129,8 @@ public class PPTFragment extends PlayFragment {
                     mFragmentTransaction.replace(R.id.ResourceContainer,
                             mResourcePickerFragment);
 
-
                     mFragmentTransaction.commit();
+
                 }
 
             }
@@ -296,7 +297,6 @@ public class PPTFragment extends PlayFragment {
         IsVisible = visible;
 
         if (visible) {
-            Log.d("","Visible");
             mAdapter.StartLoad();
 
             if (getActivity()!=null){

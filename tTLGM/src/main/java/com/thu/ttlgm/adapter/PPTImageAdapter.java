@@ -35,7 +35,7 @@ public class PPTImageAdapter extends PagerAdapter {
 
     private DisplayImageOptions options;
 
-    private boolean StartLoad;
+    private boolean StartLoad = true;
 
     public PPTImageAdapter(Context mContext, File[] mImages) {
         this.mContext = mContext;

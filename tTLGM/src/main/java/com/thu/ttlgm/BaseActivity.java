@@ -156,8 +156,10 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
             //return;
         }
+        //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.setCustomAnimations(0,R.anim.zoom_out);
         transaction.replace(R.id.Fragment_Content, mFragment, TAG);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
 
         if (AddToBackStack) {
             transaction.addToBackStack(null);

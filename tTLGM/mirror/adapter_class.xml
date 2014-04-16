@@ -5,15 +5,15 @@ data, please see http://jimulabs.com/sample-data-specifications/ -->
     <_content layout="@layout/adapter_class">
         <WeekInfoBackground></WeekInfoBackground>
         <WeekInfo text="1" />
-        <ClassTitle text="ClassTitle" />
+        <ClassTitle text="創意、創新與創業" />
         <ClassDate text="ClassDate" />
         <Resource>
             <items layout="@android:layout/simple_list_item_1" >
                 <_item>
-                    <text1>Apple</text1>
+                    <text1>居米</text1>
                 </_item>
                 <_item>
-                    <text1>Orange</text1>
+                    <text1>溫停力</text1>
                 </_item>
                 <_item>
                     <text1>Pear</text1>

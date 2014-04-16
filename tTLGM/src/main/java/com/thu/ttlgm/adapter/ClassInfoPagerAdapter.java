@@ -8,6 +8,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.thu.ttlgm.fragment.ClassInfoFragment;
 import com.thu.ttlgm.fragment.PPTFragment;
@@ -30,6 +31,8 @@ public class ClassInfoPagerAdapter extends FragmentStatePagerAdapter{
     private String mPPT;
 
     private Context mContext;
+
+    private AdapterView.OnItemClickListener mListener;
 
     public ClassInfoPagerAdapter(Context context,Class mClass,FragmentManager fm) {
         super(fm);
@@ -55,8 +58,13 @@ public class ClassInfoPagerAdapter extends FragmentStatePagerAdapter{
 
         if (position==0){
 
+            ClassInfoFragment classInfoFragment = new ClassInfoFragment(mClass);
 
-            return new ClassInfoFragment(mClass);
+            if (mListener!=null){
+                classInfoFragment.setOnPPTPreViewItemClick(mListener);
+            }
+
+            return classInfoFragment;
 
         }else{
             PPTFragment pptFragment = new PPTFragment();
@@ -67,8 +75,13 @@ public class ClassInfoPagerAdapter extends FragmentStatePagerAdapter{
 
             pptFragment.setArguments(mBundle);
 
+
             return pptFragment;
         }
+    }
+
+    public void setOnPPTPreViewItemClick(AdapterView.OnItemClickListener mListener){
+        this.mListener = mListener;
     }
 
     @Override

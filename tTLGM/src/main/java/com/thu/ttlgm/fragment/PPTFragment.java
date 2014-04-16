@@ -1,6 +1,7 @@
 package com.thu.ttlgm.fragment;
 
 import android.animation.ObjectAnimator;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -33,6 +34,8 @@ public class PPTFragment extends PlayFragment {
     public static final String WEEK_PAGER = "week_pager";
 
     public static final String WEEK = "week";
+
+    public static final String TargetPage = "target_page";
 
     private static final String TAG = PPTFragment.class.getName();
 
@@ -124,10 +127,17 @@ public class PPTFragment extends PlayFragment {
             @Override
             public void onSwipeTop() {
                 if (getFragmentManager()!=null && isVisible() && IsVisible){
+                    Fragment fragment = getFragmentManager().findFragmentByTag(ResourcePickerFragment.class.getName());
+
+                    if (fragment!=null){
+                        return;
+                    }
+
                     FragmentTransaction mFragmentTransaction= getFragmentManager().beginTransaction();
+
                     mFragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
                     mFragmentTransaction.replace(R.id.ResourceContainer,
-                            mResourcePickerFragment);
+                            mResourcePickerFragment,ResourcePickerFragment.class.getName());
 
                     mFragmentTransaction.commit();
 
@@ -301,6 +311,11 @@ public class PPTFragment extends PlayFragment {
 
             if (getActivity()!=null){
                 setupGesture();
+
+                mPosition = SharedPreferencesUtils.getPPTPage(getActivity(), week);
+                if (mViewPager!=null){
+                    mViewPager.setCurrentItem(mPosition);
+                }
             }
         }
     }

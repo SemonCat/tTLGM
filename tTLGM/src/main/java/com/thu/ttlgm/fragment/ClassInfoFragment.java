@@ -20,11 +20,13 @@ import android.widget.Toast;
 
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.ValueAnimator;
+import com.thu.ttlgm.adapter.PPTPreviewAdapter;
 import com.thu.ttlgm.bean.Class;
 
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.ResourceAdapter;
 import com.thu.ttlgm.utils.ConstantUtil;
+import com.thu.ttlgm.utils.SharedPreferencesUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -40,12 +42,16 @@ public class ClassInfoFragment extends BaseFragment{
     private TextView ClassDate;
     private ImageView WeekInfoBackground;
     private ListView ResourceList;
+    private ListView PPT_Preview;
 
     private ImageView PPT_Tip;
 
     private ResourceAdapter mMovieAdapter;
+    private PPTPreviewAdapter mPPTPreviewAdapter;
 
     private Class mClass;
+
+    private AdapterView.OnItemClickListener mListener;
 
     private int weekInfoBackground[] = new int[]{R.drawable.obj_t_nubg01,
             R.drawable.obj_t_nubg02,R.drawable.obj_t_nubg03,R.drawable.obj_t_nubg04,R.drawable.obj_t_nubg05,
@@ -87,6 +93,10 @@ public class ClassInfoFragment extends BaseFragment{
                 ConstantUtil.TLGMPath+ConstantUtil.MovieDir+ConstantUtil.WeekPath+mClass.getWeek());
 
         ResourceList.setAdapter(mMovieAdapter);
+
+        mPPTPreviewAdapter = new PPTPreviewAdapter(getActivity(),ConstantUtil.TLGMPath+ConstantUtil.PPTDir+ConstantUtil.WeekPath+mClass.getWeek());
+
+        PPT_Preview.setAdapter(mPPTPreviewAdapter);
     }
 
     @Override
@@ -99,6 +109,9 @@ public class ClassInfoFragment extends BaseFragment{
                 OpenMovie(mMovieAdapter.getItem(position).getPath());
             }
         });
+
+
+        PPT_Preview.setOnItemClickListener(mListener);
 
     }
 
@@ -139,6 +152,7 @@ public class ClassInfoFragment extends BaseFragment{
         ClassDate = (TextView) mView.findViewById(R.id.ClassDate);
         WeekInfoBackground = (ImageView) mView.findViewById(R.id.WeekInfoBackground);
         ResourceList = (ListView) mView.findViewById(R.id.Resource);
+        PPT_Preview = (ListView) mView.findViewById(R.id.PPT_Preview);
 
         PPT_Tip = (ImageView) mView.findViewById(R.id.PPT_Tip);
 
@@ -156,6 +170,12 @@ public class ClassInfoFragment extends BaseFragment{
 
 
 
+    }
+
+    public void setOnPPTPreViewItemClick(AdapterView.OnItemClickListener mListener){
+        if (mListener!=null){
+            this.mListener = mListener;
+        }
     }
 
     public static boolean hasPPT(int week){

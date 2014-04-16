@@ -166,8 +166,9 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
         Fragment findFragment = getFragmentManager().findFragmentByTag(TAG);
         if (findFragment != null) {
-            HideDrawer();
-            return;
+            transaction.remove(findFragment);
+            //HideDrawer();
+            //return;
         }
 
 

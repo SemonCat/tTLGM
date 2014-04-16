@@ -50,13 +50,14 @@ public class UApplication extends Application {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .defaultDisplayImageOptions(
                         new DisplayImageOptions.Builder()
-                                .showImageOnLoading(R.drawable.obj_o_picloading)
+                                //.showImageOnLoading(R.drawable.obj_o_picloading)
                                 .cacheInMemory(true)
                                 .cacheOnDisc(true)
                                 //.displayer(new FadeInBitmapDisplayer(300))
                                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                                 .build()
                 )
+                .denyCacheImageMultipleSizesInMemory()
                 .memoryCache(new WeakMemoryCache())
                 .threadPoolSize(5) // default
                 .build();// Initialize ImageLoader with configuration.

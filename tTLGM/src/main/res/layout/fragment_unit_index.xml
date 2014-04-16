@@ -6,13 +6,20 @@
     android:background="@android:color/white">
 
 
-
-    <com.thu.ttlgm.component.UViewPager
-        android:id="@+id/ViewPagerClass"
+    <FrameLayout
+        android:id="@+id/ViewPagerContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:clipChildren="false">
+
+        <com.thu.ttlgm.component.JazzyViewPager.JazzyViewPager
+            android:id="@+id/ViewPagerClass"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:clipChildren="false" />
+    </FrameLayout>
+
 
     <ImageView
         android:id="@+id/StartClass"
@@ -22,13 +29,13 @@
         android:layout_marginBottom="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:clickable="true"/>
+        android:clickable="true" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:src="@drawable/obj_t_bottomline"
-        android:scaleType="centerInside"/>
+        android:scaleType="centerInside" />
 
 </RelativeLayout>

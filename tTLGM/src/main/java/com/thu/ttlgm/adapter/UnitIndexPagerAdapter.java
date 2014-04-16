@@ -3,6 +3,7 @@ package com.thu.ttlgm.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import java.util.Random;
 /**
  * Created by SemonCat on 2014/4/14.
  */
-public class UnitIndexPagerAdapter extends UPagerAdapter {
+public class UnitIndexPagerAdapter extends PagerAdapter {
     private Context mContext;
     private int mPageCount;
 
@@ -91,10 +92,5 @@ public class UnitIndexPagerAdapter extends UPagerAdapter {
         //must be overridden else throws exception as not overridden.
         //Log.d("Tag", collection.getChildCount()+"");
         collection.removeView((View) view);
-    }
-
-    @Override
-    public float getPageWidth(int position) {
-        return 0.5f;
     }
 }

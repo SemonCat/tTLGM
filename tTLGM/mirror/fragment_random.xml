@@ -1,0 +1,19 @@
+<!-- Generated template screen file. Fill the id tags below with content
+with which to populate your previewed layout. For help with sample
+data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/fragment_random">
+        <TargetIcon></TargetIcon>
+        <RandomBackground></RandomBackground>
+        <RandomIcon></RandomIcon>
+        <AddCoin></AddCoin>
+        <RefreshCoin></RefreshCoin>
+        <Close></Close>
+        <SubCoin></SubCoin>
+        <CoinTip text="$1" />
+        <LoadBar></LoadBar>
+        <Student_Name text="textview" />
+        <Student_ID text="textview" />
+        <Student_Department text="textview" />
+    </_content>
+</screen>

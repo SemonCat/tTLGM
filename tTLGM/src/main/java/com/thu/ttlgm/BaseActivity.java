@@ -5,37 +5,20 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.WebViewFragment;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.thu.ttlgm.component.HpControler;
 import com.thu.ttlgm.component.SlidingDrawer;
-import com.thu.ttlgm.fragment.AlbumFragment;
-import com.thu.ttlgm.fragment.ClassChooserFragment;
-import com.thu.ttlgm.fragment.GameFragment;
-import com.thu.ttlgm.fragment.GroupGameFragment;
-import com.thu.ttlgm.fragment.RandomFragment;
-import com.thu.ttlgm.fragment.ResourcePickerFragment;
-import com.thu.ttlgm.fragment.StudentsFragment;
-import com.thu.ttlgm.fragment.WhiteBoardFragment;
-import com.thu.ttlgm.fragment.WorkFragment;
-import com.thu.ttlgm.input.GestureListener;
 import com.thu.ttlgm.service.PollHandler;
 import com.thu.ttlgm.service.SQService;
 import com.thu.ttlgm.utils.ConstantUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by SemonCat on 2014/1/11.
@@ -157,7 +140,7 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
             //return;
         }
         //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.setCustomAnimations(0,R.anim.zoom_out);
+        transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.zoom_out);
         transaction.replace(R.id.Fragment_Content, mFragment, TAG);
 
 

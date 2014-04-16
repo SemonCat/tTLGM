@@ -44,7 +44,7 @@ public class FacebookAlbumUtils {
 
     private static final List<Album> mCacheAlbumList = new ArrayList<Album>();
 
-    private static DefaultHttpClient mHttpClient = new DefaultHttpClient();
+    private static DefaultHttpClient mHttpClient;
 
     private static ScheduledExecutorService mScheduledThreadPool = Executors.newScheduledThreadPool(5);
 
@@ -139,13 +139,13 @@ public class FacebookAlbumUtils {
     }
 
     private static void getAllAlbum(final List<Album> mAlbumList) throws Exception{
-        if (!CheckLogin()){
-            LoginFacebook();
-            //Log.d(TAG,"登入");
-        }
+        mHttpClient = new DefaultHttpClient();
 
+        LoginFacebook();
 
         String fqlQuery;
+        HttpResponse response;
+        HttpEntity entity;
         Pattern mFacebookIdPattern = Pattern.compile("(fbid=([0-9]+))");
         for (final Album mAlbum : mAlbumList){
 
@@ -157,8 +157,8 @@ public class FacebookAlbumUtils {
             facebookAlbum.addHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             facebookAlbum.addHeader("Accept-Language","zh-tw,zh;q=0.8,en-us;q=0.5,en;q=0.3");
             facebookAlbum.addHeader("Connection","keep-alive");
-            HttpResponse response = mHttpClient.execute(facebookAlbum);
-            HttpEntity entity = response.getEntity();
+            response = mHttpClient.execute(facebookAlbum);
+            entity = response.getEntity();
 
 
             String albumContent = EntityUtils.toString(entity);
@@ -203,6 +203,9 @@ public class FacebookAlbumUtils {
             Request.executeAndWait(request);
 
         }
+
+        mHttpClient.getConnectionManager().shutdown();
+        mHttpClient = null;
     }
 
     /**

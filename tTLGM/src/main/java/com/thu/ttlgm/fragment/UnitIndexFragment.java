@@ -1,9 +1,12 @@
 package com.thu.ttlgm.fragment;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.thu.ttlgm.MainActivity;
@@ -11,6 +14,7 @@ import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.UnitIndexPagerAdapter;
 import com.thu.ttlgm.bean.*;
 import com.thu.ttlgm.bean.Class;
+import com.thu.ttlgm.component.JazzyViewPager.JazzyViewPager;
 import com.thu.ttlgm.component.UViewPager;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
@@ -25,9 +29,11 @@ public class UnitIndexFragment extends BaseFragment{
 
 
     //ViewPager
-    private UViewPager mUViewPager;
+    private JazzyViewPager mUViewPager;
     private UnitIndexPagerAdapter mAdapter;
     private int mCurrentItemPosition;
+
+    private FrameLayout ViewPagerContainer;
 
     private ImageView StartClass;
 
@@ -47,7 +53,8 @@ public class UnitIndexFragment extends BaseFragment{
 
     @Override
     protected void setupView() {
-        mUViewPager = (UViewPager) getActivity().findViewById(R.id.ViewPagerClass);
+        mUViewPager = (JazzyViewPager) getActivity().findViewById(R.id.ViewPagerClass);
+        ViewPagerContainer = (FrameLayout) getActivity().findViewById(R.id.ViewPagerContainer);
         StartClass = (ImageView) getActivity().findViewById(R.id.StartClass);
     }
 
@@ -56,7 +63,11 @@ public class UnitIndexFragment extends BaseFragment{
     protected void setupAdapter() {
 
         mAdapter = new UnitIndexPagerAdapter(getActivity(),getClassData());
+        mUViewPager.setPageMargin(30);
+        mUViewPager.setOffscreenPageLimit(3);
         mUViewPager.setAdapter(mAdapter);
+
+        /*
         mUViewPager.enableCenterLockOfChilds();
 
         Class mData = ((MainActivity)getActivity()).getCurrentClass();
@@ -75,12 +86,34 @@ public class UnitIndexFragment extends BaseFragment{
                 mUViewPager.setCurrentItemInCenter(SharedPreferencesUtils.getWeek(getActivity()));
             }
         });
+        */
+
+        Class mData = ((MainActivity)getActivity()).getCurrentClass();
+        if (mData!=null){
+
+            mCurrentItemPosition =
+                    mAdapter.getItemPosition(mData);
+        }else{
+            mCurrentItemPosition = 1;
+        }
+
+        mUViewPager.setCurrentItem(mCurrentItemPosition);
     }
 
 
     @Override
     protected void setupEvent(){
-        UViewPager.OnPageChangeListener mListener = new UViewPager.OnPageChangeListener() {
+
+        ViewPagerContainer.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // dispatch the events to the ViewPager, to solve the problem that we can swipe only the middle view.
+                return mUViewPager.dispatchTouchEvent(event);
+            }
+        });
+
+        ViewPager.OnPageChangeListener mListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -100,7 +133,7 @@ public class UnitIndexFragment extends BaseFragment{
         };
         mUViewPager.setOnPageChangeListener(mListener);
 
-        mListener.onPageSelected(SharedPreferencesUtils.getWeek(getActivity()));
+        mListener.onPageSelected(mCurrentItemPosition);
 
 
         StartClass.setOnClickListener(new View.OnClickListener() {

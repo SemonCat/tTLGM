@@ -1,0 +1,13 @@
+<!-- Generated template screen file. Fill the id tags below with content
+with which to populate your previewed layout. For help with sample
+data, please see http://jimulabs.com/sample-data-specifications/ -->
+<screen>
+    <_content layout="@layout/adapter_student_step2_card">
+        <Student_Icon></Student_Icon>
+        <WallBackground></WallBackground>
+        <Student_Group text="textview" />
+        <Student_Name text="姓名" />
+        <Student_ID text="學號" />
+        <Student_Department text="科系" />
+    </_content>
+</screen>

@@ -84,4 +84,6 @@ dependencies {
     compile 'com.amazonaws:android-sdk-core:1.7.0'
     compile 'com.amazonaws:android-sdk-s3:1.7.0'
     compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
+    compile 'com.jpardogo.listbuddies:library:+'
+    compile "com.google.android.gms:play-services:+"
 }

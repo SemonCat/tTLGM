@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jpardogo.listbuddies.lib.adapters.CircularLoopAdapter;
 import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.thu.ttlgm.R;
@@ -15,43 +16,49 @@ import com.thu.ttlgm.bean.Album;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by SemonCat on 2014/3/21.
  */
-public class AlbumAdapter extends BaseAdapter {
+public class AlbumAdapter extends UCircularLoopAdapter {
 
     private Context mContext;
-    private List<Album> mAlbumList;
+    private CopyOnWriteArrayList<Album> mAlbumList;
 
     public AlbumAdapter(Context mContext) {
         this.mContext = mContext;
-        mAlbumList = new ArrayList<Album>();
+        mAlbumList = new CopyOnWriteArrayList<Album>();
     }
 
     public AlbumAdapter(Context context, List<Album> albumList) {
-        this.mAlbumList = albumList;
+        this.mAlbumList = new CopyOnWriteArrayList<Album>(albumList);
         this.mContext = context;
     }
 
-    public void Refresh(List<Album> albumList) {
-        this.mAlbumList = albumList;
+    public synchronized void Refresh(List<Album> albumList) {
+
+        this.mAlbumList.clear();
+        this.mAlbumList.addAll(albumList);
         notifyDataSetChanged();
+
+
     }
 
     @Override
-    public int getCount() {
+    protected int getCircularCount() {
         return mAlbumList.size();
     }
 
     @Override
     public Album getItem(int position) {
-        return mAlbumList.get(position);
+
+        return mAlbumList.get(getCircularPosition(position));
     }
 
     @Override
     public long getItemId(int position) {
-        return mAlbumList.get(position).getId();
+        return mAlbumList.get(getCircularPosition(position)).getId();
     }
 
     @Override

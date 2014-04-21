@@ -20,6 +20,7 @@ import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphObject;
+import com.jpardogo.listbuddies.lib.views.ListBuddiesLayout;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.adapter.AlbumAdapter;
 import com.thu.ttlgm.bean.Album;
@@ -42,9 +43,9 @@ public class AlbumFragment extends BaseFragment{
 
     private static final String TAG = AlbumFragment.class.getName();
 
-    private StaggeredGridView Album;
+    private ListBuddiesLayout Album;
 
-    private AlbumAdapter mAlbumAdapter;
+    private AlbumAdapter mAlbumAdapter1,mAlbumAdapter2;
 
     private Handler mHandler;
 
@@ -72,15 +73,43 @@ public class AlbumFragment extends BaseFragment{
 
     @Override
     protected void setupView() {
-        Album = (StaggeredGridView) getActivity().findViewById(R.id.Album);
+        Album = (ListBuddiesLayout) getActivity().findViewById(R.id.Album);
         mLoadingBar = (ProgressBar) getActivity().findViewById(R.id.LoadingBar);
     }
 
     @Override
     protected void setupEvent() {
+        /*
         Album.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle mBundle = new Bundle();
+                List<Photo> mPhotoList = mAlbumAdapter.getItem(position).getPhotos();
+                if (mAlbumList!=null && mPhotoList!=null){
+                    mBundle.putParcelableArrayList(PhotoFragment.PHOTO,new ArrayList<Photo>(mPhotoList));
+
+                    mBundle.putParcelable(PhotoFragment.ALBUM,mAlbumAdapter.getItem(position));
+                }
+
+                PhotoFragment mPhotoFragment = PhotoFragment.getInstance(mBundle);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.add(R.id.Fragment_Content,mPhotoFragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+        */
+        Album.setOnItemClickListener(new ListBuddiesLayout.OnBuddyItemClickListener() {
+            @Override
+            public void onBuddyItemClicked(AdapterView<?> parent, View view, int buddy, int position, long id) {
+                AlbumAdapter mAlbumAdapter;
+                if (buddy==0){
+                    mAlbumAdapter = mAlbumAdapter1;
+                }else{
+                    mAlbumAdapter = mAlbumAdapter2;
+                }
+
                 Bundle mBundle = new Bundle();
                 List<Photo> mPhotoList = mAlbumAdapter.getItem(position).getPhotos();
                 if (mAlbumList!=null && mPhotoList!=null){
@@ -101,9 +130,10 @@ public class AlbumFragment extends BaseFragment{
 
     @Override
     protected void setupAdapter() {
-        mAlbumAdapter = new AlbumAdapter(getActivity());
-        Album.setAdapter(mAlbumAdapter);
-
+        mAlbumAdapter1 = new AlbumAdapter(getActivity());
+        mAlbumAdapter2 = new AlbumAdapter(getActivity());
+        //Album.setAdapter(mAlbumAdapter);
+        Album.setAdapters(mAlbumAdapter1,mAlbumAdapter2);
     }
 
     private void getAlbum(){
@@ -114,11 +144,15 @@ public class AlbumFragment extends BaseFragment{
 
                 try{
                     mAlbumList = FacebookAlbumUtils.getAllGroupAlbum();
+                    final List<Album> mList1 = mAlbumList.subList(0,mAlbumList.size()/2);
+                    final List<Album> mList2 = mAlbumList.subList(mAlbumList.size()/2,mAlbumList.size());
 
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            mAlbumAdapter.Refresh(mAlbumList);
+                            //mAlbumAdapter.Refresh(mAlbumList);
+                            mAlbumAdapter1.Refresh(mList1);
+                            mAlbumAdapter2.Refresh(mList2);
                             mLoadingBar.setVisibility(View.GONE);
                         }
                     });

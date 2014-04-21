@@ -190,4 +190,10 @@ public class MainActivity extends BaseActivity {
         this.mCurrentClass = mCurrentClass;
     }
 
+    @Override
+    protected void onDestroy() {
+        //FacebookAlbumUtils.DestroyAll();
+        super.onDestroy();
+
+    }
 }

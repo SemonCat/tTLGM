@@ -1,4 +1,7 @@
 package com.thu.ttlgm.fragment;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -55,17 +58,43 @@ public class UnitIndexFragment extends BaseFragment{
     protected void setupView() {
         mUViewPager = (JazzyViewPager) getActivity().findViewById(R.id.ViewPagerClass);
         ViewPagerContainer = (FrameLayout) getActivity().findViewById(R.id.ViewPagerContainer);
+
         StartClass = (ImageView) getActivity().findViewById(R.id.StartClass);
     }
 
-    private Handler mHandler = new Handler();
     @Override
     protected void setupAdapter() {
 
-        mAdapter = new UnitIndexPagerAdapter(getActivity(),getClassData());
+        Subject mSubjectData = getClassData();
+
+        if (mSubjectData==null){
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("找不到課堂資料耶：（")
+                    .setMessage("很抱歉！\n使用本軟體需要先匯入課堂資料！")
+                    .setNegativeButton("關閉",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            getActivity().finish();
+                        }
+                    })
+                    .setPositiveButton("重試",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getActivity(),MainActivity.class));
+
+                            getActivity().finish();
+                        }
+                    })
+                    .setCancelable(false)
+                    .create()
+                    .show();
+        }
+
+        mAdapter = new UnitIndexPagerAdapter(getActivity(),mSubjectData);
         mUViewPager.setPageMargin(30);
         mUViewPager.setOffscreenPageLimit(3);
         mUViewPager.setAdapter(mAdapter);
+
 
         /*
         mUViewPager.enableCenterLockOfChilds();
@@ -122,8 +151,13 @@ public class UnitIndexFragment extends BaseFragment{
             @Override
             public void onPageSelected(int position) {
 
-                ((MainActivity)getActivity()).setCurrentClass(mAdapter.getItem(position));
+                Class mClass = mAdapter.getItem(position);
+                MainActivity mainActivity = ((MainActivity)getActivity());
+                if (mClass!=null && mainActivity!=null){
+                    mainActivity.setCurrentClass(mClass);
+                }
                 SharedPreferencesUtils.setWeek(getActivity(),position);
+
             }
 
             @Override

@@ -265,4 +265,8 @@ public class FacebookAlbumUtils {
 
         mHttpClient.execute(httpost).getEntity().consumeContent();
     }
+
+    public static void DestroyAll(){
+        mScheduledThreadPool.shutdown();
+    }
 }

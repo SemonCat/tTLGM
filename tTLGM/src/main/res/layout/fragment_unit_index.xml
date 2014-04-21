@@ -18,6 +18,15 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:clipChildren="false" />
+
+        <TextView
+            android:id="@+id/ClassEmptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50dp"
+            android:text="沒有課程資源：（"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
     </FrameLayout>
 
 

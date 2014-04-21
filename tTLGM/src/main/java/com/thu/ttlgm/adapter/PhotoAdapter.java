@@ -15,43 +15,53 @@ import com.thu.ttlgm.bean.Photo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by SemonCat on 2014/3/21.
  */
-public class PhotoAdapter extends BaseAdapter{
+public class PhotoAdapter extends UCircularLoopAdapter{
 
     private Context mContext;
-    private List<Photo> mAlbumList;
+    private CopyOnWriteArrayList<Photo> mAlbumList;
 
     public PhotoAdapter(Context mContext) {
         this.mContext = mContext;
-        mAlbumList = new ArrayList<Photo>();
+        mAlbumList = new CopyOnWriteArrayList<Photo>();
     }
 
     public PhotoAdapter(Context context, List<Photo> albumList) {
-        this.mAlbumList  = albumList;
+        this.mAlbumList = new CopyOnWriteArrayList<Photo>(albumList);
         this.mContext = context;
     }
 
     public void Refresh(List<Photo> albumList){
-        this.mAlbumList = albumList;
+        this.mAlbumList.clear();
+        this.mAlbumList.addAll(albumList);
         notifyDataSetChanged();
     }
 
+
+    /*
     @Override
     public int getCount() {
+        return mAlbumList.size();
+    }
+    */
+
+    @Override
+    protected int getCircularCount() {
         return mAlbumList.size();
     }
 
     @Override
     public Photo getItem(int position) {
-        return mAlbumList.get(position);
+        return mAlbumList.get(getCircularPosition(position));
     }
 
     @Override
     public long getItemId(int position) {
-        return mAlbumList.get(position).getId();
+        return mAlbumList.get(getCircularPosition(position)).getId();
     }
 
     @Override

@@ -10,5 +10,8 @@
     <dimen name="web_view_margin_3">62dp</dimen>
     <dimen name="web_view_margin_4">65dp</dimen>
     <dimen name="web_view_margin_5">43dp</dimen>
+
+
+    <dimen name="gap">0dp</dimen>
     
 </resources>

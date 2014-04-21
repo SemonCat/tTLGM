@@ -49,7 +49,12 @@ public class UnitIndexPagerAdapter extends PagerAdapter {
     }
 
     public Class getItem(int position){
-        return mData.getClassList().get(position);
+        if (mData!=null && mData.getClassList()!=null){
+            return mData.getClassList().get(position);
+        }else{
+            return null;
+        }
+
     }
 
     @Override

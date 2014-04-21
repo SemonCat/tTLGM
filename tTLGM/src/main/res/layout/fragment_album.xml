@@ -13,13 +13,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
+    <!--
     <com.etsy.android.grid.StaggeredGridView
         android:id="@+id/Album"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:item_margin="8dp"
         app:column_count="3" />
+        -->
 
+    <com.jpardogo.listbuddies.lib.views.ListBuddiesLayout
+        xmlns:listbuddies="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/Album"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        listbuddies:speed="2"
+        listbuddies:gap="@dimen/gap"/>
 
 
 

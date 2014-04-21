@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.etsy.android.grid.StaggeredGridView;
+import com.jpardogo.listbuddies.lib.views.ListBuddiesLayout;
 import com.thu.ttlgm.R;
+import com.thu.ttlgm.adapter.AlbumAdapter;
 import com.thu.ttlgm.adapter.PhotoAdapter;
 import com.thu.ttlgm.bean.Album;
 import com.thu.ttlgm.bean.Photo;
@@ -21,16 +23,16 @@ import java.util.List;
 /**
  * Created by SemonCat on 2014/3/21.
  */
-public class PhotoFragment extends BaseFragment{
+public class PhotoFragment extends BaseFragment {
 
     private static final String TAG = PhotoFragment.class.getName();
 
     public static final String ALBUM = "album";
     public static final String PHOTO = "photo";
 
-    private StaggeredGridView Photo;
+    private ListBuddiesLayout Photo;
 
-    private PhotoAdapter mPhotoAdapter;
+    private PhotoAdapter mPhotoAdapter1,mPhotoAdapter2;
 
     private Handler mHandler;
 
@@ -56,11 +58,9 @@ public class PhotoFragment extends BaseFragment{
     }
 
 
-
-
     @Override
     protected void setupView() {
-        Photo = (StaggeredGridView) getActivity().findViewById(R.id.PhotoGridView);
+        Photo = (ListBuddiesLayout) getActivity().findViewById(R.id.PhotoGridView);
     }
 
     @Override
@@ -72,6 +72,7 @@ public class PhotoFragment extends BaseFragment{
             }
         });
 
+        /*
         Photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,20 +89,39 @@ public class PhotoFragment extends BaseFragment{
                 getFragmentManager().beginTransaction().add(R.id.Fragment_Content,mPhotoViewFragment).commit();
             }
         });
+
+        */
+        Photo.setOnItemClickListener(new ListBuddiesLayout.OnBuddyItemClickListener() {
+            @Override
+            public void onBuddyItemClicked(AdapterView<?> parent, View view, int buddy, int position, long id) {
+                Bundle mBundle = new Bundle();
+                if (mPhotoList != null) {
+                    mBundle.putParcelableArrayList(PhotoFragment.PHOTO, new ArrayList<Photo>(
+                            mPhotoList));
+                }
+
+                mBundle.putInt(PhotoViewFragment.SELECT_PHOTO, position);
+
+                PhotoViewFragment mPhotoViewFragment = PhotoViewFragment.getInstance(mBundle);
+
+                getFragmentManager().beginTransaction().add(R.id.Fragment_Content, mPhotoViewFragment).commit();
+            }
+        });
     }
 
     @Override
     protected void setupAdapter() {
-        mPhotoAdapter = new PhotoAdapter(getActivity());
+        mPhotoAdapter1 = new PhotoAdapter(getActivity());
+        mPhotoAdapter2 = new PhotoAdapter(getActivity());
 
-        Photo.setAdapter(mPhotoAdapter);
+        Photo.setAdapters(mPhotoAdapter1,mPhotoAdapter2);
 
     }
 
-    private void getPhoto(){
+    private void getPhoto() {
 
         Bundle mBundle = getArguments();
-        if (mBundle!=null){
+        if (mBundle != null) {
 
             /*
             mPhotoList = mBundle.getParcelableArrayList(PHOTO);
@@ -111,9 +131,14 @@ public class PhotoFragment extends BaseFragment{
             */
 
             mAlbum = mBundle.getParcelable(ALBUM);
-            if (mAlbum!=null){
+            if (mAlbum != null) {
                 mPhotoList = FacebookAlbumUtils.getPhotoListByAlbumId(mAlbum.getId());
-                mPhotoAdapter.Refresh(mPhotoList);
+
+                List<Photo> mList1 = mPhotoList.subList(0,mPhotoList.size()/2);
+                List<Photo> mList2 = mPhotoList.subList(mPhotoList.size()/2,mPhotoList.size());
+
+                mPhotoAdapter1.Refresh(mList1);
+                mPhotoAdapter2.Refresh(mList2);
             }
         }
 

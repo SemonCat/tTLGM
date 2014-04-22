@@ -23,7 +23,7 @@ import com.thu.ttlgm.utils.ConstantUtil;
 /**
  * Created by SemonCat on 2014/1/11.
  */
-public class BaseActivity extends Activity implements PollHandler.OnMessageReceive, HpControler.OnHpControlerListener {
+public class BaseActivity extends GCMActivity implements PollHandler.OnMessageReceive, HpControler.OnHpControlerListener {
 
     public interface OnGlobalTouchEvent{
         void OnTouch(MotionEvent motionEvent);
@@ -41,7 +41,8 @@ public class BaseActivity extends Activity implements PollHandler.OnMessageRecei
 
     private OnGlobalTouchEvent mOnTouchListenerList;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setupLayout());
 

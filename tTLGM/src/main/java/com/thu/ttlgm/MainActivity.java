@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity {
     private IFloatWindowService mIFloatWindowService;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setupDrawer();

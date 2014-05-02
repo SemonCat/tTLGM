@@ -46,7 +46,7 @@ public class FacebookAlbumUtils {
 
     private static DefaultHttpClient mHttpClient;
 
-    private static ScheduledExecutorService mScheduledThreadPool = Executors.newScheduledThreadPool(5);
+    private static ScheduledExecutorService mScheduledThreadPool;
 
     public static List<Album> getAllGroupAlbum(){
 
@@ -122,6 +122,7 @@ public class FacebookAlbumUtils {
 
     public static void LoadAlbumCache(){
 
+        mScheduledThreadPool = Executors.newScheduledThreadPool(5);
         mScheduledThreadPool.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {

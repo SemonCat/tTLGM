@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,8 @@ public class PhotoViewFragment extends BaseFragment{
     private TextView PhotoLikeCount;
     private TextView PhotoCommentCount;
 
+    private Button Rotation;
+
     private ViewPager.OnPageChangeListener mListener;
 
     private View HideUi;
@@ -63,6 +66,8 @@ public class PhotoViewFragment extends BaseFragment{
         PhotoTitle = (TextView) getActivity().findViewById(R.id.PhotoTitle);
         PhotoLikeCount = (TextView) getActivity().findViewById(R.id.PhotoLikeCount);
         PhotoCommentCount = (TextView) getActivity().findViewById(R.id.PhotoCommentCount);
+
+        Rotation = (Button) getActivity().findViewById(R.id.RotationPhotoView);
     }
 
     @Override
@@ -77,6 +82,13 @@ public class PhotoViewFragment extends BaseFragment{
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction().remove(PhotoViewFragment.this).commit();
+            }
+        });
+
+        Rotation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPhotoViewAdapter.setImageRotation(mPhotoView.getCurrentItem(),true);
             }
         });
 
@@ -157,8 +169,9 @@ public class PhotoViewFragment extends BaseFragment{
         for (int i = 0;i<mPhotoViewContainer.getChildCount();i++){
             View mView = mPhotoViewContainer.getChildAt(i);
 
-
-            mView.setVisibility(View.GONE);
+            if (mView!=null){
+                mView.setVisibility(View.GONE);
+            }
 
         }
 
@@ -169,8 +182,9 @@ public class PhotoViewFragment extends BaseFragment{
         for (int i = 0;i<mPhotoViewContainer.getChildCount();i++){
             View mView = mPhotoViewContainer.getChildAt(i);
 
-
-            mView.setVisibility(View.VISIBLE);
+            if (mView!=null){
+                mView.setVisibility(View.VISIBLE);
+            }
 
         }
 

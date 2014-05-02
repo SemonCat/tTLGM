@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.thu.ttlgm.bean.Class;
+import com.thu.ttlgm.component.HackyDrawerLayout;
 import com.thu.ttlgm.component.HpControler;
 import com.thu.ttlgm.floatwindow.FloatWindowService;
 import com.thu.ttlgm.fragment.AlbumFragment;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
 
     private Class mCurrentClass;
 
-    private DrawerLayout mDrawerLayout;
+    private HackyDrawerLayout mDrawerLayout;
 
     private ServiceConnection mConnection;
     private IFloatWindowService mIFloatWindowService;
@@ -61,13 +62,12 @@ public class MainActivity extends BaseActivity {
 
         //快取圖片
         RandomFragment.LoadCache();
-        //快取相簿
-        FacebookAlbumUtils.LoadAlbumCache();
+
 
     }
 
     private void setupDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.Navi_Drawer);
+        mDrawerLayout = (HackyDrawerLayout) findViewById(R.id.Navi_Drawer);
         setupHpControl();
     }
 
@@ -115,6 +115,8 @@ public class MainActivity extends BaseActivity {
             }
 
         }
+
+        FacebookAlbumUtils.DestroyAll();
     }
 
     @Override
@@ -127,6 +129,9 @@ public class MainActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+
+        //快取相簿
+        FacebookAlbumUtils.LoadAlbumCache();
     }
 
 

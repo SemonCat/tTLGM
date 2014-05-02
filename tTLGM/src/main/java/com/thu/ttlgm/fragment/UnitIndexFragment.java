@@ -123,7 +123,7 @@ public class UnitIndexFragment extends BaseFragment{
             mCurrentItemPosition =
                     mAdapter.getItemPosition(mData);
         }else{
-            mCurrentItemPosition = 1;
+            mCurrentItemPosition = SharedPreferencesUtils.getWeek(getActivity());
         }
 
         mUViewPager.setCurrentItem(mCurrentItemPosition);

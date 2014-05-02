@@ -173,7 +173,13 @@ public class StudentAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private SortType mSortType = SortType.Blood_ASC;
+    public SortType getSortType(){
+        return mSortType;
+    }
+
     public void Sort(SortType mType){
+        mSortType = mType;
         if (mData!=null && mData.size()!=0){
 
             switch(mType){

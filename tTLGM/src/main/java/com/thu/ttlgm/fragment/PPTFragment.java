@@ -126,6 +126,7 @@ public class PPTFragment extends PlayFragment {
         mGestureListener.setListener(new GestureListener.OnGestureEvent() {
             @Override
             public void onSwipeTop() {
+
                 if (getFragmentManager()!=null && isVisible() && IsVisible){
                     Fragment fragment = getFragmentManager().findFragmentByTag(ResourcePickerFragment.class.getName());
 
@@ -150,6 +151,7 @@ public class PPTFragment extends PlayFragment {
 
             }
         });
+
 
         BaseActivity mBaseActivity = ((BaseActivity) getActivity());
 
@@ -179,10 +181,12 @@ public class PPTFragment extends PlayFragment {
 
         }
 
+
     }
 
     @Override
     protected void setupEvent() {
+
         Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,6 +230,7 @@ public class PPTFragment extends PlayFragment {
                 SharedPreferencesUtils.setPPTPage(getActivity(), week, position);
 
 
+
                 if (position==0){
                     Left.setVisibility(View.GONE);
                 }else{
@@ -260,6 +265,7 @@ public class PPTFragment extends PlayFragment {
         mViewPager.setOnPageChangeListener(mListener);
         mListener.onPageSelected(mPosition);
 
+
         PlayGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,6 +285,7 @@ public class PPTFragment extends PlayFragment {
 
             }
         });
+
     }
 
     private File[] getFiles() {

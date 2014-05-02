@@ -182,9 +182,9 @@ public class ClassInfoFragment extends BaseFragment{
         File mFile = new File(ConstantUtil.TLGMPath+ConstantUtil.PPTDir+ConstantUtil.WeekPath+week);
 
 
-        if (mFile.exists() && mFile.list().length>0){
+        if (mFile.exists() && mFile.isDirectory() && mFile.list().length>0){
 
-            if (mFile.listFiles()[0].exists() && mFile.listFiles()[0].list().length>0){
+            if (mFile.listFiles()!=null && mFile.listFiles()[0]!=null && mFile.listFiles()[0].exists() && mFile.listFiles()[0].list().length>0){
 
                 return true;
             }

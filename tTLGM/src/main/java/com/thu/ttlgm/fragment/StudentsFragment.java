@@ -28,6 +28,7 @@ import com.thu.ttlgm.bean.Subject;
 import com.thu.ttlgm.service.SQService;
 import com.thu.ttlgm.utils.ConstantUtil;
 import com.thu.ttlgm.utils.DataParser;
+import com.thu.ttlgm.utils.SharedPreferencesUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -119,7 +120,7 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
     protected void setupAdapter() {
 
         mAdapter = new StudentAdapter(getActivity());
-        mAdapter.Sort(StudentAdapter.SortType.ID_DESC);
+        mAdapter.Sort(SharedPreferencesUtils.getStudentSortType(getActivity()));
 
         swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
         swingBottomInAnimationAdapter.setAbsListView(mStudentList);
@@ -165,6 +166,8 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
                     mAdapter.Sort(StudentAdapter.SortType.ID_ASC);
 
                 ID_DESC = !ID_DESC;
+
+
                 break;
 
             case R.id.SortByBlood:
@@ -185,6 +188,8 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
                 Money_DESC = !Money_DESC;
                 break;
         }
+
+        SharedPreferencesUtils.setStudentSortType(getActivity(),mAdapter.getSortType());
     }
 
     private void getStudentDataFromServer(){
@@ -193,7 +198,7 @@ public class StudentsFragment extends BaseFragment implements View.OnClickListen
             public void OnAllStudentGetEvent(List<Student> mStudentList) {
                 mPullRefreshGridView.onRefreshComplete();
                 mAdapter.refreshOnUiThread(mStudentList);
-
+                mAdapter.Sort(SharedPreferencesUtils.getStudentSortType(getActivity()));
                 mStudentLoadingBar.setVisibility(View.GONE);
             }
         });

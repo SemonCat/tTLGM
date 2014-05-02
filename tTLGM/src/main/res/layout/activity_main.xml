@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.v4.widget.DrawerLayout
+    <com.thu.ttlgm.component.HackyDrawerLayout
         android:id="@+id/Navi_Drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +17,7 @@
             android:id="@+id/drawer_content"
             layout="@layout/sliding_drawer_content" />
 
-    </android.support.v4.widget.DrawerLayout>
+    </com.thu.ttlgm.component.HackyDrawerLayout>
 
 </FrameLayout>
 

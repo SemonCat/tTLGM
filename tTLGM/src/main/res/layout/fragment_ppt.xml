@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />
 
+
     <Button
         android:id="@+id/PlayGame"
         android:layout_width="300dp"
@@ -39,7 +40,8 @@
     <FrameLayout
         android:id="@+id/ResourceParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
 
         <FrameLayout

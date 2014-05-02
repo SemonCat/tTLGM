@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,11 +68,14 @@ public class PPTImageAdapter extends PagerAdapter {
 
         final PhotoView photoView = (PhotoView) viewGroup.findViewById(R.id.PPT_Content);
 
+
+        photoView.setAllowParentInterceptOnEdge(true);
+
         final ProgressBar mProgressBar = (ProgressBar) viewGroup.findViewById(R.id.PPT_LoadingBar);
 
 
-        if (StartLoad){
-            ImageLoader.getInstance().displayImage("file://" + mImages[position].getAbsolutePath(), photoView,options,new ImageLoadingListener() {
+        //if (StartLoad){
+            ImageLoader.getInstance().displayImage("file://" + mImages[position].getAbsolutePath(), photoView, options, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
 
@@ -79,7 +83,7 @@ public class PPTImageAdapter extends PagerAdapter {
 
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
+                    Log.d("","LoadingFailed:"+failReason.getType().toString());
                 }
 
                 @Override
@@ -93,7 +97,7 @@ public class PPTImageAdapter extends PagerAdapter {
 
                 }
             });
-        }
+       // }
 
         container.addView(viewGroup);
 

@@ -52,6 +52,12 @@ public class PollHandler {
         void getWhiteBoardImage(String URL);
 
     }
+
+    public interface OnStudentMessageReceive{
+        void OnStudentMessageReceive(String Message);
+        void OnGroupMessageReceive(String GroupId , String Message);
+    }
+
     private static final String TAG = PollHandler.class.getName();
     private static final int time = 3000;
 
@@ -64,6 +70,8 @@ public class PollHandler {
 
     private List<OnMessageReceive> mListener;
 
+    private List<OnStudentMessageReceive> mOnStudentMessageReceiveList;
+
     //常數
     private static final String RECEIVE_ANSWER = "$2";
 
@@ -74,6 +82,8 @@ public class PollHandler {
     private static final String AmazonURL = "http://tlgm.s3.amazonaws.com/";
 
     private static final String WHITEBOARD = "#white";
+
+    private static final String StudentMessage = "#s";
 
     public PollHandler() {
 
@@ -155,6 +165,13 @@ public class PollHandler {
                             if (mListener!=null)
                                 for (OnMessageReceive listener:mListener)
                                     listener.getWhiteBoardImage(spiltMessage[1]);
+                        }else if (spiltMessage[0].equals(StudentMessage)){
+                            //Log.d(TAG,"StudentMessage:"+spiltMessage[1]);
+                            if (mOnStudentMessageReceiveList!=null)
+                                for (OnStudentMessageReceive onStudentMessageReceive : mOnStudentMessageReceiveList) {
+                                    onStudentMessageReceive.OnStudentMessageReceive(spiltMessage[1]);
+                                }
+
                         }
 
 
@@ -195,5 +212,25 @@ public class PollHandler {
             mListener = new ArrayList<OnMessageReceive>();
         }
         mListener.add(listener);
+    }
+
+    public void cancelListener(OnMessageReceive listener){
+        if (mListener!=null && listener!=null){
+            mListener.remove(listener);
+        }
+    }
+
+    public void setOnStudentMessageReceiveListener(OnStudentMessageReceive mListener){
+        if (mOnStudentMessageReceiveList==null){
+            mOnStudentMessageReceiveList = new ArrayList<OnStudentMessageReceive>();
+        }
+
+        mOnStudentMessageReceiveList.add(mListener);
+    }
+
+    public void cancelOnStudentMessageReceiveListener(OnStudentMessageReceive listener){
+        if (mOnStudentMessageReceiveList!=null && listener!=null){
+            mOnStudentMessageReceiveList.remove(listener);
+        }
     }
 }

@@ -17,6 +17,8 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.utils.ViewUtil;
 
@@ -75,6 +77,7 @@ public class PPTImageAdapter extends PagerAdapter {
 
 
         //if (StartLoad){
+
             ImageLoader.getInstance().displayImage("file://" + mImages[position].getAbsolutePath(), photoView, options, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
@@ -97,7 +100,26 @@ public class PPTImageAdapter extends PagerAdapter {
 
                 }
             });
+
        // }
+
+
+        /*
+        Picasso.with(container.getContext())
+                .load(new File(mImages[position].getAbsolutePath()))
+                .into(photoView,new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        mProgressBar.setVisibility(View.GONE);
+                        photoView.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+        */
 
         container.addView(viewGroup);
 

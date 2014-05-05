@@ -48,8 +48,12 @@ public class GroupGameFragment extends BaseFragment{
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            mFancyCoverFlow.ScrollToRight();
-            mFancyCoverFlow2.ScrollToLeft();
+            if (mFancyCoverFlow!=null){
+                mFancyCoverFlow.ScrollToRight();
+            }
+            if (mFancyCoverFlow2!=null){
+                mFancyCoverFlow2.ScrollToLeft();
+            }
         }
     };
 
@@ -109,11 +113,11 @@ public class GroupGameFragment extends BaseFragment{
         public void run() {
             synchronized (mFancyCoverFlow) {
 
-                /*
+
                 Message mMessage = mHandler.obtainMessage();
 
                 mHandler.sendMessage(mMessage);
-                */
+
                 getStudentDataFromServer();
             }
         }

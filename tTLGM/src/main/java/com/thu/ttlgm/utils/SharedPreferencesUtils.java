@@ -33,7 +33,7 @@ public class SharedPreferencesUtils {
     public static int getWeek(Context mContext) {
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        return mSharedPreferences.getInt(WEEK, 1);
+        return mSharedPreferences.getInt(WEEK, 0);
     }
 
     public static void setPPTPage(Context mContext, int week, int page) {

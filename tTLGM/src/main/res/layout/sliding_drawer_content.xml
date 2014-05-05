@@ -237,11 +237,46 @@
             android:layout_height="2dp"
             android:background="@color/drawer_divider" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="100dip"
+            android:gravity="center">
+
+            <com.thu.ttlgm.component.UImageButton
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/groupinggameicon"
+                android:scaleType="fitXY"
+                android:background="@drawable/round_button_green"
+                android:onClick="toGroupGame" />
+
+            <com.thu.ttlgm.component.UImageButton
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/btn_t_whiteboard"
+                android:scaleType="fitXY"
+                android:background="@drawable/round_button_green"
+                android:onClick="toWhiteBoard"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/drawer_divider" />
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="horizontal"

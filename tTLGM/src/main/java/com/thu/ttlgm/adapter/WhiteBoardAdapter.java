@@ -175,4 +175,8 @@ public class WhiteBoardAdapter extends BaseAdapter{
         TextView ImageTitle;
         ImageView WrongImage;
     }
+
+    public List<WhiteBoardImage> getData(){
+        return mWhiteBoardImageList;
+    }
 }

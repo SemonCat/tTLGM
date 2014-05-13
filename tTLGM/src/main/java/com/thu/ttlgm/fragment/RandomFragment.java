@@ -231,7 +231,7 @@ public class RandomFragment extends BaseFragment{
                             ImageSize targetSize = new ImageSize(50, 50); // result Bitmap will be fit to this size
 
                             String URL = mStudent.getImageUrl();
-                            if (URL.startsWith("http")){
+                            if (URL!=null && URL.startsWith("http")){
                                 //Log.d(TAG,"LoadImage");
 
                                 ImageLoader.getInstance().

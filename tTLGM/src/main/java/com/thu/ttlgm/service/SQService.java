@@ -125,11 +125,14 @@ public class SQService {
         client.get(URL,new AsyncHttpResponseHandler(){});
     }
 
+    private static AsyncHttpClient StudentHttpClient;
     public static void getAllStudents(final OnAllStudentGetListener mListener){
         String URL = ServerIP+"/TeacherQuery?service=3";
-        AsyncHttpClient client = new AsyncHttpClient();
+        if (StudentHttpClient==null){
+            StudentHttpClient = new AsyncHttpClient();
+        }
 
-        client.get(URL,new AsyncHttpResponseHandler(){
+        StudentHttpClient.get(URL,new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -147,9 +150,8 @@ public class SQService {
                     if (mListener!=null)
                         mListener.OnAllStudentGetEvent(mData);
 
-
-
                     getAllStudentHp(mData,mListener);
+
 
                 }catch (IOException mIOException){
                     mIOException.printStackTrace();
@@ -170,9 +172,11 @@ public class SQService {
     private static void getAllStudentHp(final List<Student> srcList,final OnAllStudentGetListener mListener){
 
         String URL = ServerIP+"/TeacherQuery?service=1";
-        AsyncHttpClient client = new AsyncHttpClient();
+        if (StudentHttpClient==null){
+            StudentHttpClient = new AsyncHttpClient();
+        }
 
-        client.get(URL,new AsyncHttpResponseHandler(){
+        StudentHttpClient.get(URL,new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {

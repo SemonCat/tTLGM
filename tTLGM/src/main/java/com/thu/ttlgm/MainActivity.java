@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.thu.ttlgm.bean.Class;
 import com.thu.ttlgm.component.HackyDrawerLayout;
@@ -29,6 +30,7 @@ import com.thu.ttlgm.fragment.StudentsFragment;
 import com.thu.ttlgm.fragment.UnitFragment;
 import com.thu.ttlgm.fragment.UnitIndexFragment;
 import com.thu.ttlgm.fragment.WhiteBoardFragment;
+import com.thu.ttlgm.fragment.vote.StatisticFragment;
 import com.thu.ttlgm.input.GestureListener;
 import com.thu.ttlgm.service.FacebookAlbumUtils;
 import com.thu.ttlgm.service.SQService;
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity {
     private ServiceConnection mConnection;
     private IFloatWindowService mIFloatWindowService;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,32 @@ public class MainActivity extends BaseActivity {
         //快取圖片
         RandomFragment.LoadCache();
 
+        setupMerlin();
+    }
 
+    private void setupMerlin(){
+/*
+
+        merlin = new Merlin.Builder()
+                .withDisconnectableCallbacks()
+                .withConnectableCallbacks()
+                .build(context);
+        merlin.registerConnectable(new Connectable() {
+            @Override
+            public void onConnect() {
+                Log.d(TAG,"連線回復");
+                ShowToast("連線回復。");
+            }
+        });
+
+        merlin.registerDisconnectable(new Disconnectable() {
+            @Override
+            public void onDisconnect() {
+                Log.d(TAG,"連線中斷");
+                ShowToast("連線中斷。");
+            }
+        });
+*/
     }
 
     private void setupDrawer() {
@@ -117,6 +145,8 @@ public class MainActivity extends BaseActivity {
         }
 
         FacebookAlbumUtils.DestroyAll();
+
+        //merlin.unbind();
     }
 
     @Override
@@ -132,6 +162,8 @@ public class MainActivity extends BaseActivity {
 
         //快取相簿
         FacebookAlbumUtils.LoadAlbumCache();
+
+        //merlin.bind();
     }
 
 
@@ -185,6 +217,14 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.closeDrawers();
         HideDrawer();
     }
+
+
+    public void toVote(View mView) {
+        replaceFragment(new StatisticFragment(), StatisticFragment.class.getName());
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
+
 
 
     public Class getCurrentClass() {

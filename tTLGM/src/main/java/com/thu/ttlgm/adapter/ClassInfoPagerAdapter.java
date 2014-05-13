@@ -44,12 +44,18 @@ public class ClassInfoPagerAdapter extends FragmentStatePagerAdapter{
         File mFile = new File(ConstantUtil.TLGMPath+ConstantUtil.PPTDir+ConstantUtil.WeekPath+mClass.getWeek());
 
 
-        if (mFile.exists() && mFile.list().length>0){
-            mPPT = mFile.listFiles()[0].getPath();
+        if (mFile.exists() && mFile.isDirectory() && mFile.list().length>0){
+            for (File insideFile:mFile.listFiles()){
+                if (insideFile.isDirectory()){
+                    mPPT = insideFile.getPath();
 
-            if (ClassInfoFragment.hasPPT(mClass.getWeek())){
-                this.size = 2;
+                    if (ClassInfoFragment.hasPPT(mClass.getWeek())){
+                        this.size = 2;
+                    }
+                    break;
+                }
             }
+
         }
     }
 

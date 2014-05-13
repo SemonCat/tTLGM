@@ -23,7 +23,7 @@ import com.nineoldandroids.view.ViewHelper;
 import com.thu.ttlgm.R;
 
 /**
- * Created by SemonCat on 2014/4/8.
+ * Created by SemonCat on 2014/4/8.IndexOutOfBoundsException
  */
 public class JazzyViewPager extends ViewPager{
     public static final String TAG = "JazzyViewPager";

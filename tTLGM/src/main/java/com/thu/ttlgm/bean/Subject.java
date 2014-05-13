@@ -21,8 +21,10 @@ public class Subject implements Serializable{
     @ElementList
     private List<Class> ClassList;
 
+    /*
     @ElementList
     private List<Student> Students;
+    */
 
     public String getTitle() {
         return Title;
@@ -40,6 +42,7 @@ public class Subject implements Serializable{
         ClassList = classList;
     }
 
+    /*
     public List<Student> getStudents() {
         return Students;
     }
@@ -47,5 +50,6 @@ public class Subject implements Serializable{
     public void setStudents(List<Student> students) {
         Students = students;
     }
+    */
 }
 

@@ -1,5 +1,6 @@
 package com.thu.ttlgm.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import com.thu.ttlgm.BaseActivity;
 import com.thu.ttlgm.R;
 
 import java.lang.reflect.Field;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 /**
  * Created by SemonCat on 2014/1/13.
@@ -53,6 +57,13 @@ public class BaseFragment extends Fragment {
     }
 
 
+    public void ShowCrouton(String message,Style mStyle){
+        Activity mActivity = getActivity();
+        if (mActivity!=null){
+            Crouton.makeText(mActivity,message, mStyle).show();
+        }
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -80,4 +91,8 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

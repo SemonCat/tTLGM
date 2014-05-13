@@ -1,0 +1,37 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.makeramen.RoundedImageView
+        android:id="@+id/avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:maxWidth="50dp"
+        android:maxHeight="50dp"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"
+        app:corner_radius="360dip"
+        app:border_width="2dip"
+        app:border_color="#333333"
+        app:round_background="true"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="里里里"
+        android:layout_below="@+id/avatar"
+        android:layout_alignLeft="@+id/avatar"
+        android:layout_alignRight="@+id/avatar"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/department"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="資工系"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/avatar"
+        android:layout_alignRight="@+id/avatar"
+        android:gravity="center"/>
+</RelativeLayout>

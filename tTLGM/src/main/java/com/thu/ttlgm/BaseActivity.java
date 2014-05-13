@@ -20,10 +20,12 @@ import com.thu.ttlgm.service.PollHandler;
 import com.thu.ttlgm.service.SQService;
 import com.thu.ttlgm.utils.ConstantUtil;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+
 /**
  * Created by SemonCat on 2014/1/11.
  */
-public class BaseActivity extends GCMActivity implements PollHandler.OnMessageReceive, HpControler.OnHpControlerListener {
+public class BaseActivity extends Activity implements PollHandler.OnMessageReceive, HpControler.OnHpControlerListener {
 
     public interface OnGlobalTouchEvent{
         void OnTouch(MotionEvent motionEvent);
@@ -41,6 +43,8 @@ public class BaseActivity extends GCMActivity implements PollHandler.OnMessageRe
 
     private OnGlobalTouchEvent mOnTouchListenerList;
 
+    private Toast mToast;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,22 @@ public class BaseActivity extends GCMActivity implements PollHandler.OnMessageRe
         //addSlidingDrawer();
         setupPollHandler();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
+        mPollHandler.cancel();
+    }
+
+    public void ShowToast(String message){
+        if (mToast==null){
+            mToast = Toast.makeText(this,message,Toast.LENGTH_SHORT);
+        }
+
+        mToast.setText(message);
+        mToast.show();
     }
 
     protected int setupLayout() {
@@ -318,4 +338,6 @@ public class BaseActivity extends GCMActivity implements PollHandler.OnMessageRe
 
         return super.dispatchTouchEvent(ev);
     }
+
+
 }

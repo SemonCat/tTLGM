@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
 
     <LinearLayout
@@ -31,7 +29,7 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/obj_t_nubg01"/>
+                    android:src="@drawable/obj_t_nubg01" />
 
                 <TextView
                     android:id="@+id/WeekInfo"
@@ -75,7 +73,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textSize="30dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </ScrollView>
@@ -84,14 +82,21 @@
         </LinearLayout>
 
 
-        <ListView
-            android:id="@+id/Resource"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:background="@drawable/card_background_white"
             android:padding="20dp"
-            android:layout_margin="30dp"/>
+            android:layout_margin="30dp"
+            android:background="@drawable/card_background_white">
+
+
+            <ListView
+                android:id="@+id/Resource"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+
 
         <FrameLayout
             android:layout_width="0dp"
@@ -106,7 +111,7 @@
             <ListView
                 android:id="@+id/PPT_Preview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </FrameLayout>
 
     </LinearLayout>
@@ -117,5 +122,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:src="@drawable/btn_t_hintback"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </FrameLayout>

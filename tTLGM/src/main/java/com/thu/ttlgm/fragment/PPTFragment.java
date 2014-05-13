@@ -25,6 +25,8 @@ import com.thu.ttlgm.utils.SharedPreferencesUtils;
 
 import java.io.File;
 
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 /**
  * Created by SemonCat on 2014/3/5.
  */
@@ -42,7 +44,7 @@ public class PPTFragment extends PlayFragment {
     private HackyViewPager mViewPager;
     private PPTImageAdapter mAdapter;
 
-    private Button PlayGame;
+    private Button PlayGame,PlayGameS;
 
     private int mPosition;
 
@@ -106,7 +108,14 @@ public class PPTFragment extends PlayFragment {
     @Override
     protected void setupView() {
 
-        mAdapter = new PPTImageAdapter(getActivity(), getFiles());
+        File[] mData = getFiles();
+
+        if (mData==null) {
+            finish();
+            ShowCrouton("PPT載入錯誤：（", Style.ALERT);
+        }
+
+        mAdapter = new PPTImageAdapter(getActivity(), mData);
 
 
         mViewPager.setAdapter(mAdapter);
@@ -127,8 +136,10 @@ public class PPTFragment extends PlayFragment {
             @Override
             public void onSwipeTop() {
 
+
                 if (getFragmentManager()!=null && isVisible() && IsVisible){
-                    Fragment fragment = getFragmentManager().findFragmentByTag(ResourcePickerFragment.class.getName());
+                    Fragment fragment = getFragmentManager()
+                            .findFragmentByTag(ResourcePickerFragment.class.getName());
 
                     if (fragment!=null){
                         return;
@@ -137,10 +148,12 @@ public class PPTFragment extends PlayFragment {
                     FragmentTransaction mFragmentTransaction= getFragmentManager().beginTransaction();
 
                     mFragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_bottom);
-                    mFragmentTransaction.replace(R.id.ResourceContainer,
+                    mResourcePickerFragment = new ResourcePickerFragment();
+                    mFragmentTransaction.add(R.id.ResourceContainer,
                             mResourcePickerFragment,ResourcePickerFragment.class.getName());
 
                     mFragmentTransaction.commit();
+
 
                 }
 
@@ -253,6 +266,13 @@ public class PPTFragment extends PlayFragment {
                     PlayGame.setVisibility(View.GONE);
                 }
 
+                PlayGameS.setVisibility(View.GONE);
+
+                if (checkMissionS(mPosition)) {
+                    PlayGameS.setVisibility(View.VISIBLE);
+                } else {
+                    PlayGameS.setVisibility(View.GONE);
+                }
 
             }
 
@@ -286,6 +306,26 @@ public class PPTFragment extends PlayFragment {
             }
         });
 
+        PlayGameS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Send Mission S");
+
+
+                Toast.makeText(getActivity(), "已發送任務S！", Toast.LENGTH_SHORT).show();
+
+                String MissionCode = parseMissionS(mPosition);
+
+                if (MissionCode != null) {
+                    Log.d(TAG, "sendMission:" + MissionCode);
+                    SQService.startQuestion(MissionCode, "1");
+
+                }
+
+
+            }
+        });
+
     }
 
     private File[] getFiles() {
@@ -297,11 +337,10 @@ public class PPTFragment extends PlayFragment {
 
         String Path = mPPTFilePath;
         File mFile = new File(Path);
-        if (mFile.exists()) {
+        if (mFile.exists() && mFile.isDirectory() && mFile.listFiles()!=null) {
 
             return mFile.listFiles();
         } else {
-            finish();
             Log.d(TAG, "File==null");
             return null;
         }
@@ -338,6 +377,8 @@ public class PPTFragment extends PlayFragment {
         mViewPager = (HackyViewPager) mView.findViewById(R.id.view_pager);
         PlayGame = (Button) mView.findViewById(R.id.PlayGame);
 
+        PlayGameS = (Button) mView.findViewById(R.id.PlayGameS);
+
         Left = (ImageView) mView.findViewById(R.id.leftButton);
         Right = (ImageView) mView.findViewById(R.id.rightButton);
 
@@ -355,6 +396,20 @@ public class PPTFragment extends PlayFragment {
         } catch (ArrayIndexOutOfBoundsException mArrayIndexOutOfBoundsException) {
             mArrayIndexOutOfBoundsException.printStackTrace();
             return false;
+        } catch (NullPointerException e){
+            return false;
+        }
+    }
+
+    private boolean checkMissionS(int position) {
+        try {
+            String FileName = mAdapter.getFiles()[position].getName();
+            return FileName.contains("_s");
+        } catch (ArrayIndexOutOfBoundsException mArrayIndexOutOfBoundsException) {
+            mArrayIndexOutOfBoundsException.printStackTrace();
+            return false;
+        }catch (NullPointerException e){
+            return false;
         }
     }
 
@@ -364,6 +419,26 @@ public class PPTFragment extends PlayFragment {
         String FileName = mAdapter.getFiles()[position].getName();
         FileName = getFileName(FileName);
         boolean IsMission = FileName.contains("_m");
+
+        if (IsMission) {
+            String Split[] = FileName.split("_");
+
+            if (Split.length >= 3) {
+
+                return Split[2];
+
+            }
+        }
+
+        return null;
+    }
+
+    private String parseMissionS(int position) {
+
+
+        String FileName = mAdapter.getFiles()[position].getName();
+        FileName = getFileName(FileName);
+        boolean IsMission = FileName.contains("_s");
 
         if (IsMission) {
             String Split[] = FileName.split("_");
@@ -399,4 +474,5 @@ public class PPTFragment extends PlayFragment {
         }
         super.onDestroy();
     }
+
 }

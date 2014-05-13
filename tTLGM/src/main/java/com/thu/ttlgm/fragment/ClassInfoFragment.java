@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ import java.util.Random;
 /**
  * Created by SemonCat on 2014/4/9.
  */
-public class ClassInfoFragment extends BaseFragment{
+public class ClassInfoFragment extends BaseFragment {
 
     private TextView Week;
     private TextView ClassTitle;
@@ -54,11 +55,11 @@ public class ClassInfoFragment extends BaseFragment{
     private AdapterView.OnItemClickListener mListener;
 
     private int weekInfoBackground[] = new int[]{R.drawable.obj_t_nubg01,
-            R.drawable.obj_t_nubg02,R.drawable.obj_t_nubg03,R.drawable.obj_t_nubg04,R.drawable.obj_t_nubg05,
-            R.drawable.obj_t_nubg06,R.drawable.obj_t_nubg07,R.drawable.obj_t_nubg08,R.drawable.obj_t_nubg09,
-            R.drawable.obj_t_nubg10,R.drawable.obj_t_nubg11,R.drawable.obj_t_nubg12,R.drawable.obj_t_nubg13,
-            R.drawable.obj_t_nubg14,R.drawable.obj_t_nubg15,R.drawable.obj_t_nubg16,R.drawable.obj_t_nubg17,
-            R.drawable.obj_t_nubg18,R.drawable.obj_t_nubg19};
+            R.drawable.obj_t_nubg02, R.drawable.obj_t_nubg03, R.drawable.obj_t_nubg04, R.drawable.obj_t_nubg05,
+            R.drawable.obj_t_nubg06, R.drawable.obj_t_nubg07, R.drawable.obj_t_nubg08, R.drawable.obj_t_nubg09,
+            R.drawable.obj_t_nubg10, R.drawable.obj_t_nubg11, R.drawable.obj_t_nubg12, R.drawable.obj_t_nubg13,
+            R.drawable.obj_t_nubg14, R.drawable.obj_t_nubg15, R.drawable.obj_t_nubg16, R.drawable.obj_t_nubg17,
+            R.drawable.obj_t_nubg18, R.drawable.obj_t_nubg19};
 
     public ClassInfoFragment(Class mClass) {
         this.mClass = mClass;
@@ -86,15 +87,14 @@ public class ClassInfoFragment extends BaseFragment{
     }
 
 
-
     @Override
     protected void setupAdapter() {
         mMovieAdapter = new ResourceAdapter(getActivity(),
-                ConstantUtil.TLGMPath+ConstantUtil.MovieDir+ConstantUtil.WeekPath+mClass.getWeek());
+                ConstantUtil.TLGMPath + ConstantUtil.MovieDir + ConstantUtil.WeekPath + mClass.getWeek());
 
         ResourceList.setAdapter(mMovieAdapter);
 
-        mPPTPreviewAdapter = new PPTPreviewAdapter(getActivity(),ConstantUtil.TLGMPath+ConstantUtil.PPTDir+ConstantUtil.WeekPath+mClass.getWeek());
+        mPPTPreviewAdapter = new PPTPreviewAdapter(getActivity(), ConstantUtil.TLGMPath + ConstantUtil.PPTDir + ConstantUtil.WeekPath + mClass.getWeek());
 
         PPT_Preview.setAdapter(mPPTPreviewAdapter);
     }
@@ -115,16 +115,15 @@ public class ClassInfoFragment extends BaseFragment{
 
     }
 
-    private void setupAnim(){
+    private void setupAnim() {
 
 
+        AnimatorSet mAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(),
+                R.anim.translate_right2left);
 
-            AnimatorSet mAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(),
-                    R.anim.translate_right2left);
+        mAnimatorSet.setTarget(PPT_Tip);
 
-            mAnimatorSet.setTarget(PPT_Tip);
-
-        if (hasPPT(mClass.getWeek())){
+        if (hasPPT(mClass.getWeek())) {
             PPT_Tip.setVisibility(View.VISIBLE);
             mAnimatorSet.start();
         }
@@ -132,22 +131,23 @@ public class ClassInfoFragment extends BaseFragment{
     }
 
 
-    private void OpenMovie(String Path){
-        try{
+    private void OpenMovie(String Path) {
+        try {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Path));
             intent.setDataAndType(Uri.parse(Path), "video/mp4");
             getActivity().startActivity(intent);
-        }catch (ActivityNotFoundException mActivityNotFoundException){
+        } catch (ActivityNotFoundException mActivityNotFoundException) {
             Toast.makeText(getActivity(), "找不到播放器", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View mView = inflater.inflate(R.layout.adapter_class, container, false);
 
-        Week = (TextView)mView.findViewById(R.id.WeekInfo);
+        Week = (TextView) mView.findViewById(R.id.WeekInfo);
         ClassTitle = (TextView) mView.findViewById(R.id.ClassTitle);
         ClassDate = (TextView) mView.findViewById(R.id.ClassDate);
         WeekInfoBackground = (ImageView) mView.findViewById(R.id.WeekInfoBackground);
@@ -156,7 +156,7 @@ public class ClassInfoFragment extends BaseFragment{
 
         PPT_Tip = (ImageView) mView.findViewById(R.id.PPT_Tip);
 
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null) {
 
         }
 
@@ -169,26 +169,28 @@ public class ClassInfoFragment extends BaseFragment{
         super.onSaveInstanceState(outState);
 
 
-
     }
 
-    public void setOnPPTPreViewItemClick(AdapterView.OnItemClickListener mListener){
-        if (mListener!=null){
+    public void setOnPPTPreViewItemClick(AdapterView.OnItemClickListener mListener) {
+        if (mListener != null) {
             this.mListener = mListener;
         }
     }
 
-    public static boolean hasPPT(int week){
-        File mFile = new File(ConstantUtil.TLGMPath+ConstantUtil.PPTDir+ConstantUtil.WeekPath+week);
+    public static boolean hasPPT(int week) {
+        File mFile = new File(ConstantUtil.TLGMPath + ConstantUtil.PPTDir + ConstantUtil.WeekPath + week);
 
 
-        if (mFile.exists() && mFile.isDirectory() && mFile.list().length>0){
+        if (mFile.exists() && mFile.isDirectory() && mFile.list().length > 0) {
 
-            if (mFile.listFiles()!=null && mFile.listFiles()[0]!=null && mFile.listFiles()[0].exists() && mFile.listFiles()[0].list().length>0){
-
-                return true;
+            for (File insideFile : mFile.listFiles()) {
+                if (insideFile.isDirectory() && insideFile.list().length > 0) {
+                    return true;
+                }
             }
+
         }
+
 
         return false;
     }

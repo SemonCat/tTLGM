@@ -12,6 +12,14 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />
 
+    <Button
+        android:id="@+id/PlayGameS"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@null"/>
 
     <Button
         android:id="@+id/PlayGame"
@@ -40,8 +48,7 @@
     <FrameLayout
         android:id="@+id/ResourceParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
 
         <FrameLayout

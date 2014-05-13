@@ -36,9 +36,14 @@ public class PPTPreviewAdapter extends BaseAdapter{
                 .build();
 
         File mFile = new File(Path);
-        if (mFile.exists()) {
+        if (mFile.exists() && mFile.listFiles()!=null) {
+            for (File insideFile : mFile.listFiles()){
+                if (insideFile.isDirectory()){
+                    mImages = insideFile.listFiles();
+                    break;
+                }
+            }
 
-            mImages = mFile.listFiles()[0].listFiles();
         } else {
             mImages = new File[0];
         }
@@ -46,6 +51,7 @@ public class PPTPreviewAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
+        if (mImages==null) return 0;
         return mImages.length;
     }
 

@@ -258,11 +258,10 @@
                 android:padding="10dp"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:src="@drawable/btn_t_whiteboard"
+                android:src="@drawable/btn_o_star"
                 android:scaleType="fitXY"
                 android:background="@drawable/round_button_green"
-                android:onClick="toWhiteBoard"
-                android:visibility="gone"/>
+                android:onClick="toVote"/>
 
         </LinearLayout>
 

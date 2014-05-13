@@ -75,7 +75,7 @@ public class WhiteBoardFragment extends BaseFragment{
 
 
 
-    private static final String[] Dirs = new String[]{"week03_01","week03_02","week03_03"};
+    private static final String[] Dirs = new String[]{"vote01","week03_01","week03_02","week03_03"};
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -87,6 +87,7 @@ public class WhiteBoardFragment extends BaseFragment{
 
         getImage();
 
+        /*
         mFacebookMgr = new FacebookMgr(getActivity());
         mFacebookMgr.Login();
         mFacebookMgr.setListener(new FacebookMgr.FacebookMgrListener() {
@@ -95,6 +96,7 @@ public class WhiteBoardFragment extends BaseFragment{
 
             }
         });
+        */
     }
 
     @Override
@@ -146,7 +148,13 @@ public class WhiteBoardFragment extends BaseFragment{
         mWhiteBoard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mWhiteBoardAdapter.toggleWrong(position);
+                //mWhiteBoardAdapter.toggleWrong(position);
+                WhiteBoardViewPagerFragment whiteBoardViewPagerFragment =
+                        new WhiteBoardViewPagerFragment(position,mWhiteBoardAdapter.getData());
+
+                if (getFragmentManager()!=null) {
+                    getFragmentManager().beginTransaction().add(R.id.Fragment_Content, whiteBoardViewPagerFragment).commit();
+                }
             }
         });
 
@@ -323,7 +331,7 @@ public class WhiteBoardFragment extends BaseFragment{
     }
 
     private void startWhiteBoard(String Dir){
-        SQService.startQuestion(Dir,"WhiteBoard");
+        //SQService.startQuestion(Dir,"WhiteBoard");
     }
 
     @Override

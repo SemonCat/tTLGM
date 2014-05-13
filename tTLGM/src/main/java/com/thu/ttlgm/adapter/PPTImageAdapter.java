@@ -58,13 +58,14 @@ public class PPTImageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
+        if (mImages == null) return 0;
         return mImages.length;
     }
 
     @Override
     public View instantiateItem(ViewGroup container, int position) {
 
-        ViewGroup viewGroup = (ViewGroup)((LayoutInflater) mContext
+        ViewGroup viewGroup = (ViewGroup) ((LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
                 inflate(R.layout.adapter_ppt_image, null);
 
@@ -78,30 +79,30 @@ public class PPTImageAdapter extends PagerAdapter {
 
         //if (StartLoad){
 
-            ImageLoader.getInstance().displayImage("file://" + mImages[position].getAbsolutePath(), photoView, options, new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
+        ImageLoader.getInstance().displayImage("file://" + mImages[position].getAbsolutePath(), photoView, options, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
 
-                }
+            }
 
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    Log.d("","LoadingFailed:"+failReason.getType().toString());
-                }
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                Log.d("", "LoadingFailed:" + failReason.getType().toString());
+            }
 
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    mProgressBar.setVisibility(View.GONE);
-                    photoView.setVisibility(View.VISIBLE);
-                }
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                mProgressBar.setVisibility(View.GONE);
+                photoView.setVisibility(View.VISIBLE);
+            }
 
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
 
-                }
-            });
+            }
+        });
 
-       // }
+        // }
 
 
         /*
@@ -141,7 +142,7 @@ public class PPTImageAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         //ImageView imageView = (ImageView) object;
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 
     @Override
@@ -150,7 +151,7 @@ public class PPTImageAdapter extends PagerAdapter {
     }
 
 
-    private Bitmap decodeFile(File f) throws IOException{
+    private Bitmap decodeFile(File f) throws IOException {
         int IMAGE_MAX_SIZE = 300;
 
         Bitmap b = null;
@@ -165,7 +166,7 @@ public class PPTImageAdapter extends PagerAdapter {
 
         int scale = 1;
         if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
-            scale = (int)Math.pow(2, (int) Math.ceil(Math.log(IMAGE_MAX_SIZE /
+            scale = (int) Math.pow(2, (int) Math.ceil(Math.log(IMAGE_MAX_SIZE /
                     (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
         }
 
@@ -179,7 +180,7 @@ public class PPTImageAdapter extends PagerAdapter {
         return b;
     }
 
-    public void StartLoad(){
+    public void StartLoad() {
         StartLoad = true;
         notifyDataSetChanged();
     }

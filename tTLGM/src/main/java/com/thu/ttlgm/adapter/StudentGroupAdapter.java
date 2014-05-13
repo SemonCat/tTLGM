@@ -61,6 +61,7 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
 
         options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
+                .showImageOnLoading(R.drawable.default_icon)
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .build();
@@ -145,7 +146,7 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
 
         Student mStudent = this.getItem(position);
         holder.Name.setText(mStudent.getName());
-        holder.StudentID.setText(mStudent.getID());
+        holder.StudentID.setText(mStudent.getFacebookID());
         holder.Department.setText(mStudent.getDepartment());
 
         String URL = mStudent.getImageUrl();

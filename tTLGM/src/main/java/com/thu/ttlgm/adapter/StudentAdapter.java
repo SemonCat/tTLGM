@@ -77,10 +77,6 @@ public class StudentAdapter extends BaseAdapter {
 
     }
 
-    public StudentAdapter(Context context,Subject data) {
-        this(context,data.getStudents());
-    }
-
     public StudentAdapter(Context context){
         this(context,new ArrayList<Student>());
     }
@@ -147,7 +143,7 @@ public class StudentAdapter extends BaseAdapter {
 
         Student mStudent = this.getItem(position);
         holder.Name.setText(mStudent.getName());
-        holder.StudentID.setText(mStudent.getID());
+        holder.StudentID.setText(mStudent.getFacebookID());
         holder.Department.setText(mStudent.getDepartment());
 
         int blood = mStudent.getBlood();

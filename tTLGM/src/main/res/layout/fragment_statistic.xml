@@ -1,0 +1,372 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bkg_o_vote"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="对贵公司而言，您认为哪项最复杂？"
+        android:id="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:textSize="40dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/q1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/title"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/histograme_bg"
+            android:layout_width="300dp"
+            android:layout_height="50dp">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/obj_o_redarrowbottom"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp">
+
+                <View
+                    android:id="@+id/histogramebar1"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/obj_o_redarrow"
+                    android:translationX="-300dp"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:text="认知复杂"/>
+
+            <TextView
+                android:id="@+id/TicketCounter1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:text="0"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/obj_o_redsquare"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/q1container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@drawable/obj_o_redrectangle"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="18dp"
+                android:paddingRight="100dp"/>
+
+            <ImageButton
+                android:id="@+id/q1etc"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/btn_o_dot"
+                android:scaleType="centerInside"
+                android:layout_gravity="right|center"/>
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/q2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/q1"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:clipChildren="false">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/obj_o_yellowarrowbottom"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp">
+
+                <View
+                    android:id="@+id/histogramebar2"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/obj_o_yellowdarrow"
+                    android:translationX="-300dp"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:text="软件复杂"/>
+
+            <TextView
+                android:id="@+id/TicketCounter2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:text="0"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/obj_o_yellowsquare"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/q2container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@drawable/obj_o_yellowrectangle"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="18dp"
+                android:paddingRight="100dp"/>
+
+            <ImageButton
+                android:id="@+id/q2etc"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/btn_o_dot"
+                android:scaleType="centerInside"
+                android:layout_gravity="right|center"/>
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/q3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/q2"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:clipChildren="false">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/obj_o_greenarrowbottom"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp">
+
+                <View
+                    android:id="@+id/histogramebar3"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/obj_o_greenarrow"
+                    android:translationX="-300dp"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:text="实施复杂"/>
+
+            <TextView
+                android:id="@+id/TicketCounter3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:text="0"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/obj_o_greensquare"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/q3container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@drawable/obj_o_greenrectangle"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="18dp"
+                android:paddingRight="100dp"/>
+
+            <ImageButton
+                android:id="@+id/q3etc"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/btn_o_dot"
+                android:scaleType="centerInside"
+                android:layout_gravity="right|center"/>
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/q4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/q3"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:clipChildren="false">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/obj_o_bluearrowbottom"/>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp">
+
+                <View
+                    android:id="@+id/histogramebar4"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/obj_o_bluearrow"
+                    android:translationX="-300dp"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="30dp"
+                android:gravity="center"
+                android:text="管理复杂"/>
+
+            <TextView
+                android:id="@+id/TicketCounter4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:text="0"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/obj_o_bluesquare"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/q4container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@drawable/obj_o_bluerectangle"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="18dp"
+                android:paddingRight="100dp"/>
+
+            <ImageButton
+                android:id="@+id/q4etc"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/btn_o_dot"
+                android:scaleType="centerInside"
+                android:layout_gravity="right|center"/>
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/test_btn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="ADD DATA"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"
+        android:text="0"
+        android:id="@+id/TotalTicket"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="30dp"/>
+</RelativeLayout>

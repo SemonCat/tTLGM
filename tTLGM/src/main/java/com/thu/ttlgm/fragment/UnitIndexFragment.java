@@ -118,12 +118,15 @@ public class UnitIndexFragment extends BaseFragment{
         */
 
         Class mData = ((MainActivity)getActivity()).getCurrentClass();
+        int prefWeek = SharedPreferencesUtils.getWeek(getActivity());
         if (mData!=null){
 
             mCurrentItemPosition =
                     mAdapter.getItemPosition(mData);
-        }else{
+        }else if (prefWeek < mAdapter.getCount()){
             mCurrentItemPosition = SharedPreferencesUtils.getWeek(getActivity());
+        }else{
+            mCurrentItemPosition = 0;
         }
 
         mUViewPager.setCurrentItem(mCurrentItemPosition);

@@ -220,11 +220,24 @@ public class MainActivity extends BaseActivity {
 
 
     public void toVote(View mView) {
-        replaceFragment(new StatisticFragment(), StatisticFragment.class.getName());
+        replaceFragment(new StatisticFragment("对贵公司而言，您认为哪项最复杂？",
+                new String[]{"认知复杂",
+                        "软件复杂",
+                        "实施复杂",
+                        "管理复杂"}), StatisticFragment.class.getName());
         mDrawerLayout.closeDrawers();
         HideDrawer();
     }
 
+    public void toVote2(View mView) {
+        replaceFragment(new StatisticFragment("你认为ABC哪个对你目前最重要？",
+                new String[]{"A",
+                        "B",
+                        "C"
+                }), StatisticFragment.class.getName()+"2");
+        mDrawerLayout.closeDrawers();
+        HideDrawer();
+    }
 
 
     public Class getCurrentClass() {

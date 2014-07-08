@@ -63,7 +63,7 @@ public class WhiteBoardFragment extends BaseFragment{
 
     private ProgressBar UploadPhoto,WhiteBoardLoadingBar;
 
-    private Button mWhiteboard_01,mWhiteboard_02,mWhiteboard_03;
+    private Button mWhiteboard_01,mWhiteboard_02,mWhiteboard_03,mWhiteboard_04;
 
     private DrawView mDrawView;
 
@@ -75,7 +75,7 @@ public class WhiteBoardFragment extends BaseFragment{
 
 
 
-    private static final String[] Dirs = new String[]{"vote01","week03_01","week03_02","week03_03"};
+    private static final String[] Dirs = new String[]{"vote01_711","vote02_711","vote03_711","week03_04"};
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -117,6 +117,7 @@ public class WhiteBoardFragment extends BaseFragment{
         mWhiteboard_01 = (Button) getActivity().findViewById(R.id.whiteboard_01);
         mWhiteboard_02 = (Button) getActivity().findViewById(R.id.whiteboard_02);
         mWhiteboard_03 = (Button) getActivity().findViewById(R.id.whiteboard_03);
+        mWhiteboard_04 = (Button) getActivity().findViewById(R.id.whiteboard_04);
 
         UploadPhoto = (ProgressBar) getActivity().findViewById(R.id.UploadPhoto);
 
@@ -188,7 +189,7 @@ public class WhiteBoardFragment extends BaseFragment{
                 startWhiteBoard(prefix);
                 mDrawView.Clean();
                 mWhiteBoardTitle.setVisibility(View.VISIBLE);
-                mWhiteBoardControl.setVisibility(View.GONE);
+                //mWhiteBoardControl.setVisibility(View.GONE);
                 mWhiteBoardAdapter.CleanArray();
                 ShowGridProgress();
 
@@ -202,7 +203,7 @@ public class WhiteBoardFragment extends BaseFragment{
                 startWhiteBoard(prefix);
                 mDrawView.Clean();
                 mWhiteBoardTitle.setVisibility(View.VISIBLE);
-                mWhiteBoardControl.setVisibility(View.GONE);
+                //mWhiteBoardControl.setVisibility(View.GONE);
                 mWhiteBoardAdapter.CleanArray();
                 ShowGridProgress();
             }
@@ -215,7 +216,20 @@ public class WhiteBoardFragment extends BaseFragment{
                 startWhiteBoard(prefix);
                 mDrawView.Clean();
                 mWhiteBoardTitle.setVisibility(View.VISIBLE);
-                mWhiteBoardControl.setVisibility(View.GONE);
+                //mWhiteBoardControl.setVisibility(View.GONE);
+                mWhiteBoardAdapter.CleanArray();
+                ShowGridProgress();
+            }
+        });
+
+        mWhiteboard_04.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prefix = Dirs[3];
+                startWhiteBoard(prefix);
+                mDrawView.Clean();
+                mWhiteBoardTitle.setVisibility(View.VISIBLE);
+                //mWhiteBoardControl.setVisibility(View.GONE);
                 mWhiteBoardAdapter.CleanArray();
                 ShowGridProgress();
             }
@@ -223,6 +237,8 @@ public class WhiteBoardFragment extends BaseFragment{
     }
 
     private void getImage(){
+        ShowGridProgress();
+
         setupAWS();
 
         mScheduledThreadPool.scheduleAtFixedRate(new Runnable() {

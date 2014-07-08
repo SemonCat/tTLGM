@@ -87,7 +87,7 @@ public class UnitIndexPagerAdapter extends PagerAdapter {
 
         ClassDate.setText(new SimpleDateFormat("yyyy/MM/dd").format(mClass.getDate()));
 
-        container.addView(viewGroup);
+        container.addView(viewGroup,0);
 
         return viewGroup;
     }

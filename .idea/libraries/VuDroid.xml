@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="VuDroid">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tTLGM/libs/VuDroid.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

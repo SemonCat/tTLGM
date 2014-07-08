@@ -57,7 +57,8 @@
             android:textColor="@android:color/white"
             android:text="學號"
             android:id="@+id/Student_ID"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,7 +68,7 @@
             android:text="科系"
             android:id="@+id/Student_Department"
             android:textSize="30dp"
-            android:visibility="gone"/>
+            />
 
 
 

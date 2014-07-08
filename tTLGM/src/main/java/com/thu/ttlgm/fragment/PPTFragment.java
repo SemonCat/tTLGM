@@ -127,6 +127,7 @@ public class PPTFragment extends PlayFragment {
         mResourcePickerFragment = new ResourcePickerFragment();
 
 
+        getFragmentManager().beginTransaction().replace(R.id.ResourceContainer2,mResourcePickerFragment).commit();
 
     }
 
@@ -356,7 +357,7 @@ public class PPTFragment extends PlayFragment {
             mAdapter.StartLoad();
 
             if (getActivity()!=null){
-                setupGesture();
+                //setupGesture();
 
                 mPosition = SharedPreferencesUtils.getPPTPage(getActivity(), week);
                 if (mViewPager!=null){

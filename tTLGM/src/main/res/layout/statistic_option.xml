@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/histograme_bg"
+                android:layout_width="300dp"
+                android:layout_height="50dp" >
+
+                <View
+                    android:id="@+id/statistic_arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/obj_o_redarrowbottom" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp" >
+
+                    <View
+                        android:id="@+id/histogramebar"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/obj_o_redarrow"
+                        android:translationX="-300dp" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/optionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="认知复杂"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/TicketCounter"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/obj_o_redsquare"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="25dp" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:id="@+id/q_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/obj_o_redrectangle"
+                    android:orientation="horizontal"
+                    android:paddingRight="100dp" >
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/qetc"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right|center"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/btn_o_dot" />
+            </FrameLayout>
+        </LinearLayout>

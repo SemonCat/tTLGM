@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.squareup.picasso.Picasso;
 import com.thu.ttlgm.R;
 
 import java.io.File;
@@ -83,7 +84,13 @@ public class PPTPreviewAdapter extends BaseAdapter{
 
         String ImagePath = getItem(position).getPath();
 
+        /*
         ImageLoader.getInstance().displayImage("file://"+ImagePath,mViewHolder.PPT_Preview_Image,displayImageOptions);
+        */
+        Picasso.with(mContext)
+                .load(new File(ImagePath))
+                .resize(200,200)
+                .into(mViewHolder.PPT_Preview_Image);
 
         return convertView;
     }

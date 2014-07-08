@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/jpardogo/Documents/workspace/ListBuddies/library/src/main/res/values/attr.xml -->
+    <eat-comment />
+
+    <declare-styleable name="ListBuddiesOptions">
+        <attr name="gap" format="reference" />
+        <attr name="gapColor" format="color" />
+        <attr name="speed" format="integer" />
+        <attr name="listsDivider" format="reference" />
+        <attr name="listsDividerHeight" format="reference" />
+        <attr name="autoScrollFaster" format="enum">
+            <enum name="right" value="0" />
+            <enum name="left" value="1" />
+        </attr>
+        <attr name="scrollFaster" format="enum">
+            <enum name="right" value="0" />
+            <enum name="left" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="SelectorOptions">
+        <attr name="selectorColor" format="color" />
+    </declare-styleable>
+    <!-- From: file:/Users/jpardogo/Documents/workspace/ListBuddies/library/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="default_margin_between_lists">3dp</dimen>
+    <!-- From: file:/Users/jpardogo/Documents/workspace/ListBuddies/library/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="action_settings">Settings</string>
+    <string name="app_name">My Module</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>

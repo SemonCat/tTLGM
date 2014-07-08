@@ -1,12 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:+'
-    }
-}
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
@@ -15,8 +7,8 @@ repositories {
 
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    compileSdkVersion 20
+    buildToolsVersion '20.0.0'
 
     signingConfigs {
         uConfig {
@@ -36,9 +28,9 @@ android {
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 19
-        versionCode 2
-        versionName "1.0"
+        targetSdkVersion 20
+        versionCode 1
+        versionName generateVersionName()
     }
     buildTypes {
         release {
@@ -62,8 +54,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:+'
-    compile 'com.android.support:support-v13:+'
+    compile 'com.android.support:support-v4:20.+'
+    compile 'com.android.support:support-v13:20.+'
     compile 'org.simpleframework:simple-xml:+@jar'
     compile 'com.makeramen:roundedimageview:1.2.1'
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
@@ -85,8 +77,26 @@ dependencies {
     compile 'com.squareup.picasso:picasso:+'
     compile files('libs/aws-android-sdk-1.7.1.1-core.jar')
     compile files('libs/aws-android-sdk-1.7.1.1-s3.jar')
-    compile('de.keyboardsurfer.android.widget:crouton:+') {
+    compile('de.keyboardsurfer.android.widget:crouton:+@aar') {
         // exclusion is not neccessary, but generally a good idea.
         exclude group: 'com.google.android', module: 'support-v4'
     }
+
+    compile 'com.sothree.slidinguppanel:library:+'
+    compile "com.github.semoncat.featureCoverFlow:library:+"
+
+}
+
+def generateVersionName() {
+
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmss')
+
+    return formattedDate
+}
+
+
+def generateVersionCode() {
+
+    return generateVersionName().hashCode()
 }

@@ -3,6 +3,7 @@ package com.thu.ttlgm.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.RectF;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by SemonCat on 2014/2/5.
@@ -79,6 +81,7 @@ public class PPTImageAdapter extends PagerAdapter {
 
         //if (StartLoad){
 
+        /*
         ImageLoader.getInstance().displayImage("file://" + mImages[position].getAbsolutePath(), photoView, options, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
@@ -101,11 +104,11 @@ public class PPTImageAdapter extends PagerAdapter {
 
             }
         });
-
+        */
         // }
 
 
-        /*
+
         Picasso.with(container.getContext())
                 .load(new File(mImages[position].getAbsolutePath()))
                 .into(photoView,new Callback() {
@@ -120,7 +123,8 @@ public class PPTImageAdapter extends PagerAdapter {
 
                     }
                 });
-        */
+
+
 
         container.addView(viewGroup);
 

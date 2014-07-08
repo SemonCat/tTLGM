@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="android-async-http-1.4.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.loopj.android/android-async-http/1.4.4/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.loopj.android/android-async-http/1.4.4/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

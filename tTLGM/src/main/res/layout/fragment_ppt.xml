@@ -1,62 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+
+
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:gravity="bottom"
+    sothree:panelHeight="68dp"
+    sothree:shadowHeight="4dp"
+    sothree:dragView="@+id/DragView">
 
 
-    <com.thu.ttlgm.component.HackyViewPager
-        android:id="@+id/view_pager"
+    <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true" />
-
-    <Button
-        android:id="@+id/PlayGameS"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@null"/>
-
-    <Button
-        android:id="@+id/PlayGame"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:background="@null" />
-
-    <ImageView
-        android:id="@+id/leftButton"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/btn_t_hintback"
-        android:clickable="true" />
-
-    <ImageView
-        android:id="@+id/rightButton"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/btn_t_hintforward"
-        android:clickable="true" />
+        android:background="@android:color/white">
 
 
-    <FrameLayout
-        android:id="@+id/ResourceParent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <com.thu.ttlgm.component.HackyViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/PlayGameS"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@null"/>
+
+        <Button
+            android:id="@+id/PlayGame"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@null"/>
+
+        <ImageView
+            android:id="@+id/leftButton"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/btn_t_hintback"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/rightButton"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/btn_t_hintforward"
+            android:clickable="true"/>
 
 
         <FrameLayout
-            android:id="@+id/ResourceContainer"
+            android:id="@+id/ResourceParent"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_gravity="bottom" />
-    </FrameLayout>
+            android:layout_height="match_parent">
 
 
-</RelativeLayout>
+            <FrameLayout
+                android:id="@+id/ResourceContainer"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_gravity="bottom"/>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eeeeee"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/DragView"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/ResourceContainer2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

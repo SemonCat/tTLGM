@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.readystatesoftware.viewbadger.BadgeView;
+import com.squareup.picasso.Picasso;
 import com.thu.ttlgm.R;
 import com.thu.ttlgm.bean.Student;
 import com.thu.ttlgm.bean.Subject;
@@ -154,7 +155,8 @@ public class StudentAdapter extends BaseAdapter {
 
         String URL = mStudent.getImageUrl();
         if (URL.startsWith("http")){
-            imageLoader.displayImage(URL,holder.Icon,options);
+            //imageLoader.displayImage(URL,holder.Icon,options);
+            Picasso.with(mContext).load(URL).resize(100,100).into(holder.Icon);
         }else{
             holder.Icon.setImageResource(R.drawable.default_icon);
         }

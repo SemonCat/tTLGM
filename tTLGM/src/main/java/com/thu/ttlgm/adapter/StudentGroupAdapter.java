@@ -146,14 +146,14 @@ public class StudentGroupAdapter extends FancyCoverFlowAdapter {
 
         Student mStudent = this.getItem(position);
         holder.Name.setText(mStudent.getName());
-        holder.StudentID.setText(mStudent.getFacebookID());
+        holder.StudentID.setText(mStudent.getID());
         holder.Department.setText(mStudent.getDepartment());
 
         String URL = mStudent.getImageUrl();
         if (URL.startsWith("http")){
-            imageLoader.displayImage(URL, holder.Icon,options);
+            //imageLoader.displayImage(URL, holder.Icon,options);
 
-            //Picasso.with(convertView.getContext()).load(URL).resize(100,100).into(holder.Icon);
+            Picasso.with(mContext).load(URL).resize(100,100).into(holder.Icon);
 
         }else{
             holder.Icon.setImageResource(R.drawable.default_icon);

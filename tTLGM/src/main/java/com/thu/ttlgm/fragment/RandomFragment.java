@@ -3,16 +3,14 @@ package com.thu.ttlgm.fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -201,15 +199,24 @@ public class RandomFragment extends BaseFragment{
                             }
                         }
 
+
+
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-
+                                Log.d(TAG,"IconListSize:"+mIconList.size());
+                                if (mIconList.size() == 0){
+                                    Toast.makeText(getActivity(),"沒有頭像！",Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    return;
+                                }
                                 LoadBar.setVisibility(View.GONE);
                             }
                         });
 
-                        startRandom();
+                        if (mIconList.size() != 0){
+                            startRandom();
+                        }
 
                     }
                 }).start();
@@ -269,6 +276,7 @@ public class RandomFragment extends BaseFragment{
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
 
                 int targetIndex = new Random().nextInt(mStudentList.size() - 1);
 

@@ -1,0 +1,6 @@
+<!-- From: file:/D:/Work/Azoft/projects/FoldableLayout/library/src/main/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="1.0.1" package="com.alexvasilkov.foldablelayout">
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
+
+    <application/>
+
+</manifest>
